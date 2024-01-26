@@ -1,6 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+/* https://byby.dev/at-rule-tailwind   web para arreglar el warning de tailwind*/
+
 
 :root {
   --foreground-rgb: 0, 0, 0;
