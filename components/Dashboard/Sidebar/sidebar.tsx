@@ -2,7 +2,7 @@ import Link from "next/link"
 
 export default function sidebar() {
     return(        
-    <section className="absolute bg-white dark:bg-gray-800">
+    <section className="relative bg-white dark:bg-gray-800">
         <div className="flex flex-col sm:flex-row sm:justify-around">        
             <div className="h-screen w-72">
                 <nav className="px-6 mt-10">
@@ -91,7 +91,7 @@ export default function sidebar() {
                                 Listar usuarios
                             </span>
                         </Link>
-                        <Link className="flex items-center justify-start p-2 my-4 font-thin text-gray-500 transition-colors duration-200 hover:text-gray-800 dark:text-gray-400 hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-600" href="#">
+                        <Link className="flex items-center justify-start p-2 my-4 font-thin text-gray-500 transition-colors duration-200 hover:text-gray-800 dark:text-gray-400 hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-600" href="/dashboard/users">
                             <span className="text-left">
                                 <svg width="20" height="20" fill="currentColor" className="m-auto" viewBox="0 0 2048 1792" xmlns="http://www.w3.org/2000/svg">
                                     <path fill="#5e72e4" d="M960 0l960 384v128h-128q0 26-20.5 45t-48.5 19h-1526q-28 0-48.5-19t-20.5-45h-128v-128zm-704 640h256v768h128v-768h256v768h128v-768h256v768h128v-768h256v768h59q28 0 48.5 19t20.5 45v64h-1664v-64q0-26 20.5-45t48.5-19h59v-768zm1595 960q28 0 48.5 19t20.5 45v128h-1920v-128q0-26 20.5-45t48.5-19h1782z">
