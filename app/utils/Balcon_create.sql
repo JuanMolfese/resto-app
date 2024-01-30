@@ -1,11 +1,14 @@
--- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2024-01-17 22:37:25.126
+
 CREATE DATABASE order_manager;
 use order_manager;
+
+-- Created by Vertabelo (http://vertabelo.com)
+-- Last modification date: 2024-01-30 21:44:24.715
+
 -- tables
 -- Table: Cliente
 CREATE TABLE Cliente (
-    id int  NOT NULL,
+    id int  NOT NULL AUTO_INCREMENT,
     domicilio varchar(150)  NOT NULL,
     telefono int  NOT NULL,
     nombre varchar(150)  NOT NULL,
@@ -14,7 +17,7 @@ CREATE TABLE Cliente (
 
 -- Table: Comercio
 CREATE TABLE Comercio (
-    id int  NOT NULL,
+    id int  NOT NULL AUTO_INCREMENT,
     razon_social varchar(150)  NOT NULL,
     cuit int  NOT NULL,
     nombre_fantasia varchar(150)  NULL,
@@ -24,14 +27,14 @@ CREATE TABLE Comercio (
 
 -- Table: Estado_Pedido
 CREATE TABLE Estado_Pedido (
-    id int  NOT NULL,
+    id int  NOT NULL AUTO_INCREMENT,
     descripcion varchar(150)  NOT NULL,
     CONSTRAINT Estado_Pedido_pk PRIMARY KEY (id)
 );
 
 -- Table: Hist_Status_Sucursal
 CREATE TABLE Hist_Status_Sucursal (
-    id int  NOT NULL,
+    id int  NOT NULL AUTO_INCREMENT,
     status_sucursal_id int  NOT NULL,
     sucursal_id int  NOT NULL,
     fecha datetime  NOT NULL,
@@ -41,7 +44,7 @@ CREATE TABLE Hist_Status_Sucursal (
 
 -- Table: Historial_Producto
 CREATE TABLE Historial_Producto (
-    id int  NOT NULL,
+    id int  NOT NULL AUTO_INCREMENT,
     fecha int  NOT NULL,
     precio int  NOT NULL,
     producto_id int  NOT NULL,
@@ -52,14 +55,14 @@ CREATE TABLE Historial_Producto (
 
 -- Table: Modo_Entrega
 CREATE TABLE Modo_Entrega (
-    id int  NOT NULL,
+    id int  NOT NULL AUTO_INCREMENT,
     descripcion varchar(150)  NOT NULL,
     CONSTRAINT Modo_Entrega_pk PRIMARY KEY (id)
 );
 
 -- Table: Pedido
 CREATE TABLE Pedido (
-    id int  NOT NULL,
+    id int  NOT NULL AUTO_INCREMENT,
     fecha_emision datetime  NOT NULL,
     cliente_id int  NOT NULL,
     estado_pedido_id int  NOT NULL,
@@ -71,7 +74,7 @@ CREATE TABLE Pedido (
 
 -- Table: Pedido_Productos
 CREATE TABLE Pedido_Productos (
-    pedido_id int  NOT NULL,
+    pedido_id int  NOT NULL AUTO_INCREMENT,
     producto_id int  NOT NULL,
     cantidad int  NOT NULL,
     CONSTRAINT Pedido_Productos_pk PRIMARY KEY (pedido_id,producto_id)
@@ -79,7 +82,7 @@ CREATE TABLE Pedido_Productos (
 
 -- Table: Producto
 CREATE TABLE Producto (
-    id int  NOT NULL,
+    id int  NOT NULL AUTO_INCREMENT,
     nombre varchar(50)  NOT NULL,
     subrubro_id int  NOT NULL,
     CONSTRAINT Producto_pk PRIMARY KEY (id)
@@ -87,28 +90,28 @@ CREATE TABLE Producto (
 
 -- Table: Rol
 CREATE TABLE Rol (
-    id int  NOT NULL,
+    id int  NOT NULL AUTO_INCREMENT,
     descripcion int  NOT NULL,
     CONSTRAINT Rol_pk PRIMARY KEY (id)
 );
 
 -- Table: Rubro
 CREATE TABLE Rubro (
-    id int  NOT NULL,
+    id int  NOT NULL AUTO_INCREMENT,
     nombre varchar(50)  NOT NULL,
     CONSTRAINT Rubro_pk PRIMARY KEY (id)
 );
 
 -- Table: Status_Sucursal
 CREATE TABLE Status_Sucursal (
-    id int  NOT NULL,
+    id int  NOT NULL AUTO_INCREMENT,
     nombre varchar(150)  NOT NULL,
     CONSTRAINT Status_Sucursal_pk PRIMARY KEY (id)
 );
 
 -- Table: Subrubro
 CREATE TABLE Subrubro (
-    id int  NOT NULL,
+    id int  NOT NULL AUTO_INCREMENT,
     rubro_id int  NOT NULL,
     nombre varchar(50)  NOT NULL,
     CONSTRAINT Subrubro_pk PRIMARY KEY (id)
@@ -116,7 +119,7 @@ CREATE TABLE Subrubro (
 
 -- Table: Sucursal
 CREATE TABLE Sucursal (
-    id int  NOT NULL,
+    id int  NOT NULL AUTO_INCREMENT,
     nombre varchar(150)  NOT NULL,
     domicilio_calle varchar(50)  NOT NULL,
     domicilio_nro int  NOT NULL,
@@ -130,7 +133,7 @@ CREATE TABLE Sucursal (
 
 -- Table: Sucursal_Productos
 CREATE TABLE Sucursal_Productos (
-    producto_id int  NOT NULL,
+    producto_id int  NOT NULL AUTO_INCREMENT,
     sucursal_id int  NOT NULL,
     stock int  NOT NULL,
     precio float(10,2)  NOT NULL,
@@ -139,7 +142,7 @@ CREATE TABLE Sucursal_Productos (
 
 -- Table: Usuario
 CREATE TABLE Usuario (
-    id int  NOT NULL,
+    id int  NOT NULL AUTO_INCREMENT,
     email varchar(150)  NOT NULL,
     pass varchar(150)  NOT NULL,
     nombre varchar(150)  NULL,
@@ -218,4 +221,3 @@ ALTER TABLE Usuario ADD CONSTRAINT Usuario_Rol FOREIGN KEY Usuario_Rol (rol_id)
     REFERENCES Rol (id);
 
 -- End of file.
-
