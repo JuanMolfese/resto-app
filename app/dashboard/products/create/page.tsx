@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { fetchRubros } from "../../../../utils/actions/rubros/page";
-import fetchSubrubros from "../../../../utils/actions/subrubros/page";
+import { fetchRubros } from "../../../utils/actions/rubros/page";
+import fetchSubrubros from "../../../utils/actions/subrubros/page";
 
 export default async function CreateProduct() {
   const rubros = await fetchRubros();
