@@ -8,9 +8,9 @@ export default function sidebar() {
           <nav className="px-6 mt-10">
             <div className="pb-20">LOGOTIPO</div>
             <div>
-              <p className="w-full pb-2 mb-4 ml-2 font-normal text-gray-300 border-b-2 border-gray-100 text-md">
+             {/*  <p className="w-full pb-2 mb-4 ml-2 font-normal text-gray-300 border-b-2 border-gray-100 text-md">
                 Pedidos
-              </p>
+              </p> */}
               <Link
                 className="flex items-center justify-start p-2 my-6 text-gray-600 transition-colors duration-200 hover:text-gray-800 bg-gray-50 dark:bg-gray-600 dark:text-gray-400hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-600"
                 href="/dashboard/orders"
@@ -32,9 +32,9 @@ export default function sidebar() {
               </Link>
             </div>
             <div>
-              <p className="w-full pb-2 mb-4 ml-2 font-normal text-gray-300 border-b-2 border-gray-100 text-md">
+              {/* <p className="w-full pb-2 mb-4 ml-2 font-normal text-gray-300 border-b-2 border-gray-100 text-md">
                 Productos
-              </p>
+              </p> */}
               <Link
                 className="flex items-center justify-start p-2 my-4 font-thin text-gray-500 transition-colors duration-200 hover:text-gray-800 dark:text-gray-400 hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-600"
                 href="/dashboard/products"
@@ -54,12 +54,12 @@ export default function sidebar() {
                   </svg>
                 </span>
                 <span className="mx-4 font-normal text-md">
-                  Listar Productos
+                  Productos
                 </span>
               </Link>
               <Link
                 className="flex items-center justify-start p-2 my-4 font-thin text-gray-500 transition-colors duration-200 hover:text-gray-800 dark:text-gray-400 hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-600"
-                href="/dashboard/products/create"
+                href="/dashboard/products/create/product"
               >
                 <span className="text-left">
                   <svg
@@ -79,7 +79,52 @@ export default function sidebar() {
                   Agregar Producto
                 </span>
               </Link>
+             
               <Link
+                className="flex items-center justify-start p-2 my-4 font-thin text-gray-500 transition-colors duration-200 hover:text-gray-800 dark:text-gray-400 hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-600"
+                href="/dashboard/products/create/rubro"
+              >
+                <span className="text-left">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    className="w-6 h-6"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </span>
+                <span className="mx-4 font-normal text-md">
+                  Agregar Rubro
+                </span>
+              </Link>
+              <Link
+                className="flex items-center justify-start p-2 my-4 font-thin text-gray-500 transition-colors duration-200 hover:text-gray-800 dark:text-gray-400 hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-600"
+                href="/dashboard/products/create/subrubro"
+              >
+                <span className="text-left">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    className="w-6 h-6"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </span>
+                <span className="mx-4 font-normal text-md">
+                  Agregar Subrubro
+                </span>
+              </Link>
+              {/* <Link
                 className="flex items-center justify-start p-2 my-4 font-thin text-gray-500 transition-colors duration-200 hover:text-gray-800 dark:text-gray-400 hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-600"
                 href="/dashboard/products"
               >
@@ -99,12 +144,12 @@ export default function sidebar() {
                   </svg>
                 </span>
                 <span className="mx-4 font-normal text-md">mas opciones</span>
-              </Link>
+              </Link> */}
             </div>
             <div>
-              <p className="w-full pb-2 mb-4 ml-2 font-normal text-gray-300 border-b-2 border-gray-100 text-md">
+              {/* <p className="w-full pb-2 mb-4 ml-2 font-normal text-gray-300 border-b-2 border-gray-100 text-md">
                 Ventas
-              </p>
+              </p> */}
               <Link
                 className="flex items-center justify-start p-2 my-4 font-thin text-gray-500 transition-colors duration-200 hover:text-gray-800 dark:text-gray-400 hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-600"
                 href="/dashboard"
@@ -123,7 +168,9 @@ export default function sidebar() {
                     ></path>
                   </svg>
                 </span>
-                <span className="mx-4 font-normal text-md">Listar Ventas</span>
+                <span className="mx-4 font-normal text-md">
+                    Ventas
+                </span>
               </Link>
               {/* <Link className="flex items-center justify-start p-2 my-4 font-thin text-gray-500 transition-colors duration-200 hover:text-gray-800 dark:text-gray-400 hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-600" href="#">
                             <span className="text-left">
@@ -138,9 +185,9 @@ export default function sidebar() {
                         </Link> */}
             </div>
             <div>
-              <p className="w-full pb-2 mb-4 ml-2 font-normal text-gray-300 border-b-2 border-gray-100 text-md">
+              {/* <p className="w-full pb-2 mb-4 ml-2 font-normal text-gray-300 border-b-2 border-gray-100 text-md">
                 Usuarios
-              </p>
+              </p> */}
               <Link
                 className="flex items-center justify-start p-2 my-4 font-thin text-gray-500 transition-colors duration-200 hover:text-gray-800 dark:text-gray-400 hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-600"
                 href="/dashboard/users"
@@ -160,30 +207,9 @@ export default function sidebar() {
                   </svg>
                 </span>
                 <span className="mx-4 font-normal text-md">
-                  Listar usuarios
+                  Usuarios
                 </span>
-              </Link>
-              <Link
-                className="flex items-center justify-start p-2 my-4 font-thin text-gray-500 transition-colors duration-200 hover:text-gray-800 dark:text-gray-400 hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-600"
-                href="/dashboard/users"
-              >
-                <span className="text-left">
-                  <svg
-                    width="20"
-                    height="20"
-                    fill="currentColor"
-                    className="m-auto"
-                    viewBox="0 0 2048 1792"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      fill="#5e72e4"
-                      d="M960 0l960 384v128h-128q0 26-20.5 45t-48.5 19h-1526q-28 0-48.5-19t-20.5-45h-128v-128zm-704 640h256v768h128v-768h256v768h128v-768h256v768h128v-768h256v768h59q28 0 48.5 19t20.5 45v64h-1664v-64q0-26 20.5-45t48.5-19h59v-768zm1595 960q28 0 48.5 19t20.5 45v128h-1920v-128q0-26 20.5-45t48.5-19h1782z"
-                    ></path>
-                  </svg>
-                </span>
-                <span className="mx-4 font-normal text-md">mas opciones</span>
-              </Link>
+              </Link>             
             </div>
           </nav>
         </div>
