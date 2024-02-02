@@ -91,7 +91,7 @@ CREATE TABLE Producto (
 -- Table: Rol
 CREATE TABLE Rol (
     id int  NOT NULL AUTO_INCREMENT,
-    descripcion int  NOT NULL,
+    descripcion varchar(50) NOT NULL,
     CONSTRAINT Rol_pk PRIMARY KEY (id)
 );
 
