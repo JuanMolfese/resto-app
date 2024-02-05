@@ -1,8 +1,10 @@
 import Link from "next/link";
 import fetchRubros from "../../../utils/actions/rubros/page";
 import fetchSubrubros from "../../../utils/actions/subrubros/page";
+import { Producto } from "../../../utils/models/types/producto";
 
-export default async function CreateProduct() {
+export default async function UpdateProduct(product: Producto) {
+  
   const rubros = await fetchRubros();
   const subrubros = await fetchSubrubros();
 
@@ -10,14 +12,14 @@ export default async function CreateProduct() {
     <form className="bg-gray-50 my-4 mx-2 rounded-md">
       <div className="flex justify-between items-center px-4 py-2 border-b border-gray-200 sm:px-6">
         <h2 className="text-lg leading-6 font-medium text-gray-900">
-          Crear producto
+          Editar producto
         </h2>
       </div>
       <div className="rounded-md p-4 md:p-6">
         {/* Rubro */}
         <div className="mb-4">
           <label htmlFor="customer" className="mb-2 block text-sm font-medium">
-            Elegir rubro
+            Elegir Nuevo Rubro
           </label>
           <div className="relative">
             <select
@@ -28,7 +30,7 @@ export default async function CreateProduct() {
               aria-describedby="customer-error"
             >
               <option value="" disabled>
-                Seleccionar rubro
+                Seleccionar nuevo rubro
               </option>
               {rubros?.map((rubro) => (
                 <option key={rubro.id} value={rubro.id} className="py-2">
@@ -62,7 +64,7 @@ export default async function CreateProduct() {
         {/* Subrubro */}
         <div className="mb-4">
           <label htmlFor="customer" className="mb-2 block text-sm font-medium">
-            Elegir subrubro
+            Elegir nuevo subrubro
           </label>
           <div className="relative">
             <select
@@ -73,7 +75,7 @@ export default async function CreateProduct() {
               aria-describedby="customer-error"
             >
               <option value="" disabled>
-                Seleccionar subrubro
+                Seleccionar nuevo subrubro
               </option>
               {subrubros?.map((rubro) => (
                 <option key={rubro.id} value={rubro.id} className="py-2">
@@ -121,7 +123,7 @@ export default async function CreateProduct() {
             name="name"
             id="name"
             className="block w-full rounded-md border border-gray-200 py-2 px-3 text-sm outline-2 placeholder:text-gray-500"
-            placeholder="Nombre"
+            placeholder="Nuevo Nombre"
             aria-describedby="name-error"
           />
           {/*  <div id="name-error" aria-live="polite" aria-atomic="true">
@@ -137,12 +139,12 @@ export default async function CreateProduct() {
       </div>
       <div className="mt-6 flex justify-end gap-4">
         <Link
-          href="/dashboard/products"
+          href="/utils/actions/products"
           className="flex h-10 items-center rounded-lg bg-gray-100 px-4 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-200"
         >
           Cancelar
         </Link>
-        <button className="flex h-10 items-center rounded-lg bg-blue-400 px-4 text-sm text-white font-medium text-gray-600 transition-colors hover:bg-blue-500" type="submit">Crear</button>
+        <button className="flex h-10 items-center rounded-lg bg-blue-400 px-4 text-sm text-white font-medium text-gray-600 transition-colors hover:bg-blue-500" type="submit">Editar</button>
       </div>
     </form>
   );

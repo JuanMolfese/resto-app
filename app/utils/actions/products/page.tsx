@@ -12,3 +12,28 @@ export async function fetchProducts() {
     console.log(error);
   }
 }
+
+export async function updateProduct(product: Producto) {
+  noStore();
+  try {
+    const result = await connection.query<Producto[]>("UPDATE Producto SET nombre=?, subrubro=? WHERE id=?",[product.nombre,product.subrubro_id, product.id]);
+    await connection.end();
+    return result;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function deleteProduct(id: number) {
+  noStore();
+  try {
+    const result = await connection.query<Producto[]>("DELETE FROM Producto WHERE  id=?", [id]);
+    if (!result[0]) throw new Error('No se ha podido eliminar el producto');
+    else return result;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  } finally{
+    await connection.end();
+  }
+}
