@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Rubro } from "../../app/utils/models/types/rubro";
 import { Subrubro } from "../../app/utils/models/types/subrubro";
 import { useState } from "react";
+import createProduct from "../../app/utils/actions/products/create";
 
 export default function FormProduct({
   rubros,
@@ -16,7 +17,7 @@ export default function FormProduct({
   const [subrubrosFilter, setSubrubrosFilter] = useState(subrubros);
 
   return (
-    <form className="bg-gray-50 my-4 mx-2 rounded-md">
+    <form className="bg-gray-50 my-4 mx-2 rounded-md" action={createProduct}>
       <div className="flex justify-between items-center px-4 py-2 border-b border-gray-200 sm:px-6">
         <h2 className="text-lg leading-6 font-medium text-gray-900">
           Crear producto
