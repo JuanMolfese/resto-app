@@ -7,7 +7,13 @@ export default async function fetchRubros() {
   try {
     const result = await connection.query<Rubro[]>("SELECT * FROM Rubro");
     await connection.end();
-    return result;
+    const rubros = result.map((rubro) => {
+      return {
+        id: rubro.id,
+        nombre: rubro.nombre,
+      };
+    })
+    return rubros;
   } catch (error) {
     console.log(error);
   }

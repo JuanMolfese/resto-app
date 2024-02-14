@@ -7,7 +7,14 @@ export default async function fetchSubrubros() {
   try {
     const result = await connection.query<Subrubro[]>("SELECT * FROM Subrubro");
     await connection.end();
-    return result;
+    const subrubros = result.map((subrubro) => {
+      return {
+        id: subrubro.id,
+        nombre: subrubro.nombre,
+        rubro_id: subrubro.rubro_id,
+      };
+    });
+    return subrubros;
   } catch (error) {
     console.log(error);
   }
