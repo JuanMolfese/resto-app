@@ -9,8 +9,8 @@ export default function FormSubrubro({rubros}:{rubros?: Rubro[]}) {
   return (
     <form className="bg-gray-50 my-4 mx-2 rounded-md" action={createSubrubro}>
       <div className="flex justify-between items-center px-4 py-2 border-b border-gray-200 sm:px-6">
-        <h2 className="text-lg leading-6 font-medium text-gray-900">
-          Crear producto
+        <h2 className="text-lg leading-6 font-medium text-gray-900 pointer-events-none">
+          Crear SubrRubro
         </h2>
       </div>
       <div className="rounded-md p-4 md:p-6">
