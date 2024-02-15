@@ -5,6 +5,7 @@ import { Rubro } from "../../app/utils/models/types/rubro";
 import { Subrubro } from "../../app/utils/models/types/subrubro";
 import { useState } from "react";
 import createProduct from "../../app/utils/actions/products/create";
+import { useFormState } from "react-dom";
 
 export default function FormProduct({
   rubros,

@@ -1,7 +1,6 @@
-import Link from "next/link";
+import FormProduct from "../../../../components/Product/create-form";
 import fetchRubros from "../../../utils/actions/rubros/fetchs";
 import fetchSubrubros from "../../../utils/actions/subrubros/fetchs";
-import FormProduct from "../../../../components/Product/create-form";
 
 export default async function CreateProduct() {
   const rubros = await fetchRubros();
@@ -9,7 +8,6 @@ export default async function CreateProduct() {
 
   return (
     <div>
-      <h1>Crear producto</h1>
       <FormProduct rubros={rubros} subrubros={subrubros} />
     </div>
   );
