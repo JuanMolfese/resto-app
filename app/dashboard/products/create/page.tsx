@@ -1,6 +1,6 @@
 import Link from "next/link";
-import fetchRubros from "../../../utils/actions/rubros/page";
-import fetchSubrubros from "../../../utils/actions/subrubros/page";
+import fetchRubros from "../../../utils/actions/rubros/fetchs";
+import fetchSubrubros from "../../../utils/actions/subrubros/fetchs";
 import FormProduct from "../../../../components/Product/create-form";
 
 export default async function CreateProduct() {

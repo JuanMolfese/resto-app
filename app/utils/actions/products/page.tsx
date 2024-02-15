@@ -13,7 +13,10 @@ export async function fetchProducts() {
   }
 }
 
-export async function updateProduct(product: Producto) {
+/* 
+VAN EN ARCHIVO A PARTE, TE LO DEJO POR SI SEGUIS CON PRODUCTO Y TE SIRVE
+
+  export async function updateProduct(product: Producto) {
   noStore();
   try {
     const result = await connection.query<Producto[]>("UPDATE Producto SET nombre=?, subrubro=? WHERE id=?",[product.nombre,product.subrubro_id, product.id]);
@@ -36,4 +39,4 @@ export async function deleteProduct(id: number) {
   } finally{
     await connection.end();
   }
-}
+} */
