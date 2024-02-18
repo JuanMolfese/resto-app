@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Rubro } from "../../../../utils/models/types/rubro";
 import fetchRubros from '../../../../utils/actions/rubros/fetchs';
-import updateSubrubro from '../../../../utils/actions/subrubros/update';
 import FormUpdateSubrubro from '../../../../../components/Subrubro/update-form';
 
 export default function UpdateSubrubroPage({params,}:{

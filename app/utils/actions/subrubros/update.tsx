@@ -9,8 +9,7 @@ export default async function updateSubrubro(formData: FormData) {
       nombre: formData.get("name"),
       id_subrubro: formData.get("id_subrubro"),
     };
-    //Aqui hacer verificaciones antes de insertar en BBDD
-    console.log(rawFormData);
+    //Aqui hacer verificaciones antes de insertar en BBDD    
     const result:any = await connection.query('UPDATE Subrubro SET rubro_id = ?, nombre = ? WHERE id = ?', [rawFormData.rubro_id, rawFormData.nombre, rawFormData.id_subrubro] )
     if (result.affectedRows === 0) {
       throw new Error('No se ha actualizado ningún registro');

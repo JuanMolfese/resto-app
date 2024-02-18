@@ -11,7 +11,8 @@ export default async function createSubrubro(formData: FormData) {
     };
     //Aqui hacer verificaciones antes de insertar en BBDD
     await connection.query('INSERT INTO Subrubro (rubro_id, nombre) VALUES (?, ?)', [rawFormData.rubro_id, rawFormData.nombre])    
-    return ("OK")
+    connection.end(); // Cierra la conexión a la base de datos
+    return {success: true};
   }
   catch (error) {
     console.log(error);

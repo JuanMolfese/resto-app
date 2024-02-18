@@ -13,7 +13,9 @@ export default function FormUpdateSubrubro ({ id, rubros }: FormUpdateSubrubroPr
   
   return (
     <form className="bg-gray-50 my-4 mx-2 rounded-md" action={updateSubrubro}>
-      <input type="number" id="id" className="hidden" value={id} name="id"/>
+
+      <input type="number" id="id" className="hidden" defaultValue={id} name="id"/> {/* Paso id al utils/actions/subrubros/update */}
+      
       <div className="flex justify-between items-center px-4 py-2 border-b border-gray-200 sm:px-6">
         <h2 className="text-lg leading-6 font-medium text-gray-900 pointer-events-none">
           Editar Subrubro: {id} {/* aca iria nombre de subrubro */}
