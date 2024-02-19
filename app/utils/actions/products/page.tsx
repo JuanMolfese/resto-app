@@ -7,7 +7,14 @@ export async function fetchProducts() {
   try {
     const result = await connection.query<Producto[]>("SELECT * FROM Producto");
     await connection.end();
-    return result;
+    const products = result.map((product) => {
+      return {
+        id: product.id,
+        nombre: product.nombre,
+        subrubro_id: product.subrubro_id,
+      };
+    });
+    return products;
   } catch (error) {
     console.log(error);
   }
