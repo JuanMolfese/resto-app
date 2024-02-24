@@ -19,3 +19,19 @@ export default async function fetchSubrubros() {
     console.log(error);
   }
 }
+
+export async function fetchInfoSubRubro(id: number):Promise<Subrubro> {
+  unstable_noStore();
+  try {
+    const result:any = await connection.query<Subrubro>("SELECT * FROM Subrubro WHERE id = ?", id);    
+    if (result.length === 0) {
+      throw new Error(`No se encontró ningún subrubro con el ID ${id}`);
+    }
+    const info:Subrubro = result[0];    
+    connection.end();    
+    const infoPlano = JSON.parse(JSON.stringify(info));
+    return infoPlano;
+  } catch (error) {
+    return Promise.reject(error);
+  }
+}

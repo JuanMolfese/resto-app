@@ -2,14 +2,16 @@
 
 import Link from "next/link";
 import { Rubro } from "../../app/utils/models/types/rubro";
+import { Subrubro } from "../../app/utils/models/types/subrubro";
 import updateSubrubro from "../../app/utils/actions/subrubros/update";
 
 interface FormUpdateSubrubroProps {
   id: number;
   rubros?: Rubro[];
+  infoSubRubro: Subrubro;
 }
 
-export default function FormUpdateSubrubro ({ id, rubros }: FormUpdateSubrubroProps) {   
+export default function FormUpdateSubrubro ({ id, rubros, infoSubRubro }: FormUpdateSubrubroProps) {   
   
   return (
     <form className="bg-gray-50 my-4 mx-2 rounded-md" action={updateSubrubro}>
@@ -18,7 +20,7 @@ export default function FormUpdateSubrubro ({ id, rubros }: FormUpdateSubrubroPr
       
       <div className="flex justify-between items-center px-4 py-2 border-b border-gray-200 sm:px-6">
         <h2 className="text-lg leading-6 font-medium text-gray-900 pointer-events-none">
-          Editar Subrubro: {id} {/* aca iria nombre de subrubro */}
+          Editar Subrubro: {infoSubRubro.nombre} {/* aca iria nombre de subrubro */}
         </h2>
       </div>
       <div className="rounded-md p-4 md:p-6">
