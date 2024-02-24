@@ -31,12 +31,6 @@ export async function fetchRubro(id: number):Promise<Rubro>  {
     await connection.end();
     const infoPlano = JSON.parse(JSON.stringify(info));
     return infoPlano;
-    
-   /*  return {
-        id: result[0].id,
-        nombre: result[0].nombre
-      } */
-   
   } catch (error) {
      return  Promise.reject(error);
   }

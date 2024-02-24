@@ -21,15 +21,15 @@ export default function UpdateSubrubroPage({params,}:{
     }
   };
   
-  /* const getRubroInfo = async () : Promise<Rubro | null>  => {
+  const getRubroInfo = async (id:number) : Promise<Rubro | null>  => {
     try{
-      const rubro = await fetchRubro(); // devuelve el nombre del rubro del subrubro            
+      const rubro = await fetchRubro(id); // devuelve el nombre del rubro del subrubro            
       return rubro; // Retorna el rubro o vacio
     }catch (error) {
       console.error('Error en el fetch de los datos del subrubro',error);
-      return [];
+      return null;
     }
-  }; */
+  };
 
   const getSubRubroInfo = async (): Promise<Subrubro | null> => {
     try{
@@ -45,9 +45,14 @@ export default function UpdateSubrubroPage({params,}:{
   // Función para obtener los rubros y renderizar el componente
   const renderFormUpdateSubrubro = async () => {
     const infoSubRubro:Subrubro | null = await getSubRubroInfo();
-    const rubros:Rubro[] = await getRubros(); // Espera a que se resuelva la promesa
+    const rubros:Rubro[] = await getRubros();   
+    let infoRubro: Rubro | null = null;     
     if (infoSubRubro) {
-      return <FormUpdateSubrubro id={id} rubros={rubros} /* infoRubro={rubro} */ infoSubRubro={infoSubRubro}/>;
+      const rubroId = infoSubRubro?.rubro_id ?? 0; // Valor predeterminado en caso de que infoSubRubro sea null o undefined
+      infoRubro = await getRubroInfo(rubroId);
+    }
+    if (infoSubRubro && infoRubro) {
+      return <FormUpdateSubrubro id={id} rubros={rubros} infoRubro={infoRubro} infoSubRubro={infoSubRubro}/>;
     }
   };
 

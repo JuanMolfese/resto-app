@@ -8,10 +8,11 @@ import updateSubrubro from "../../app/utils/actions/subrubros/update";
 interface FormUpdateSubrubroProps {
   id: number;
   rubros?: Rubro[];
+  infoRubro: Rubro;
   infoSubRubro: Subrubro;
 }
 
-export default function FormUpdateSubrubro ({ id, rubros, infoSubRubro }: FormUpdateSubrubroProps) {   
+export default function FormUpdateSubrubro ({ id, rubros, infoRubro, infoSubRubro }: FormUpdateSubrubroProps) {   
   
   return (
     <form className="bg-gray-50 my-4 mx-2 rounded-md" action={updateSubrubro}>
@@ -34,14 +35,13 @@ export default function FormUpdateSubrubro ({ id, rubros, infoSubRubro }: FormUp
               id="rubroId"
               name="rubroId"
               className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
-              defaultValue=""
               aria-describedby="customer-error"
             >
               <option value="" disabled>
                 Seleccionar nuevo rubro
               </option>
               {rubros?.map((rubro) => (
-                <option key={rubro.id} value={rubro.id} className="py-2">
+                <option key={rubro.id} value={rubro.id} className="py-2"  selected={rubro.nombre === infoRubro?.nombre}>
                   {rubro.nombre}
                 </option>
               ))}
@@ -71,7 +71,7 @@ export default function FormUpdateSubrubro ({ id, rubros, infoSubRubro }: FormUp
             name="name"
             id="name"
             className="block w-full rounded-md border border-gray-200 py-2 px-3 text-sm outline-2 placeholder:text-gray-500"
-            placeholder="Nombre"
+            defaultValue={infoSubRubro?.nombre} 
             aria-describedby="name-error"
           />          
         </div>
