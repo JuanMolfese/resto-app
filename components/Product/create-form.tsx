@@ -42,6 +42,7 @@ export default function FormProduct({
                 subrubros && subrubros.length > 0 &&
                 setSubrubrosFilter(subrubros.filter((subrubro) => subrubro.rubro_id === val));
               }}
+              required
             >
               <option value="" disabled>
                 Seleccionar rubro
@@ -91,6 +92,7 @@ export default function FormProduct({
                 const sb = subrubros?.find((subrubro) => subrubro.id === parseInt(e.target.value));
                 setRubrosFilter(rubros?.filter((rubro) => rubro.id === sb?.rubro_id));
               }} */
+              required
             >
               <option value="" disabled>
                 Seleccionar subrubro

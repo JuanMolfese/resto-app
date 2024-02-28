@@ -1,10 +1,16 @@
 import Link from "next/link";
-import { fetchProducts } from "../../utils/actions/products/page";
+import { fetchProductsSucursal } from "../../utils/actions/products/page";
 import CardProduct from "../../../components/Product/card";
+import fetchRubros from "../../utils/actions/rubros/fetchs";
+import fetchSubrubros from "../../utils/actions/subrubros/fetchs";
 
 export default async function Products() {
   
-  const products = await fetchProducts();
+  const products = await fetchProductsSucursal(1);
+  const rubros = await fetchRubros();
+  const subrubros = await fetchSubrubros();
+
+
   return (
     <section className="flex flex-col justify-center ">
       <div className="text-center my-2 text-xl">
@@ -39,7 +45,7 @@ export default async function Products() {
           <div
             key={product.id}
           >
-            <CardProduct product={product} />  
+            <CardProduct product={product} rubros={rubros} subrubros={subrubros}/>  
           </div>
         ))}
       </div>
