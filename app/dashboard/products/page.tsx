@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { fetchProductsSucursal } from "../../utils/actions/products/page";
 import CardProduct from "../../../components/Product/card";
-import fetchRubros from "../../utils/actions/rubros/fetchs";
+import { fetchRubros } from "../../utils/actions/rubros/fetchs";
 import fetchSubrubros from "../../utils/actions/subrubros/fetchs";
 
 export default async function Products() {
