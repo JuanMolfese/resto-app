@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { fetchProductsSucursal } from "../../utils/actions/products/page";
+import { fetchProductsSucursal } from "../../utils/actions/products/fetchs";
 import CardProduct from "../../../components/Product/card";
 import { fetchRubros } from "../../utils/actions/rubros/fetchs";
 import fetchSubrubros from "../../utils/actions/subrubros/fetchs";

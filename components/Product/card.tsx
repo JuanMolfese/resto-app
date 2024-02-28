@@ -150,6 +150,7 @@ export default function CardProduct({
               placeholder="Stock"
               aria-describedby="stock"
               defaultValue={product.stock}
+              min={0}
               required
             />
           </div>
@@ -165,6 +166,7 @@ export default function CardProduct({
               placeholder="Precio"
               aria-describedby="precio"
               defaultValue={product.precio}
+              min={0}
               required
             />
           </div>
