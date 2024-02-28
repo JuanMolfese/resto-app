@@ -3,33 +3,33 @@
 import Link from "next/link";
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import deleteSubrubro from "../../app/utils/actions/subrubros/delete";
+import deleteRubro from "../../app/utils/actions/rubros/delete";
 
 
-interface FormDeleteSubrubroProps {
+interface FormDeleteRubroProps {
     id: number;    
   }
 
-export default function FormDeleteSubrubro( {id} : FormDeleteSubrubroProps) {   
+export default function FormDeleteRubro( {id} : FormDeleteRubroProps) {   
     
     const [error, setError] = useState<string | null>(null);   
     const router = useRouter();   
 
     const handleDelete = async () => {
         try {
-          const response = await deleteSubrubro(id);
+          const response = await deleteRubro(id);
           if (response.error) {
             setError(response.error);
           } else {
             if (response){
-            router.push('/app/dashboard/subrubros'); /* NO ESTA FUNCIONANDO EL ROUTEO */
-            alert("Se ha eliminado el subrubro correctamente");              
+              alert("Se ha eliminado el rubro correctamente");              
+              router.push('/app/dashboard/rubros'); /* NO ESTA FUNCIONANDO EL ROUTEO */
             };            
             }
         
         } catch (error) {
-          console.error('Error al eliminar el subrubro:', error);
-          setError('Hubo un problema al eliminar el subrubro');
+          console.error('Error al eliminar el rubro:', error);
+          setError('Hubo un problema al eliminar el rubro');
         }
     };
      
@@ -44,13 +44,13 @@ export default function FormDeleteSubrubro( {id} : FormDeleteSubrubroProps) {
         <input type="number" id="id" className="hidden" defaultValue={id} name="id"/> {/* Paso id al utils/actions/subrubros/delete */}
       <div className="flex justify-between items-center px-4 py-2 border-b border-gray-200 sm:px-6">
         <h2 className="text-lg leading-6 font-medium text-gray-900 pointer-events-none">
-          Eliminar SubrRubro {id}
+          Eliminar Rubro {id}
         </h2>
       </div>
       
       <div className="mt-6 flex justify-end gap-4">
         <Link
-          href="/dashboard/subrubros"
+          href="/dashboard/rubros"
           className="flex h-10 items-center rounded-lg bg-gray-100 px-4 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-200"
         >
           Cancelar

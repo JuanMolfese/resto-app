@@ -1,4 +1,4 @@
-import FormUpdateSubrubro from '../../../../../components/Subrubro/delete-form';
+import FormDeleteSubrubro from '../../../../../components/Subrubro/delete-form';
 
 export default function DeleteSubrubroPage({params,}:{
   params: {id: number};
@@ -8,7 +8,7 @@ export default function DeleteSubrubroPage({params,}:{
 
   // Función para obtener los rubros y renderizar el componente
   const renderFormDeleteSubrubro = async () => {
-    return <FormUpdateSubrubro id={id}/>;
+    return <FormDeleteSubrubro id={id}/>;
   };
 
   return (
