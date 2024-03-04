@@ -4,7 +4,7 @@ import { getToken } from 'next-auth/jwt';
 
 export async function middleware(req: NextRequest){
 
-	const session = await getToken ({ req, secret: process.env.NEXTAUTH_SECRET });
+	/* const session = await getToken ({ req, secret: process.env.NEXTAUTH_SECRET });
 
 	if (!session) {
 	  const requestedPage = req.nextUrl.pathname;
@@ -13,7 +13,7 @@ export async function middleware(req: NextRequest){
 	  url.search = `p=${requestedPage}`;
 
 	  return NextResponse.redirect (url);
-	}
+	} */
 
 //	if (request.nextUrl.pathname.startsWith('/dashboard')) {
 //	    return NextResponse.rewrite(new URL('/dashboard/user', request.url))
@@ -21,8 +21,8 @@ export async function middleware(req: NextRequest){
 
 	return NextResponse.next();
 }
-/*
-export const config={
+
+/* export const config={
   matcher: ['/dashboard/:path*','/((?!api|_next/static|_next/image|favicon.ico).*)']
-}
-*/	
+} */
+
