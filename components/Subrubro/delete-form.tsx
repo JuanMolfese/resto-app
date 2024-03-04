@@ -4,10 +4,11 @@ import Link from "next/link";
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import deleteSubrubro from "../../app/utils/actions/subrubros/delete";
+import { Rubro } from "../../app/utils/models/types/rubro";
 
 
 interface FormDeleteSubrubroProps {
-    id: number;    
+  id: number;    
   }
 
 export default function FormDeleteSubrubro( {id} : FormDeleteSubrubroProps) {   

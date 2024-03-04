@@ -4,20 +4,21 @@ import Link from "next/link";
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import deleteRubro from "../../app/utils/actions/rubros/delete";
+import { Rubro } from "../../app/utils/models/types/rubro";
 
 
 interface FormDeleteRubroProps {
-    id: number;    
+    infoRubro: Rubro;    
   }
 
-export default function FormDeleteRubro( {id} : FormDeleteRubroProps) {   
+export default function FormDeleteRubro( {infoRubro} : FormDeleteRubroProps) {   
     
     const [error, setError] = useState<string | null>(null);   
     const router = useRouter();   
 
     const handleDelete = async () => {
         try {
-          const response = await deleteRubro(id);
+          const response = await deleteRubro(infoRubro.id);
           if (response.error) {
             setError(response.error);
           } else {
@@ -41,10 +42,10 @@ export default function FormDeleteRubro( {id} : FormDeleteRubroProps) {
     </div>
     
     <form className="bg-gray-50 my-4 mx-2 rounded-md" /* action={deleteSubrubro} */>
-        <input type="number" id="id" className="hidden" defaultValue={id} name="id"/> {/* Paso id al utils/actions/subrubros/delete */}
+        <input type="number" id="id" className="hidden" defaultValue={infoRubro.id} name="id"/> {/* Paso id al utils/actions/subrubros/delete */}
       <div className="flex justify-between items-center px-4 py-2 border-b border-gray-200 sm:px-6">
         <h2 className="text-lg leading-6 font-medium text-gray-900 pointer-events-none">
-          Eliminar Rubro {id}
+          Eliminar Rubro {infoRubro.nombre}
         </h2>
       </div>
       
