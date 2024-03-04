@@ -7,6 +7,7 @@ import { ButtonOk } from "../../ui/button";
 import { Rubro } from "../../app/utils/models/types/rubro";
 import { Subrubro } from "../../app/utils/models/types/subrubro";
 import { useState } from "react";
+import deleteProduct from "../../app/utils/actions/products/delete";
 
 export default function CardProduct({
   product,
@@ -52,6 +53,12 @@ export default function CardProduct({
     res.success ? location.reload() : alert(res.message);
   };
 
+  const handleDelete = async (e: any) => {
+    e.preventDefault();
+    const res = await deleteProduct(product.id);
+    res.success ? location.reload() : alert(res.message);
+  };
+
   return (
     <form
       id={`formEdit-${product.id}`}
@@ -76,7 +83,10 @@ export default function CardProduct({
           id="productId"
           value={product.id}
         />
-        <div className="hidden flex flex-col gap-2" id={`input-name-product-${product.id}`}>
+        <div
+          className="hidden flex flex-col gap-2"
+          id={`input-name-product-${product.id}`}
+        >
           {/* <label htmlFor="name" className="mb-2 block text-sm font-medium">
             Nombre
           </label> */}
@@ -142,7 +152,7 @@ export default function CardProduct({
             <label className="text-xs mr-2" htmlFor="stock">
               Stock
             </label>
-            <input 
+            <input
               type="number"
               name="stock"
               id="stock"
@@ -158,7 +168,7 @@ export default function CardProduct({
             <label className="text-xs mr-2" htmlFor="precio">
               Precio
             </label>
-            <input 
+            <input
               type="number"
               name="precio"
               id="precio"
@@ -189,7 +199,7 @@ export default function CardProduct({
             Editar
           </span>
         </ButtonOk>
-        <button className="bg-red-500 text-white transition-colors rounded-lg px-4 py-2 ml-4 hover:bg-red-600">
+        <button className="bg-red-500 text-white transition-colors rounded-lg px-4 py-2 ml-4 hover:bg-red-600" onClick={handleDelete}>
           <span className="flex">
             <svg
               xmlns="http://www.w3.org/2000/svg"
