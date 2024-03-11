@@ -1,4 +1,5 @@
 import Link from "next/link"
+import Notification from "./notification"
 
 export default function navbar( props:any ) {
     return(
@@ -30,14 +31,12 @@ export default function navbar( props:any ) {
                     TIENDA ABIERTA
                 </div>
             </div>
-            <div className="hidden navbar-menu lg:order-3 lg:block lg:w-1/5 lg:text-right">
-                {/* <Link className="block mt-4 mr-10 text-white lg:inline-block lg:mt-0 hover:text-indigo-600" href="#">
-                    Content
-                </Link> */}
-                <Link className="block mt-4 mr-10 text-white lg:inline-block lg:mt-0 hover:text-indigo-600" href="#">
+            <div className="flex navbar-menu lg:order-3 lg:w-1/5">
+                <Notification />
+                <Link className="text-white hover:text-indigo-600 grow" href="#">
                     Cerrar Tienda
                 </Link>
-                <Link className="block mt-4 text-white lg:inline-block lg:mt-0 hover:text-indigo-600" href="#">
+                <Link className="text-white hover:text-indigo-600 grow" href="#">
                     Logout
                 </Link>
             </div>
