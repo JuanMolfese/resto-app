@@ -1,0 +1,22 @@
+.animation {
+  animation: shakeX 0.5s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes shakeX {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-2px);
+  }
+  50% {
+    transform: translateX(2px);
+  }
+  75% {
+    transform: translateX(-2px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
