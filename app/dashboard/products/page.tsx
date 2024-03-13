@@ -1,12 +1,20 @@
 import Link from "next/link";
-import { fetchProductsSucursal } from "../../utils/actions/products/fetchs";
+import { fetchProductsOutofStock, fetchProductsSucursal } from "../../utils/actions/products/fetchs";
 import CardProduct from "../../../components/Product/card";
 import { fetchRubros } from "../../utils/actions/rubros/fetchs";
 import fetchSubrubros from "../../utils/actions/subrubros/fetchs";
 
-export default async function Products() {
-  
-  const products = await fetchProductsSucursal(1);
+export default async function Products({
+  searchParams,
+}: {
+  searchParams?: {
+    ms?: string;
+    page?: string;
+  };
+}) {
+
+  const query = searchParams?.ms || false;
+  const products = query ? await fetchProductsOutofStock(1) : await fetchProductsSucursal(1);
   const rubros = await fetchRubros();
   const subrubros = await fetchSubrubros();
 

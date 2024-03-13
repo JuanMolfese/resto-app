@@ -29,7 +29,8 @@ export async function fetchProductsSucursal(sucursal_id: number)
         p.id, 
         p.nombre, 
         p.descripcion, 
-        sp.stock, 
+        sp.stock,
+        sp.stock_minimo, 
         sp.precio, 
         s.id as "subrubro_id", 
         s.nombre as "subrubro_nombre", 
@@ -48,6 +49,7 @@ export async function fetchProductsSucursal(sucursal_id: number)
         nombre: product.nombre,
         descripcion: product.descripcion,
         stock: product.stock,
+        stock_minimo: product.stock_minimo,
         precio: product.precio,
         subrubro_id: product.subrubro_id,
         subrubro_nombre: product.subrubro_nombre,
@@ -63,7 +65,7 @@ export async function fetchProductsSucursal(sucursal_id: number)
 }
 
 
-export async function fetchProductsOutofStock() {
+export async function fetchProductsOutofStock(sucursal_id: number) {
   noStore();
   try {
     const result = await connection.query<ProductoDetail[]>(
@@ -72,6 +74,7 @@ export async function fetchProductsOutofStock() {
         p.nombre, 
         p.descripcion, 
         sp.stock, 
+        sp.stock_minimo,
         sp.precio, 
         s.id as "subrubro_id", 
         s.nombre as "subrubro_nombre", 
@@ -81,7 +84,8 @@ export async function fetchProductsOutofStock() {
         JOIN Sucursal_Productos sp on sp.producto_id = p.id 
         JOIN Subrubro s on s.id = p.subrubro_id 
         JOIN Rubro r on r.id = s.rubro_id 
-      WHERE sp.stock < 5`
+      WHERE sp.stock < sp.stock_minimo and sp.sucursal_id = ?`
+      , [sucursal_id]
     );
     await connection.end();
     const products = result.map((product) => {
@@ -90,6 +94,7 @@ export async function fetchProductsOutofStock() {
         nombre: product.nombre,
         descripcion: product.descripcion,
         stock: product.stock,
+        stock_minimo: product.stock_minimo,
         precio: product.precio,
         subrubro_id: product.subrubro_id,
         subrubro_nombre: product.subrubro_nombre,

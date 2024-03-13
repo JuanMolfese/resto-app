@@ -84,6 +84,7 @@ CREATE TABLE Pedido_Productos (
 CREATE TABLE Producto (
     id int  NOT NULL AUTO_INCREMENT,
     nombre varchar(50)  NOT NULL,
+    descripcion varchar(150),
     subrubro_id int  NOT NULL,
     CONSTRAINT Producto_pk PRIMARY KEY (id)
 );
@@ -136,6 +137,7 @@ CREATE TABLE Sucursal_Productos (
     producto_id int  NOT NULL AUTO_INCREMENT,
     sucursal_id int  NOT NULL,
     stock int  NOT NULL,
+    stock_minimo int NOT NULL DEFAULT 0 NOT NULL,
     precio float(10,2)  NOT NULL,
     CONSTRAINT Sucursal_Productos_pk PRIMARY KEY (producto_id,sucursal_id)
 );

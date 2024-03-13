@@ -9,6 +9,7 @@ export type ProductoDetail = {
     nombre: string;
     descripcion: string;
     stock: number;
+    stock_minimo: number;
     precio: number;
     subrubro_id: number;
     subrubro_nombre: string;

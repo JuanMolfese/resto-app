@@ -13,6 +13,7 @@ export default async function updateProduct(id: number, formData: FormData) {
       subrubroId: formData.get("subrubroId"),
       precio: formData.get("precio"),
       stock: formData.get("stock"),
+      stock_minimo: formData.get("stock_minimo"),
     };
     
     //const result = await connection.query<Producto>("UPDATE Producto SET nombre = ? WHERE id = ?", [rawFormData.nombre, rawFormData.id]);
@@ -22,9 +23,10 @@ export default async function updateProduct(id: number, formData: FormData) {
         p.nombre = ?,
         p.subrubro_id = ?,
         sp.precio = ?,
-        sp.stock = ?
+        sp.stock = ?,
+        sp.stock_minimo = ?
       WHERE id = ?`, 
-      [rawFormData.nombre, rawFormData.subrubroId, rawFormData.precio, rawFormData.stock, rawFormData.id]
+      [rawFormData.nombre, rawFormData.subrubroId, rawFormData.precio, rawFormData.stock, rawFormData.stock_minimo, rawFormData.id]
     );
     await connection.end();
     return { 

@@ -3,7 +3,7 @@ import NotificationNew from "../../Notification/page";
 
 export default async function Notification() {
 
-    const products = await fetchProductsOutofStock();
+    const products = await fetchProductsOutofStock(1);
 
     if (products && products.length > 0) {
         return(

@@ -62,7 +62,7 @@ export default function CardProduct({
   return (
     <form
       id={`formEdit-${product.id}`}
-      className="shadow-md rounded-md w-80 m-2 flex flex-col"
+      className={`shadow-md rounded-md w-80 m-2 flex flex-col ${product.stock < product.stock_minimo ? "bg-red-100" : "bg-white"}`}
       action={handleUpdate}
     >
       <div className="p-3 flex-auto">
@@ -73,7 +73,7 @@ export default function CardProduct({
             {product.rubro_nombre} {`->`} {product.subrubro_nombre}
           </p>
           <p className="text-sm">{product.descripcion}</p>
-          <p className="text-sm">Stock: {product.stock}</p>
+          <p className="text-sm">Stock: {product.stock} - Min: {product.stock_minimo}</p>
           <p className="text-sm">Precio: ${product.precio}</p>
           {/* <p className="text-sm text-gray-500">Descripcion</p> */}
         </div>
@@ -149,20 +149,36 @@ export default function CardProduct({
             </select>
           </div>
           <div className="flex items-center">
-            <label className="text-xs mr-2" htmlFor="stock">
-              Stock
-            </label>
-            <input
-              type="number"
-              name="stock"
-              id="stock"
-              className="block w-full rounded-md border border-gray-200 py-1 px-3 text-sm outline-2 placeholder:text-gray-500"
-              placeholder="Stock"
-              aria-describedby="stock"
-              defaultValue={product.stock}
-              min={0}
-              required
-            />
+            <>
+              <label className="text-xs mr-2" htmlFor="stock">
+                Stock
+              </label>
+              <input
+                type="number"
+                name="stock"
+                id="stock"
+                className="block w-full rounded-md border border-gray-200 py-1 px-3 text-sm outline-2 placeholder:text-gray-500"
+                placeholder="Stock"
+                aria-describedby="stock"
+                defaultValue={product.stock}
+                min={0}
+                required
+              />
+              <label className="text-xs ml-2 mr-2" htmlFor="stock_minimo">
+                Min
+              </label>
+              <input
+                type="number"
+                name="stock_minimo"
+                id="stock_minimo"
+                className="block w-full rounded-md border border-gray-200 py-1 px-3 text-sm outline-2 placeholder:text-gray-500"
+                placeholder="Stock minimo"
+                aria-describedby="stock_minimo"
+                defaultValue={product.stock_minimo}
+                min={0}
+                required
+              />
+            </>
           </div>
           <div className="flex items-center">
             <label className="text-xs mr-2" htmlFor="precio">
