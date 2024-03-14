@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 export default function sidebar() {
@@ -5,8 +6,12 @@ export default function sidebar() {
     <section className="relative bg-white dark:bg-gray-800">
       <div className="flex flex-col sm:flex-row sm:justify-around">
         <div className="h-screen w-72">
-          <nav className="px-6 mt-10">
-            <div className="pb-20">LOGOTIPO</div>
+          <nav className="px-6">
+            <div className="flex justify-center">
+              <Image src="/balcon-icon.png" alt="logo" width={150} height={150} />
+            </div>
+            <div>
+
             <div>
              {/*  <p className="w-full pb-2 mb-4 ml-2 font-normal text-gray-300 border-b-2 border-gray-100 text-md">
                 Pedidos
@@ -151,7 +156,7 @@ export default function sidebar() {
               <Link
                 className="flex items-center justify-start p-2 my-4 font-thin text-gray-500 transition-colors duration-200 hover:text-gray-800 dark:text-gray-400 hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-600"
                 href="/dashboard/subrubros/create/"
-              >
+                >
                 <span className="text-left">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -176,7 +181,7 @@ export default function sidebar() {
               >
                 <span className="text-left">
                   <svg
-                    width="20"
+                  width="20"
                     height="20"
                     fill="currentColor"
                     className="m-auto"
@@ -256,6 +261,7 @@ export default function sidebar() {
                   Usuarios
                 </span>
               </Link>             
+                            </div>
             </div>
           </nav>
         </div>
