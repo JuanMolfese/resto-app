@@ -1,3 +1,4 @@
+
 import Image from "next/image";
 import Link from "next/link";
 
@@ -7,9 +8,9 @@ export default function sidebar() {
       <div className="flex flex-col sm:flex-row sm:justify-around">
         <div className="h-screen w-72">
           <nav className="px-6">
-            <div className="flex justify-center">
-              <Image src="/balcon-icon.png" alt="logo" width={150} height={150} />
-            </div>
+            <Link className="flex justify-center " href={'/'}>
+              <Image src="/balcon-icon.png" alt="logo" width={150} height={150} className="cursor-pointer hover:shadow-sm"/>
+            </Link>
             <div>
 
             <div>

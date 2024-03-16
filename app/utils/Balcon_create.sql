@@ -136,9 +136,9 @@ CREATE TABLE Sucursal (
 CREATE TABLE Sucursal_Productos (
     producto_id int  NOT NULL AUTO_INCREMENT,
     sucursal_id int  NOT NULL,
-    stock int  NOT NULL,
-    stock_minimo int NOT NULL DEFAULT 0 NOT NULL,
-    precio float(10,2)  NOT NULL,
+    stock int  NOT NULL DEFAULT 0,
+    stock_minimo int NOT NULL DEFAULT 0,
+    precio float(10,2)  NOT NULL DEFAULT 0,
     CONSTRAINT Sucursal_Productos_pk PRIMARY KEY (producto_id,sucursal_id)
 );
 

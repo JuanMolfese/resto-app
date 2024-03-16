@@ -6,6 +6,7 @@
 
 :root {
   --bg: 0, 0, 0;
+  --bg-color-nav: #dcae60;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -18,6 +19,10 @@
 
 body {
   color: var(--bg);
+}
+
+.bg-color-nav {
+  background-color: var(--bg-color-nav);
 }
 
 @layer utilities {

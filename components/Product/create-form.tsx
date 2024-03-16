@@ -6,6 +6,8 @@ import { Subrubro } from "../../app/utils/models/types/subrubro";
 import { useState } from "react";
 import createProduct from "../../app/utils/actions/products/create";
 import { useFormState } from "react-dom";
+import { useRouter } from "next/navigation";
+
 
 export default function FormProduct({
   rubros,
@@ -16,9 +18,22 @@ export default function FormProduct({
 }) {
   
   const [subrubrosFilter, setSubrubrosFilter] = useState(subrubros);
+  const router = useRouter();
+
+  const handleCreate = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const newFormData = new FormData(event.currentTarget);
+    const res = await createProduct(newFormData);
+    if (res.success) {
+      router.push("/dashboard/products");
+    } else {
+      alert("Error al crear el producto");
+    }
+
+  }
 
   return (
-    <form className="bg-gray-50 my-4 mx-2 rounded-md" action={createProduct}>
+    <form id="formCreate" className="bg-gray-50 my-4 mx-2 rounded-md" onSubmit={handleCreate}>
       <div className="flex justify-between items-center px-4 py-2 border-b border-gray-200 sm:px-6">
         <h2 className="text-lg leading-6 font-medium text-gray-900">
           Crear producto

@@ -14,7 +14,8 @@
     "npm": "^10.4.0",
     "react": "^18",
     "react-dom": "^18",
-    "serverless-mysql": "^1.5.5"
+    "serverless-mysql": "^1.5.5",
+    "use-debounce": "^10.0.0"
   },
   "devDependencies": {
     "@types/node": "^20",
