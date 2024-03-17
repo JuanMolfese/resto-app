@@ -22,7 +22,7 @@ export default async function ProductsSale({
 
   return (
     <>
-      <nav className="flex gap-1 items-center bg-color-nav justify-around">
+      <nav className="flex gap-1 items-center bg-color-nav justify-around sticky top-0">
         <Link href={'/'} className="drop-shadow-md hover:drop-shadow-xl">
           <Image src="/balcon-icon.png" alt="logo" width={80} height={80} className="cursor-pointer"/>
         </Link>
@@ -32,10 +32,10 @@ export default async function ProductsSale({
         </svg>
 
       </nav>
-      <main>
-        <ul className="flex p-10">
+      <main className="">
+        <ul className="flex flex-wrap py-2 justify-center gap-1">
           {products?.map(product => (
-            <li key={product.id} className="shadow-md w-1/2 flex flex-col items-center">
+            <li key={product.id} className="shadow-md w-2/5 flex flex-col items-center m-2">
               <div className="">
                 <Image src='/dona.jpg' alt={product.nombre} width={150} height={150} className=""/>
               </div>
