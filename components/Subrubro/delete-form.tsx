@@ -1,10 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import deleteSubrubro from "../../app/utils/actions/subrubros/delete";
-import { Rubro } from "../../app/utils/models/types/rubro";
 import React from "react";
 
 interface FormDeleteSubrubroProps {
@@ -16,13 +14,12 @@ export default function FormDeleteSubrubro({ id }: FormDeleteSubrubroProps) {
   const router = useRouter();   
 
   const handleDelete = async (event: React.FormEvent<HTMLFormElement>) => { 
-    event.preventDefault();   
-    const newFormData = new FormData(event.currentTarget); 
-    console.log(newFormData);
+    event.preventDefault();           
     try {
-      const res = await deleteSubrubro(id); // Pasa el id directamente
-      if(res?.success){
+      const res = await deleteSubrubro(id);
+      if(res?.success){       
         router.push("/dashboard/subrubros");
+        router.refresh();
       } else {            
         alert("Error al eliminar el subrubro");
       }

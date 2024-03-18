@@ -7,8 +7,7 @@ export default async function deleteSubrubro(id: number) {
     // Verifica si hay productos asociados al subrubro
     const verif_noProducts:any = await connection.query('SELECT * FROM Producto WHERE subrubro_id=?', [id]);
     if (verif_noProducts.length === 0) { // Verifica si no hay productos asociados
-      const result:any= await connection.query('DELETE FROM Subrubro WHERE id = (?)', [id])
-      console.log(result);
+      const result:any= await connection.query('DELETE FROM Subrubro WHERE id = (?)', [id])      
       if (result.affectedRows === 1) {
         return {
           success: true,

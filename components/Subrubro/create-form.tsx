@@ -14,6 +14,7 @@ export default function FormSubrubro({rubros}:{rubros?: Rubro[]}) {
     const res = await createSubrubro(newFormData);
     if (res.success) {
       router.push("/dashboard/subrubros");
+      router.refresh();
     } else {
       alert("Error al crear el subrubro");
     }

@@ -14,6 +14,7 @@ export default function FormRubro() {
     const res = await createRubro(newFormData);
     if (res.success) {
       router.push("/dashboard/rubros");
+      router.refresh();
     } else {
       alert("Error al crear el rubro");
     }

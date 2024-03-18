@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from 'next/navigation';
 import Link from "next/link";
 import { Rubro } from "../../app/utils/models/types/rubro";
 import { Subrubro } from "../../app/utils/models/types/subrubro";
@@ -13,9 +14,24 @@ interface FormUpdateSubrubroProps {
 }
 
 export default function FormUpdateSubrubro ({ id, rubros, infoRubro, infoSubRubro }: FormUpdateSubrubroProps) {   
-  
+
+  const router = useRouter(); 
+
+  const handleUpdate = async (event : React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const newFormData = new FormData(event.currentTarget);
+    const res = await updateSubrubro(newFormData);
+    if(res.success) {
+      router.push("/dashboard/subrubros");
+      router.refresh();
+    } else {
+      alert("Error al actualizar el subrubro");
+    }
+  }
+
+
   return (
-    <form className="bg-gray-50 my-4 mx-2 rounded-md" action={updateSubrubro}>
+    <form className="bg-gray-50 my-4 mx-2 rounded-md" onSubmit={handleUpdate}>
 
       <input type="number" id="id_subrubro" className="hidden" defaultValue={id} name="id_subrubro"/> {/* Paso id al utils/actions/subrubros/update */}
       
