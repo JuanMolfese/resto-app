@@ -1,13 +1,27 @@
 "use client";
-
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Rubro } from "../../app/utils/models/types/rubro";
 import createSubrubro from "../../app/utils/actions/subrubros/create";
 
 export default function FormSubrubro({rubros}:{rubros?: Rubro[]}) {   
 
+  const router = useRouter();
+
+  const handlecreateSubrubro = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const newFormData = new FormData(event.currentTarget);
+    const res = await createSubrubro(newFormData);
+    if (res.success) {
+      router.push("/dashboard/subrubros");
+    } else {
+      alert("Error al crear el subrubro");
+    }
+
+  }
+
   return (
-    <form className="bg-gray-50 my-4 mx-2 rounded-md" action={createSubrubro}>
+    <form className="bg-gray-50 my-4 mx-2 rounded-md" onSubmit={handlecreateSubrubro}>
       <div className="flex justify-between items-center px-4 py-2 border-b border-gray-200 sm:px-6">
         <h2 className="text-lg leading-6 font-medium text-gray-900 pointer-events-none">
           Crear SubrRubro

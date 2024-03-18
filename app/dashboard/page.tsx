@@ -1,4 +1,4 @@
-import { fetchProducts } from "../utils/actions/products/page";
+import { fetchProducts } from "../utils/actions/products/fetchs";
 
 export default async function Dashboard() {
   return (

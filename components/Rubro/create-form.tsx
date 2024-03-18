@@ -2,11 +2,25 @@
 
 import Link from "next/link";
 import createRubro from "../../app/utils/actions/rubros/create";
+import { useRouter } from "next/navigation";
 
 export default function FormRubro() {   
 
+  const router = useRouter();
+
+  const handelCreateRubro = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const newFormData = new FormData(event.currentTarget);
+    const res = await createRubro(newFormData);
+    if (res.success) {
+      router.push("/dashboard/rubros");
+    } else {
+      alert("Error al crear el rubro");
+    }
+  }
+
   return (
-    <form className="bg-gray-50 my-4 mx-2 rounded-md" action={createRubro}>
+    <form className="bg-gray-50 my-4 mx-2 rounded-md" onSubmit={handelCreateRubro}>
       <div className="flex justify-between items-center px-4 py-2 border-b border-gray-200 sm:px-6">
         <h2 className="text-lg leading-6 font-medium text-gray-900">
           Crear Rubro

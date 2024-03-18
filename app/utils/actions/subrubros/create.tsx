@@ -10,11 +10,29 @@ export default async function createSubrubro(formData: FormData) {
       
     };
     //Aqui hacer verificaciones antes de insertar en BBDD
-    await connection.query('INSERT INTO Subrubro (rubro_id, nombre) VALUES (?, ?)', [rawFormData.rubro_id, rawFormData.nombre])    
-    connection.end(); // Cierra la conexión a la base de datos
-    return {success: true};
+    const resultSubRubro = await connection.query<any>('INSERT INTO Subrubro (rubro_id, nombre) VALUES (?, ?)', [rawFormData.rubro_id, rawFormData.nombre])    
+    await connection.end(); // Cierra la conexión a la base de datos
+    
+    if (!resultSubRubro.affectedRows){
+      return{
+        success: false,
+        message: "Error al crear el Rubro",
+        status: 404,
+      }
+    }
+    //Si esta todo OK
+    return {
+      success: true,
+      message: "Subrubro creado",
+      status: 200,
+    }
+
   }
   catch (error) {
-    console.log(error);
+    return{
+      success: false,
+      message: "Error al crear el subrubro",
+      status: 404,
+    };
   }
 }

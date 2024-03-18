@@ -8,10 +8,28 @@ export default async function createRubro(formData: FormData) {
       nombre: formData.get("name"),      
     };
     //Aqui hacer verificaciones antes de insertar en BBDD
-    await connection.query('INSERT INTO Rubro (nombre) VALUES (?)', [rawFormData.nombre])      
-    return ("OK")
+    const resultRubro = await connection.query<any>('INSERT INTO Rubro (nombre) VALUES (?)', [rawFormData.nombre])      
+    await connection.end();
+    
+    if (!resultRubro.affectedRows){
+      return{
+        success: false,
+        message: "Error al crear el Rubro",
+        status: 404,
+      }
+    }
+    await connection.end();
+    return{
+      success: true,
+      messagge: "El Rubro fue creado",
+      status: 200,
+    }
   }
   catch (error) {
-    console.log(error);
+    return{
+      success: false,
+      message: "Error al crear el Rubro",
+      status: 404,
+    }
   }
 }

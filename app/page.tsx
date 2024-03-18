@@ -11,5 +11,5 @@ export default function Home() {
      <Presentation/>  {/* view products */}
      <Footer/>
     </main>
-  );
+  )  
 }

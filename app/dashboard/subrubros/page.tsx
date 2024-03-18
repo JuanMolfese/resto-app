@@ -8,7 +8,7 @@ const subrubros = await fetchSubrubros();
 return (
     <section className="flex flex-col justify-center ">
         <div className="text-center my-2 text-xl">
-        <h2>Listado de subrubros</h2>
+        <h2>Listado de Subrubros</h2>
         </div>
         
         <div className="flex flex-row justify-center">
