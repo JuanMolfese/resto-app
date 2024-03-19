@@ -9,19 +9,31 @@ export default async function updateRubro(formData: FormData) {
       nombre: formData.get("name"),
       
     };
-    console.log(rawFormData);
+    
     //Aqui hacer verificaciones antes de insertar en BBDD    
     const result:any = await connection.query('UPDATE Rubro SET nombre = ? WHERE id = ?', [rawFormData.nombre, rawFormData.id] )
-    if (result.affectedRows === 0) {
-      throw new Error('No se ha actualizado ningún registro');
+    if (result.affectedRows === 1) {
+      return {
+        success: true,
+        status: 200,
+        message: "El rubro fue editado",
+      };
+    } else {
+      return {
+        success: false,
+        status: 409,
+        message: "No se pudo editar, porque ya no existe",
+      }     
     }
-    console.log('Registro actualizado correctamente');
-    connection.end(); // Cierra la conexión a la base de datos
-    return { success: true, message: 'Registro actualizado correctamente' };
-  }
- catch (error) {
-  console.error('Error al actualizar el registro: ', error);
-  throw error; // Puedes relanzar el error para manejarlo en un nivel superior
+} catch (error) {
+  console.error("Error al editar el subrubro:", error);
+  return {
+    success: false,
+    status: 500,
+    message: "Error interno del servidor",
+  };
+} finally {
+  await connection.end(); // Cierra la conexión a la base de datos
 }
 }
 

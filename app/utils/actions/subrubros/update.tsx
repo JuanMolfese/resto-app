@@ -16,17 +16,17 @@ export default async function updateSubrubro(formData: FormData) {
         return {
           success: true,
           status: 200,
-          message: "El subrubro fue eliminado",
+          message: "El subrubro fue editado",
         };
       } else {
         return {
           success: false,
           status: 409,
-          message: "No se pudo eliminar, porque ya no existe",
+          message: "No se pudo editar, porque ya no existe",
         }     
       }
   } catch (error) {
-    console.error("Error al eliminar el subrubro:", error);
+    console.error("Error al editar el subrubro:", error);
     return {
       success: false,
       status: 500,

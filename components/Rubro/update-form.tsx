@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { Rubro } from "../../app/utils/models/types/rubro";
 import updateRubro from "../../app/utils/actions/rubros/update";
+import { useRouter } from 'next/navigation';
 
 interface FormUpdateSubrubroProps {  
   infoRubro: Rubro;  
@@ -10,8 +11,23 @@ interface FormUpdateSubrubroProps {
 
 export default function FormUpdateRubro ({ infoRubro }: FormUpdateSubrubroProps) {   
   
+  const router = useRouter(); 
+
+  const handleUpdate = async (event : React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const newFormData = new FormData(event.currentTarget);
+    const res = await updateRubro(newFormData);
+    if(res.success) {
+      router.push("/dashboard/rubros");
+      router.refresh();
+    } else {
+      router.push("/dashboard/rubros");
+      alert("Error al actualizar el rubro");
+    }
+  }
+
   return (
-    <form className="bg-gray-50 my-4 mx-2 rounded-md" action={updateRubro}>
+    <form className="bg-gray-50 my-4 mx-2 rounded-md" onSubmit={handleUpdate}>
 
             <input type="number" id="id" className="hidden" defaultValue={infoRubro.id} name="id"/> {/* Paso id al utils/actions/subrubros/update */}
       
