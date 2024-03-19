@@ -5,8 +5,7 @@ import { Subrubro } from "../../models/types/subrubro";
 export default async function fetchSubrubros() {
   unstable_noStore();
   try {
-    const result = await connection.query<Subrubro[]>("SELECT * FROM Subrubro");
-    await connection.end();
+    const result = await connection.query<Subrubro[]>("SELECT * FROM Subrubro");    
     const subrubros = result.map((subrubro) => {
       return {
         id: subrubro.id,
@@ -17,6 +16,8 @@ export default async function fetchSubrubros() {
     return subrubros;
   } catch (error) {
     console.log(error);
+  }finally{
+    await connection.end(); // Cierra la conexión a la base de datos
   }
 }
 
@@ -27,11 +28,12 @@ export async function fetchInfoSubRubro(id: number):Promise<Subrubro> {
     if (result.length === 0) {
       throw new Error(`No se encontró ningún subrubro con el ID ${id}`);
     }
-    const info:Subrubro = result[0];    
-    connection.end();    
+    const info:Subrubro = result[0];       
     const infoPlano = JSON.parse(JSON.stringify(info));
     return infoPlano;
   } catch (error) {
     return Promise.reject(error);
+  } finally {
+    await connection.end(); // Cierra la conexión a la base de datos
   }
 }
