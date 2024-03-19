@@ -11,9 +11,9 @@ export default async function createSubrubro(formData: FormData) {
     };
     //Aqui hacer verificaciones antes de insertar en BBDD
     const resultSubRubro = await connection.query<any>('INSERT INTO Subrubro (rubro_id, nombre) VALUES (?, ?)', [rawFormData.rubro_id, rawFormData.nombre])    
-    await connection.end(); // Cierra la conexión a la base de datos
     
-    if (!resultSubRubro.affectedRows){
+    
+    if (!resultSubRubro.affectedRows|| resultSubRubro.affectedRows == 0){
       return{
         success: false,
         message: "Error al crear el Rubro",
@@ -23,7 +23,7 @@ export default async function createSubrubro(formData: FormData) {
     //Si esta todo OK
     return {
       success: true,
-      message: "Subrubro creado",
+      message: "El Subrubro fue creado",
       status: 200,
     }
 
@@ -34,5 +34,7 @@ export default async function createSubrubro(formData: FormData) {
       message: "Error al crear el subrubro",
       status: 404,
     };
+  }finally{
+    await connection.end(); // Cierra la conexión a la base de datos
   }
 }

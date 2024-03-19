@@ -9,16 +9,14 @@ export default async function createRubro(formData: FormData) {
     };
     //Aqui hacer verificaciones antes de insertar en BBDD
     const resultRubro = await connection.query<any>('INSERT INTO Rubro (nombre) VALUES (?)', [rawFormData.nombre])      
-    await connection.end();
-    
-    if (!resultRubro.affectedRows){
+        
+    if (!resultRubro.affectedRows || resultRubro.affectedRows == 0){
       return{
         success: false,
         message: "Error al crear el Rubro",
         status: 404,
       }
-    }
-    await connection.end();
+    }   
     return{
       success: true,
       messagge: "El Rubro fue creado",
@@ -31,5 +29,7 @@ export default async function createRubro(formData: FormData) {
       message: "Error al crear el Rubro",
       status: 404,
     }
+  }finally{
+    await connection.end(); // Cierra la conexión a la base de datos
   }
 }
