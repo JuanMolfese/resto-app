@@ -6,39 +6,74 @@ import Search from "./search";
 import CardProduct from "./cardProduct";
 import { useState } from "react";
 
+interface ProductInCart extends ProductoDetail {
+  cantidad: number;
+}
+
 export default function ListProducts({ products }: { products?: any[] }) {
 
-  const [cart, setCart] = useState<ProductoDetail[]>([]);
+  const [cart, setCart] = useState<ProductInCart[]>([]);
+  const [cartEncoded, setCartEncoded] = useState('');
 
-  const agregarProducto = (producto: ProductoDetail) => {
-    setCart([...cart, producto]);
+  const agregarProducto = (producto: ProductInCart, cant: number) => {
+    const index = cart.findIndex(p => p.id === producto.id);
+    if (index === -1) {
+      setCart([...cart, {...producto, cantidad: cant}]);
+    } else {
+      const newCart = cart.map(p => {
+        if (p.id === producto.id) {
+          return {...p, cantidad: Number(p.cantidad) + Number(cant)};
+        }
+        return p;
+      });
+      setCart(newCart);
+    }
+  }
+
+  const viewCart = () => {
+    document.getElementById('listProd')?.classList.toggle('hidden');
+    document.getElementById('cartProd')?.classList.toggle('hidden');
   }
 
   return (
     <>
+      
       <nav className="flex gap-1 items-center bg-color-nav justify-around sticky top-0">
         <Link href={'/'} className="drop-shadow-md hover:drop-shadow-xl">
           <Image src="/balcon-icon.png" alt="logo" width={80} height={80} className="cursor-pointer"/>
         </Link>
         <Search placeholder="Buscar productos" />
-        <div className="flex row-reverse">
+        <div className="flex row-reverse cursor-pointer p-2 rounded-full hover:bg-green-400" onClick={() => viewCart()}>
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
             <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
           </svg>
-          <span className="ml-1">{cart.length}</span>
+          
+          <span className="ml-1" >{cart.length}</span>
+          
         </div>
 
       </nav>
-      <main className="">
+      <main id="listProd" className="">
         <ul className="flex flex-wrap py-2 justify-center gap-1">
           {products?.map(product => (
             <CardProduct product={product} key={product.id} agregar={agregarProducto} />
-          
+            
+            ))}
+        </ul>
+      </main>
+      
+      <div id="cartProd" className="hidden container">
+        <ul>
+          {cart.map(product => (
+            <li key={product.id} className="flex">
+                <h2 className="text-md font-bold">{product.nombre}</h2>
+                <p>{(product.precio).toLocaleString('es-ar', {style: 'currency', currency: 'ARS', minimumFractionDigits: 2})}</p>
+                <p className="text-xs">{product.descripcion}</p>
+                <p>{product.cantidad}</p>
+            </li>
           ))}
         </ul>
-
-      </main>
-
+      </div>
     </>
   );
 }
