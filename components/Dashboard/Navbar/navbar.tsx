@@ -1,7 +1,8 @@
 import Link from "next/link"
 import Notification from "./notification"
 
-export default function navbar( props:any ) {
+export default function navbar( props:any ) {    
+    
     return(
         <nav className="flex flex-wrap items-center justify-between p-4 bg-green-700">            
             <div className="block lg:hidden">

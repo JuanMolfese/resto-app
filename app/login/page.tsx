@@ -15,7 +15,7 @@ export default function Login() {
         <div className="flex gap-x-2 items-center">
           <Link href="/dashboard">Dashboard</Link>
           <p>
-            {session.user.name} {session.user.email}
+            {session.user.name} {session.user.email}            
           </p>
           {session.user.image && (
             <Image
