@@ -4,15 +4,13 @@ import Link from "next/link";
 import { signIn, useSession, signOut } from "next-auth/react";
 import Image from 'next/image'
 
-/*  const { data: session } = useSession(); //Error en este hook
- console.log(session) */
+ const { data: session } = useSession(); //Error en este hook
+ console.log(session)
 
 export default function Login() {
   return(
-    <h1>
-      No anda el login
-    </h1>
-   /*  <nav className="flex items-center justify-center px-20 text-white">            
+   
+    <nav className="flex items-center justify-center px-20 text-white">            
        {session?.user ? (
         <div className="flex gap-x-2 items-center">
           <Link href="/dashboard">Dashboard</Link>
@@ -46,6 +44,6 @@ export default function Login() {
           Sign In
         </button>
       )}
-    </nav> */
+    </nav>
   )    
 };
