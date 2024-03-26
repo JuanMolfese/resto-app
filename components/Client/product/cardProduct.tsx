@@ -32,7 +32,6 @@ export default function CardProduct({ product, agregar }: { product: ProductoDet
   const addCart = () => {
     const input = document.getElementById(`i${product.id}`) as HTMLInputElement;
     if (input && parseInt(input.value) > 0){
-      alert(`Agregado al carrito ${input.value} ${product.nombre}`);
       agregar(product, input.value);
       input.value = "0";
     }

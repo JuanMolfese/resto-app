@@ -6,6 +6,9 @@ import Search from "./search";
 import CardProduct from "./cardProduct";
 import { useState } from "react";
 import Cart from "../../Cart";
+import { toast } from "@/components/ui/use-toast";
+import { ToastAction } from "@/components/ui/toast";
+
 
 interface ProductInCart extends ProductoDetail {
   cantidad: number;
@@ -29,6 +32,14 @@ export default function ListProducts({ products }: { products?: any[] }) {
       });
       setCart(newCart);
     }
+    const mytoast = toast({
+      title: "Producto agregado",
+      description: "El producto fue agregado al carrito.",
+      action: <ToastAction altText="Ver carrito">Ver carrito</ToastAction>,
+    })
+    setTimeout(() => {
+      mytoast.dismiss();
+    }, 3000);
   }
 
   const removeProductCart = (producto: ProductInCart) => {
@@ -45,7 +56,15 @@ export default function ListProducts({ products }: { products?: any[] }) {
       document.getElementById('listProd')?.classList.toggle('hidden');
       document.getElementById('cartProd')?.classList.toggle('hidden');
     } else {
-      alert('No hay productos en el carrito');
+      const mytoast = toast({
+        variant: "destructive",
+        title: "Carrito vacío",
+        description: "No hay productos en el carrito.",
+        action: <ToastAction altText="Seguir comprando">Seguir comprando</ToastAction>,
+      })
+      setTimeout(() => {
+        mytoast.dismiss();
+      }, 3000);
     }
   }
 
