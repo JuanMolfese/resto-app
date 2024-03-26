@@ -19,7 +19,7 @@ CREATE TABLE Cliente (
 CREATE TABLE Comercio (
     id int  NOT NULL AUTO_INCREMENT,
     razon_social varchar(150)  NOT NULL,
-    cuit int  NOT NULL,
+    cuit bigint  NOT NULL,
     nombre_fantasia varchar(150)  NULL,
     logo varchar(250)  NOT NULL,
     CONSTRAINT Comercio_pk PRIMARY KEY (id)
