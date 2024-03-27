@@ -34,11 +34,11 @@ export default function Checkout(){
   return (
     <div>
       <h1>Formulario de envio</h1>
-        <Button  asChild variant={"link"}>
-      <Link href="/productos/">
-            Volver
-      </Link>
-        </Button>
+      <Button  asChild variant={"link"}>
+        <Link href="/productos/">
+          Volver
+        </Link>
+      </Button>
     </div>
   )
 }

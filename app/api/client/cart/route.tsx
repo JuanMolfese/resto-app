@@ -8,7 +8,7 @@ interface ProductInCart extends ProductoDetail {
 
 const cart: ProductInCart[] = [];
 
-export async function GET(req: NextApiRequest, res: NextApiResponse) {
+export async function GET() {
   return NextResponse.json({ cart: cart },{ status: 200 });
 }
 
