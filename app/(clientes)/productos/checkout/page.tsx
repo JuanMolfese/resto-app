@@ -1,5 +1,8 @@
 "use client"
 
+import { Button } from "@/components/ui/button";
+import { ButtonIcon } from "@radix-ui/react-icons";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function Checkout(){ 
@@ -31,6 +34,11 @@ export default function Checkout(){
   return (
     <div>
       <h1>Formulario de envio</h1>
+        <Button  asChild variant={"link"}>
+      <Link href="/productos/">
+            Volver
+      </Link>
+        </Button>
     </div>
   )
 }

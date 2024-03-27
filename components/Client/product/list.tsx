@@ -4,7 +4,7 @@ import { ProductoDetail } from "../../../app/utils/models/types/producto";
 import Image from "next/image";
 import Search from "./search";
 import CardProduct from "./cardProduct";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Cart from "../../Cart";
 import { toast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
@@ -18,6 +18,10 @@ interface ProductInCart extends ProductoDetail {
 export default function ListProducts({ products }: { products?: any[] }) {
 
   const [cart, setCart] = useState<ProductInCart[]>([]);
+
+  useEffect(() => {
+    actualizarCarrito();
+  }, []);
 
   const actualizarCarrito = async () => {
     const res = await fetch('/api/client/cart');
