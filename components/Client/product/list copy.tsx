@@ -18,87 +18,43 @@ interface ProductInCart extends ProductoDetail {
 export default function ListProducts({ products }: { products?: any[] }) {
 
   const [cart, setCart] = useState<ProductInCart[]>([]);
-
-  const actualizarCarrito = async () => {
-    const res = await fetch('/api/client/cart');
-    if (res.ok) {
-      const { cart } = await res.json();
-      setCart(cart);
-    }
-  }
   
-  const agregarProducto =  async (producto: ProductInCart, cant: number) => {
-    const res = await fetch('/api/client/cart', {
-      method: 'POST',
-      body: JSON.stringify({ producto, cant }),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
-    if (res.ok) {
-      const mytoast = toast({
-        title: "Producto agregado",
-        description: "El producto fue agregado al carrito.",
-        /* action: <ToastAction altText="Ver carrito">Ver carrito</ToastAction>, */
-      })
-      setTimeout(() => {
-        mytoast.dismiss();
-      }, 3000);
-      actualizarCarrito();
+  const agregarProducto = (producto: ProductInCart, cant: number) => {
+    const index = cart.findIndex(p => p.id === producto.id);
+    if (index === -1) {
+      setCart([...cart, {...producto, cantidad: cant}]);
     } else {
-      const mytoast = toast({
-        variant: "destructive",
-        title: "Error",
-        description: "Hubo un error al agregar el producto al carrito.",
-        action: <ToastAction altText="Reintentar">Reintentar</ToastAction>,
-      })
-      setTimeout(() => {
-        mytoast.dismiss();
-      }, 3000);
+      const newCart = cart.map(p => {
+        if (p.id === producto.id) {
+          return {...p, cantidad: Number(p.cantidad) + Number(cant)};
+        }
+        return p;
+      });
+      setCart(newCart);
     }
+    addProductInCart(producto, cant);
+    const mytoast = toast({
+      title: "Producto agregado",
+      description: "El producto fue agregado al carrito.",
+      /* action: <ToastAction altText="Ver carrito">Ver carrito</ToastAction>, */
+    })
+    setTimeout(() => {
+      mytoast.dismiss();
+    }, 3000);
   }
 
   const removeProductCart = (producto: ProductInCart) => {
-   /*  const newCart = cart.filter(p => p.id !== producto.id);
+    const newCart = cart.filter(p => p.id !== producto.id);
     setCart(newCart);
-    removeProductInCart(producto); */
+    removeProductInCart(producto);
     /* if (newCart.length === 0) {
       viewCart();
     } */
-    fetch('/api/client/cart', {
-      method: 'DELETE',
-      body: JSON.stringify({ producto }),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }).then(async res => {
-      if (res.ok) {
-        const mytoast = toast({
-          title: "Producto eliminado",
-          description: "El producto fue eliminado del carrito.",
-          /* action: <ToastAction altText="Ver carrito">Ver carrito</ToastAction>, */
-        })
-        setTimeout(() => {
-          mytoast.dismiss();
-        }, 3000);
-        actualizarCarrito();
-      } else {
-        const mytoast = toast({
-          variant: "destructive",
-          title: "Error",
-          description: "Hubo un error al eliminar el producto del carrito.",
-          action: <ToastAction altText="Reintentar">Reintentar</ToastAction>,
-        })
-        setTimeout(() => {
-          mytoast.dismiss();
-        }, 3000);
-      }
-    });
   }
   
 
   const viewCart = () => {
-    /* if (cart.length > 0) {
+    if (cart.length > 0) {
       document.getElementById('listProd')?.classList.toggle('hidden');
       document.getElementById('cartProd')?.classList.toggle('hidden');
       document.getElementById('cart')?.classList.toggle('bg-gray-200');
@@ -112,10 +68,7 @@ export default function ListProducts({ products }: { products?: any[] }) {
       setTimeout(() => {
         mytoast.dismiss();
       }, 3000);
-    } */
-    document.getElementById('listProd')?.classList.toggle('hidden');
-    document.getElementById('cartProd')?.classList.toggle('hidden');
-    document.getElementById('cart')?.classList.toggle('bg-gray-200');
+    }
   }
 
   return (
