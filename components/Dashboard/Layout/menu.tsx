@@ -64,6 +64,7 @@ export default function MenuDashboard({
           </Button> */}
         </div>
         <div className="flex-1">
+
           <nav className="grid items-start px-2 text-sm font-medium lg:px-4">
             <Link
               href="/dashboard"
@@ -75,7 +76,8 @@ export default function MenuDashboard({
             </Link>
             <Link
               href="/dashboard/orders"
-              className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
+              className={linkStyle("pedidos")}
+              onClick={() => handleClick("pedidos")}
             >
               <ShoppingCart className="h-4 w-4" />
               Pedidos
@@ -84,7 +86,7 @@ export default function MenuDashboard({
               </Badge>
             </Link>
             <Link
-              href="/dashboard/products"
+              href={products && products.length > 0 ? "/dashboard/products?ms=true" : "/dashboard/products"}
               /* className="flex items-center gap-3 rounded-lg bg-muted px-3 py-2 text-primary transition-all hover:text-primary" */
               /* className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary" */
               className={linkStyle("productos")}
@@ -99,16 +101,20 @@ export default function MenuDashboard({
                 </Badge>
               )}
             </Link>
+
+
             <Link
               href="/dashboard/users"
-              className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
+              className={linkStyle("usuarios")}
+              onClick={() => handleClick("usuarios")}
             >
               <Users className="h-4 w-4" />
               Usuarios
             </Link>
             <Link
               href="#"
-              className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
+              className={linkStyle("reportes")}
+              onClick={() => handleClick("reportes")}
             >
               <LineChart className="h-4 w-4" />
               Analytics
@@ -135,7 +141,7 @@ export default function MenuDashboard({
               className="shrink-0 md:hidden"
             >
               <Menu className="h-5 w-5" />
-              <span className="sr-only">Toggle navigation menu</span>
+              <span className="sr-only">Navigation menu</span>
             </Button>
           </SheetTrigger>
           <SheetContent side="left" className="flex flex-col">
@@ -206,7 +212,7 @@ export default function MenuDashboard({
           <DropdownMenuTrigger asChild>
             <Button variant="secondary" size="icon" className="rounded-full">
               <CircleUser className="h-5 w-5" />
-              <span className="sr-only">Toggle user menu</span>
+              <span className="sr-only">User menu</span>
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">

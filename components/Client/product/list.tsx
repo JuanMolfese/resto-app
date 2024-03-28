@@ -144,7 +144,7 @@ export default function ListProducts({ products }: { products?: any[] }) {
         {/* <div className="w-1/3">
           <h5>Filtros</h5>
         </div> */}
-        <ul className="flex flex-wrap py-2 justify-center gap-1">
+        <ul className="flex flex-wrap py-2 gap-1">
           {products?.map(product => (
             <CardProduct product={product} key={product.id} agregar={agregarProducto} />
             

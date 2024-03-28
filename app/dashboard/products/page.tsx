@@ -4,6 +4,8 @@ import CardProduct from "../../../components/Product/card";
 import { fetchRubros } from "../../utils/actions/rubros/fetchs";
 import fetchSubrubros from "../../utils/actions/subrubros/fetchs";
 import { redirect } from "next/navigation";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Badge } from "@/components/ui/badge";
 
 
 export default async function Products({
@@ -22,13 +24,28 @@ export default async function Products({
 
 
   return (
-    <>
+    <ScrollArea>
     {/*   <div className="text-center my-2 text-xl">
         <h2>Listado de productos</h2>
       </div> */}
       <div className="flex items-center justify-between gap-2">
         <div className="flex justify-between w-full p-4">
           
+          <div>  
+            { !query ?
+            <Link href={`/dashboard/products?ms=true`}>
+              <Badge variant={"destructive"}>
+                Sin stock
+              </Badge>
+            </Link>
+            :
+            <Link href={`/dashboard/products`}>
+              <Badge variant={"outline"}>
+                Ver todos
+              </Badge>
+            </Link>
+          }
+          </div>
           {/* <SearchProducts placeholder="Buscar productos..." /> */}
           <Link href="/dashboard/products/create">
             <span className="flex items-center justify-center px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded-md shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
@@ -49,18 +66,11 @@ export default async function Products({
               Crear producto
             </span>
           </Link>
-          <div>
-            
-            <Link href="/dashboard/products" className="bg-gray-200 rounded">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-              </svg>
-            </Link>
-          </div>
+          
         </div>
       </div>
       
-      <div className="flex flex-row justify-center flex-wrap">
+      <div className="flex flex-row flex-wrap">
         {products?.map((product) => (
           
           <div
@@ -71,6 +81,6 @@ export default async function Products({
         ))}
       </div>
       
-    </>
+    </ScrollArea>
   );
 }
