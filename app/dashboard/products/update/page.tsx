@@ -1,9 +1,8 @@
 import Link from "next/link";
 import {fetchRubros} from "../../../utils/actions/rubros/fetchs";
 import fetchSubrubros from "../../../utils/actions/subrubros/fetchs";
-import { Producto } from "../../../utils/models/types/producto";
 
-export default async function UpdateProduct(product: Producto) {
+export default async function UpdateProduct() {
   
   const rubros = await fetchRubros();
   const subrubros = await fetchSubrubros();
