@@ -16,17 +16,6 @@ export default function navbar( props:any ) {
                     </svg>
                 </button>
             </div>
-            {/* <div className="hidden w-full navbar-menu lg:order-1 lg:block lg:w-2/5">
-                <Link className="block mt-4 mr-10 text-white lg:inline-block lg:mt-0 hover:text-indigo-600" href="#">
-                    Sub-Opcion de sidebar 1
-                </Link>
-                <Link className="block mt-4 mr-10 text-white lg:inline-block lg:mt-0 hover:text-indigo-600" href="#">
-                    Sub-Opcion de sidebar2
-                </Link>
-                <Link className="block mt-4 text-white lg:inline-block lg:mt-0 hover:text-indigo-600" href="#">
-                    Galery
-                </Link>
-            </div> */}
             <div className="navbar-menu lg:order-2 lg:block lg:w-4/5">
                 <div className=" flex justify-center pointer-events-none mt-4 text-center text-white lg:mt-0 font-bold">
                     TIENDA ABIERTA

@@ -22,11 +22,11 @@ export default async function Products({
 
 
   return (
-    <section className="flex flex-col justify-center ">
-      <div className="text-center my-2 text-xl">
+    <>
+    {/*   <div className="text-center my-2 text-xl">
         <h2>Listado de productos</h2>
-      </div>
-      <div className="mt-4 flex items-center justify-between gap-2 md:mt-8">
+      </div> */}
+      <div className="flex items-center justify-between gap-2">
         <div className="flex justify-between w-full p-4">
           
           {/* <SearchProducts placeholder="Buscar productos..." /> */}
@@ -71,6 +71,6 @@ export default async function Products({
         ))}
       </div>
       
-    </section>
+    </>
   );
 }

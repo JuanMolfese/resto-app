@@ -1,21 +1,14 @@
 import Sidebar from "../../components/Dashboard/Sidebar/sidebar";
 import Navbar from "../../components/Dashboard/Navbar/navbar";
+import MenuDashboard from "../../components/Dashboard/Layout/menu";
+import { fetchProductsOutofStock } from "../utils/actions/products/fetchs";
 
-export default function Layout({children,}: 
+export default async function Layout({children,}: 
   Readonly<{children: React.ReactNode;}>){
+
+  const productos = await fetchProductsOutofStock(1);
+
   return (
-    <div className="flex">
-      <div>
-        <Sidebar/>
-      </div>
-      <div className="flex flex-col w-full">
-        <div>
-          <Navbar/>
-        </div>
-        <div>
-          {children}
-        </div>
-      </div>
-    </div>
+    <MenuDashboard child={children} products={productos} />
   );
 }
