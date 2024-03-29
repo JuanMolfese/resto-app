@@ -67,7 +67,7 @@ export default function Checkout(){
 
 
   return (
-    <div>
+    <div className="m-4">
       
       <div className="space-y-4">
       <div>
@@ -107,15 +107,15 @@ export default function Checkout(){
         type="submit"
         onClick={handleSubmit}
         disabled={submitButtonDisabled}
-        className={`w-full px-4 py-2 rounded-full ${
-          submitButtonDisabled ? 'bg-gray-300 text-gray-700 cursor-not-allowed' : 'bg-blue-500 text-white hover:bg-blue-600'
+        className={`w-full px-4 py-2 mt-4 rounded-full ${
+          submitButtonDisabled ? 'bg-gray-300 text-gray-700 cursor-not-allowed' : 'bg-green-500 text-white hover:bg-green-600'
         }`}
       >
-        Enviar
+        Pagar
       </button>
     </div>
 
-      <Button  asChild variant={"link"}>
+      <Button  asChild variant={"link"}  className="px-4 py-2 rounded-full border bg-blue-500 text-white mt-4">
         <Link href="/productos/">
           Volver
         </Link>
