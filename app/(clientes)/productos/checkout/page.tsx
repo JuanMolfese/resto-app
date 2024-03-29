@@ -5,6 +5,7 @@ import { ButtonIcon } from "@radix-ui/react-icons";
 import { Radio } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import mp_config from "./mp_config";
 
 export default function Checkout(){ 
   
@@ -42,9 +43,12 @@ export default function Checkout(){
     }
   };
 
-  const handleSubmit = () => {
-    // Aquí puedes manejar la lógica de envío, por ejemplo, enviar los datos al servidor
-    console.log('Formulario enviado:', { option, address });
+  const handleSubmit = async (event:any) => {
+    event.preventDefault();
+    const newFormData = new FormData(event.currentTarget);
+    console.log(event.currentTarget);
+    await mp_config(newFormData);
+       
   };
 
   
@@ -105,7 +109,7 @@ export default function Checkout(){
       )}
       <button
         type="submit"
-        onClick={handleSubmit}
+        onSubmit={handleSubmit}
         disabled={submitButtonDisabled}
         className={`w-full px-4 py-2 mt-4 rounded-full ${
           submitButtonDisabled ? 'bg-gray-300 text-gray-700 cursor-not-allowed' : 'bg-green-500 text-white hover:bg-green-600'

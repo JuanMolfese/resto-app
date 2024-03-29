@@ -143,7 +143,7 @@ export default async function UpdateProduct() {
         >
           Cancelar
         </Link>
-        <button className="flex h-10 items-center rounded-lg bg-blue-400 px-4 text-sm text-white font-medium text-gray-600 transition-colors hover:bg-blue-500" type="submit">Editar</button>
+        <button className="flex h-10 items-center rounded-lg bg-blue-400 px-4 text-sm text-white font-medium transition-colors hover:bg-blue-500" type="submit">Editar</button>
       </div>
     </form>
   );
