@@ -6,6 +6,7 @@ import { Radio } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import mp_config from "./mp_config";
+import MP_Button from "./mp_button";
 
 export default function Checkout(){ 
   
@@ -43,14 +44,7 @@ export default function Checkout(){
     }
   };
 
-  const handleSubmit = async (event:any) => {
-    event.preventDefault();
-    const newFormData = new FormData(event.currentTarget);
-    console.log(event.currentTarget);
-    await mp_config(newFormData);
-       
-  };
-
+  
   
   const getCart = async () => {
     const res = await fetch('/api/client/cart');
@@ -59,6 +53,20 @@ export default function Checkout(){
       setCart(cart);
     }
   }
+  
+  const handleClick = async () => {
+    
+    const compra = {           
+      id:"Compra",
+      title: "Compra El Balcon",
+      quantity: 1,
+      unit_price: Number(1000),
+    }  
+    
+    await mp_config(compra);    
+           
+  };
+
 
   if (cart.length <= 0) {
     return (
@@ -109,7 +117,7 @@ export default function Checkout(){
       )}
       <button
         type="submit"
-        onSubmit={handleSubmit}
+        onClick={handleClick}
         disabled={submitButtonDisabled}
         className={`w-full px-4 py-2 mt-4 rounded-full ${
           submitButtonDisabled ? 'bg-gray-300 text-gray-700 cursor-not-allowed' : 'bg-green-500 text-white hover:bg-green-600'
@@ -117,6 +125,21 @@ export default function Checkout(){
       >
         Pagar
       </button>
+
+      <button
+        type="submit"
+        /* onClick={} */
+        disabled={submitButtonDisabled}
+        className={`w-full px-4 py-2 mt-4 rounded-full ${
+          submitButtonDisabled ? 'bg-gray-300 text-gray-700 cursor-not-allowed' : 'bg-green-500 text-white hover:bg-green-600'
+        }`}
+      >
+        Enviar Pedido - Pago en el local
+      </button>
+
+
+    {/*   <MP_Button/> */}
+
     </div>
 
       <Button  asChild variant={"link"}  className="px-4 py-2 rounded-full border bg-blue-500 text-white mt-4">

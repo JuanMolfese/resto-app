@@ -1,23 +1,26 @@
 import { MercadoPagoConfig, Preference } from 'mercadopago';
 import { redirect } from "next/navigation";
 
+const client = new MercadoPagoConfig({ accessToken: "TEST-7843908738855744-032113-72aa8f0c34504429aedc3b0e85283530-814774283" });
 
-export default async function mp_config(formData: FormData){
+export default async function mp_config(compra:any){
 
-    const client = new MercadoPagoConfig({ accessToken: process.env.MP_ACCESS_TOKEN! });
+  console.log(compra);
 
-    const preference = await new Preference(client)
-    .create({
+    const preference = await new Preference(client).create({
       body: {
-        items:[{
-          id:"compra",
-          title: formData.get("productos") as string,
-          quantity: 1,
-          unit_price: Number(formData.get("amount")),
-        },
-      ],
+        items:[
+          {
+            id:compra.id,
+            title: compra.title,
+            quantity: compra.quantity,
+            unit_price: Number(compra.unit_price),
+          },
+        ],
       },      
-    })
+    });
+    console.log(preference);
+    
     redirect(preference.sandbox_init_point!);
 
 }
