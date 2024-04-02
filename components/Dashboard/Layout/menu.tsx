@@ -59,17 +59,28 @@ export default function MenuDashboard({
       <Home className="h-4 w-4" />
       Inicio
     </Link>
-    <Link
-      href="/dashboard/orders"
-      className={linkStyle("pedidos")}
-      onClick={() => handleClick("pedidos")}
-    >
-      <ShoppingCart className="h-4 w-4" />
-      Pedidos
-      <Badge className="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full">
-        6
-      </Badge>
-    </Link>
+    <div>
+
+      <Link
+        href="/dashboard/orders"
+        className={linkStyle("pedidos")}
+        onClick={() => handleClick("pedidos")}
+        >
+        <ShoppingCart className="h-4 w-4" />
+        Pedidos
+        <Badge className="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full">
+          6
+        </Badge>
+      </Link>
+      <Link 
+        href="/dashboard/orders/status"
+        className={`${linkStyle("status")} text-base ml-2 lg:text-sm`}
+        onClick={() => handleClick("status")}
+        >
+        <Package2 className="h-4 w-4" />
+        Administrar estados
+      </Link>
+    </div>
     <Link
       href={products && products.length > 0 ? "/dashboard/products?ms=true" : "/dashboard/products"}
       /* className="flex items-center gap-3 rounded-lg bg-muted px-3 py-2 text-primary transition-all hover:text-primary" */

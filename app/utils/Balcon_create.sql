@@ -28,7 +28,8 @@ CREATE TABLE Comercio (
 -- Table: Estado_Pedido
 CREATE TABLE Estado_Pedido (
     id int  NOT NULL AUTO_INCREMENT,
-    descripcion varchar(150)  NOT NULL,
+    descripcion varchar(150)  NOT NULL UNIQUE,
+    orden INT NOT NULL UNIQUE,
     CONSTRAINT Estado_Pedido_pk PRIMARY KEY (id)
 );
 
