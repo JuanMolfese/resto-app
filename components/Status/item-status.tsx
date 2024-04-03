@@ -28,8 +28,8 @@ export default function ItemStatus({status} : {status: Estado_pedido}){
       <TableCell>{status.descripcion}</TableCell>
       <TableCell>{status.orden}</TableCell>
       <TableCell className="text-right">
-        <Button variant="link" onClick={handleDelete} >
-          <Trash2 color="red" className="hover:color-white" />
+        <Button variant="ghost" onClick={handleDelete} >
+          <Trash2 color="red" />
         </Button>
       </TableCell>
     </TableRow>

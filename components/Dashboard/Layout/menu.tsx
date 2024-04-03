@@ -31,6 +31,7 @@ import {
 } from "@/components/ui/sheet";
 import { useState } from "react";
 import Image from "next/image";
+import { useSession } from "next-auth/react";
 
 export default function MenuDashboard({
   child,
@@ -124,14 +125,14 @@ export default function MenuDashboard({
                 <Users className="h-4 w-4" />
                 Usuarios
               </Link>
-              <Link
+              {/* <Link
                 href="#"
                 className={linkStyle("reportes")}
                 onClick={() => handleClick("reportes")}
               >
                 <LineChart className="h-4 w-4" />
                 Analytics
-              </Link>
+              </Link> */}
               <Link
                 href="/productos"
                 target="_blank"
@@ -228,7 +229,7 @@ export default function MenuDashboard({
                     Usuarios
                   </Link>
                 </SheetClose>
-                <SheetClose asChild>
+                {/* <SheetClose asChild>
                   <Link
                     href="#"
                     className={linkStyle("reportes")}
@@ -237,7 +238,7 @@ export default function MenuDashboard({
                     <LineChart className="h-4 w-4" />
                     Analytics
                   </Link>
-                </SheetClose>
+                </SheetClose> */}
                 <SheetClose asChild>
                   <Link
                     href="/productos"
