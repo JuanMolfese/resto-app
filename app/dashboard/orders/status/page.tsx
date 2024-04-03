@@ -11,7 +11,7 @@ export default async function StatusOrders() {
 
   return (
     <>
-      <StatusForm />
+      <StatusForm estados={status || []}/>
       <Table>
         <TableCaption>Listado de los estados de un pedido.</TableCaption>
         <TableHeader>

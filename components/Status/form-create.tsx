@@ -17,6 +17,7 @@ import { Input } from "@/components/ui/input"
 import createState from "../../app/utils/actions/pedidos/status/create"
 import { toast } from "@/components/ui/use-toast"
 import { myToastError } from "../myToast"
+import { Estado_pedido } from "../../app/utils/models/types/estado_pedido"
 
 const formSchema = z.object({
   name: z.string().min(3, {
@@ -29,19 +30,24 @@ const formSchema = z.object({
 
 
 
-export function StatusForm() {
+export function StatusForm({estados}: {estados: Estado_pedido[]}) {
 
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
-      order: "",
+      order: 0,
     },
   });
 
   const submit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const newFormData = new FormData(event.currentTarget);
+    const newOrden = newFormData.get('order');
+    if (estados.some(estado => estado.orden = newOrden)) {
+      myToastError("Ya existe un estado con ese nombre");
+      return;
+    }
     const res = await createState(newFormData);
     if (res.success) {
       window.location.reload();
