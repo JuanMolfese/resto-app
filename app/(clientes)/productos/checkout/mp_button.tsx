@@ -8,7 +8,7 @@ const MP_Button = () => {
     }, []);
 
     return (
-      <div>
+      <div className='flex mt-[40%] flex-col items-center w-[85%]'>
         <Wallet initialization={{preferenceId: '<PREFERENCE_ID>'}} />
       </div>
     );

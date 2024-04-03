@@ -41,7 +41,7 @@ export default function Cart(
         </button>
         {
           cart.length > 0 && (
-            <Link href="/productos/checkout">
+            <Link href="/productos/locationPreference">
               <button className="mt-8 mx-auto py-2 px-4 text-white border rounded-full bg-blue-400 hover:bg-blue-500 flex justify-center">
                 Continuar compra
               </button>
