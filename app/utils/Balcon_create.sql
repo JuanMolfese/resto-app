@@ -64,9 +64,9 @@ CREATE TABLE Modo_Entrega (
 -- Table: Pedido
 CREATE TABLE Pedido (
     id int  NOT NULL AUTO_INCREMENT,
-    fecha_emision datetime  NOT NULL,
+    fecha_emision datetime  NOT NULL DEFAULT CURRENT_TIMESTAMP,
     cliente_id int  NOT NULL,
-    estado_pedido_id int  NOT NULL,
+    estado_pedido_id int  NOT NULL DEFAULT 1,
     fecha_finalizacion int  NULL,
     pago bool  NOT NULL,
     modo_entrega_id int  NOT NULL,

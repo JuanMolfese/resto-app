@@ -43,11 +43,18 @@ export function StatusForm({estados}: {estados: Estado_pedido[]}) {
   const submit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const newFormData = new FormData(event.currentTarget);
-    const newOrden = newFormData.get('order');
-    if (estados.some(estado => estado.orden = newOrden)) {
+    const newOrden = parseInt(newFormData.get('order') as string);
+    console.log(newOrden);
+    const newNombre = newFormData.get('name') as number | string;
+    if (estados.find((estado) => estado.descripcion === newNombre)) {
       myToastError("Ya existe un estado con ese nombre");
       return;
     }
+    if (estados.find((estado) => estado.orden === newOrden)) {
+      myToastError("Ya existe un estado con ese orden");
+      return;
+    }
+  
     const res = await createState(newFormData);
     if (res.success) {
       window.location.reload();

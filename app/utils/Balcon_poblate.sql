@@ -11,5 +11,5 @@ INSERT INTO `Status_Sucursal` (`id`, `nombre`) VALUES ('1', 'Abierta'), ('2', 'C
 INSERT INTO `Sucursal` (`id`, `nombre`, `domicilio_calle`, `domicilio_nro`, `domicilio_piso`, `domicilio_dpto`, `telefono`, `status_sucursal_id`, `comercio_id`) VALUES ('1', 'Balcon Central', 'Chababuco', '128', NULL, NULL, '525256', '2', '1');
 INSERT INTO `Usuario` (`id`, `email`, `pass`, `nombre`, `apellido`, `rol_id`) VALUES ('1', 'fedecrespi@gmail.com', '12345678', 'Federico', 'Crespi', '1'), ('2', 'pablo@balcon.com.ar', '12345678', 'Pablo', 'Lezcano', '2');
 INSERT INTO `Usuario` (`id`, `email`, `pass`, `nombre`, `apellido`, `rol_id`) VALUES ('3', 'empleado1@balcon.com.ar', '12345678', 'Epleado', 'Uno', '3');
-
 INSERT INTO `Sucursal_Productos` (`producto_id`, `sucursal_id`, `stock`, `precio`) VALUES ('1', '1', 999, 50), ('2', '1', 1, 50), ('3', '1', 2, 50), ('4', '1', 4, 50), ('5', '1', 5, 50), ('6', '1', 6, 50), ('7', '1', 7, 50);
+INSERT INTO `estado_pedido` (`descripcion`, `orden`) VALUES ('Pendiente', '1'), ('En Preparacion', '2'), ('Enviado', '3'), ('Entregado', '4');
