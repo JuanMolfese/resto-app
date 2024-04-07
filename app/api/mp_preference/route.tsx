@@ -21,11 +21,11 @@ export async function POST(/* req:any */){
         currency_id: "ARS",
       },
     ],
-    /* back_urls: {
+    back_urls: {
       success: `${process.env.NEXT_PUBLIC_SITE}/success`,
       failure: `${process.env.NEXT_PUBLIC_SITE}/failure`,
       pending: `${process.env.NEXT_PUBLIC_SITE}/pending`
-    }, */
+    },
     notification_url:"https://04658vr5-3000.brs.devtunnels.ms/api/payment?source_news=ipn",
     external_reference: "id_cliente", //para relacionar con dato interno
     metadata:{
@@ -33,7 +33,7 @@ export async function POST(/* req:any */){
       id_usuario:"2",
       cart_id:"1",
     },
-    /* auto_return: "approved", */
+    auto_return: "approved",
 
   }  
   const preference = await new Preference(client);
