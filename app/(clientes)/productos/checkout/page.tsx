@@ -68,14 +68,15 @@ export default function Checkout(){
   };  
 // MERCARDO PAGO //
 
-
-if (cart.length <= 0) {
-  return (
-    <div>
-      <h1>No hay productos en el carrito</h1>
-    </div>
-  )
-}
+setTimeout(()=>{
+  if (cart.length <= 0) {
+    return (
+      <div>
+        <h1>No hay productos en el carrito</h1>
+      </div>
+    )
+  }
+},500 );
  
   return (
     <div className="flex flex-col items-center m-0 p-0">

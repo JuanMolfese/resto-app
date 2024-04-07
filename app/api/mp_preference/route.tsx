@@ -16,7 +16,7 @@ export async function POST(/* req:any */){
         category_id: "Resto",
         description:"Compra description",
         title: /* `${title}` */"El Balcon =)",
-        quantity: /* Number (`${quantity}`) */ 2,
+        quantity: /* Number (`${quantity}`) */ 1,
         unit_price: /* Number (`${price}`) */ 125,
         currency_id: "ARS",
       },
@@ -38,9 +38,7 @@ export async function POST(/* req:any */){
   }  
   const preference = await new Preference(client);
   const result = await preference
-      .create({ body })   // Enviar la preferencia como respuesta
-   /*  return NextResponse.json({data:preference},{status: 200});  */
-   console.log(result);
+      .create({ body })   // Enviar la preferencia como respuesta      
   
    /* if (result.id !== undefined){
     redirect(result.init_point!);
