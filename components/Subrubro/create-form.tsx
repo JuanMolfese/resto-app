@@ -22,7 +22,7 @@ export default function FormSubrubro({rubros}:{rubros?: Rubro[]}) {
   }
 
   return (
-    <form className="bg-gray-50 my-4 mx-2 rounded-md" onSubmit={handlecreateSubrubro}>
+    <form className="bg-gray-50 lg:w-[500px] my-4 mx-2 rounded-md" onSubmit={handlecreateSubrubro}>
       <div className="flex justify-between items-center px-4 py-2 border-b border-gray-200 sm:px-6">
         <h2 className="text-lg leading-6 font-medium text-gray-900 pointer-events-none">
           Crear SubrRubro
@@ -75,9 +75,12 @@ export default function FormSubrubro({rubros}:{rubros?: Rubro[]}) {
             type="text"
             name="name"
             id="name"
-            className="block w-full rounded-md border border-gray-200 py-2 px-3 text-sm outline-2 placeholder:text-gray-500"
+            className="block w-full rounded-md border border-gray-200 py-2 px-3 text-sm outline-2 placeholder:text-gray-500 invalid:border-red-500"
             placeholder="Nombre"
             aria-describedby="name-error"
+            minLength={4}
+            maxLength={30}
+            required
           />          
         </div>
           

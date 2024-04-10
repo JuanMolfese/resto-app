@@ -27,7 +27,7 @@ export default function FormUpdateRubro ({ infoRubro }: FormUpdateSubrubroProps)
   }
 
   return (
-    <form className="bg-gray-50 my-4 mx-2 rounded-md" onSubmit={handleUpdate}>
+    <form className="bg-gray-50 my-4 lg:w-[500px] mx-2 rounded-md" onSubmit={handleUpdate}>
 
             <input type="number" id="id" className="hidden" defaultValue={infoRubro.id} name="id"/> {/* Paso id al utils/actions/subrubros/update */}
       
