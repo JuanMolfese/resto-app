@@ -26,9 +26,9 @@ export default function DeleteRubroPage({params,}:{params: {id: number};}) {
   }
 } ;
 
-  return (
-    <>      
+  return (    
+    <div className="flex justify-center">       
       {renderFormDeleteRubro()}
-    </>
+    </div>    
   );
 }

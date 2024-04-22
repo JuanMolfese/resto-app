@@ -28,25 +28,27 @@ export default function EditPasswordModal({usuario} : {usuario: UsuarioDetail}){
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+    if (password == "" || passwordConfirm == ""){
+      setError("Complete los campos");
+      return;
+    }
     if(password !== passwordConfirm){
       setError("Las contraseñas no coinciden");
       return;
     } else {
       setError("");
-      
+
     }
 
     /* setLoading(true); */
-    /* const res = await fetch(`/api/usuario/${usuario.id}/password`, {
+    const res = await fetch(`/api/usuario/${usuario.id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({
-        password
-      })
+      body: JSON.stringify({ password }),
     });
-
+    console.log(res);
     if(res.ok){
       setPassword("");
       setPasswordConfirm("");
@@ -55,7 +57,7 @@ export default function EditPasswordModal({usuario} : {usuario: UsuarioDetail}){
     } else {
       setError("Ocurrió un error. Intente nuevamente");
     }
-    setLoading(false); */
+    setLoading(false);
   }
 
   if (loading) return <p>Loading...</p>;
@@ -98,6 +100,7 @@ export default function EditPasswordModal({usuario} : {usuario: UsuarioDetail}){
               {usuario.email}
             </AlertDialogDescription>
           </AlertDialogHeader>
+          <form>
           <AlertDialogDescription className="space-y-2">
             <Input 
               type="password" 
@@ -113,11 +116,13 @@ export default function EditPasswordModal({usuario} : {usuario: UsuarioDetail}){
               onChange={(e) => setPasswordConfirm(e.target.value)} 
             />
             {error && <p color="red">{error}</p>}
+            
           </AlertDialogDescription>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancelar</AlertDialogCancel>
             <AlertDialogAction onClick={handleSubmit}>Cambiar</AlertDialogAction>
           </AlertDialogFooter>
+          </form>
         </AlertDialogContent>
       </AlertDialog>
     </>

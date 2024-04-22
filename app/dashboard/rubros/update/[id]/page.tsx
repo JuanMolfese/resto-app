@@ -27,8 +27,8 @@ export default function UpdateRubroPage({params,}:{params: {id: number};}) {
     }
   };
   return (
-      <>      
+      <div className="flex justify-center"> 
         {renderFormUpdateRubro()}
-      </>
+      </div>
   );
 }

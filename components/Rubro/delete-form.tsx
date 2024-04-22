@@ -33,7 +33,7 @@ export default function FormDeleteRubro( {infoRubro} : FormDeleteRubroProps) {
 
   return (
    
-    <form className="bg-gray-50 my-4 mx-2 rounded-md" onSubmit={handleDelete}>
+    <form className="bg-gray-50 my-4 lg:w-[500px] mx-2 rounded-md" onSubmit={handleDelete}>
         <input type="number" id="id" className="hidden" defaultValue={infoRubro.id} name="id"/> {/* Paso id al utils/actions/subrubros/delete */}
       <div className="flex justify-between items-center px-4 py-2 border-b border-gray-200 sm:px-6">
         <h2 className="text-lg leading-6 font-medium text-gray-900 pointer-events-none">
@@ -49,7 +49,7 @@ export default function FormDeleteRubro( {infoRubro} : FormDeleteRubroProps) {
           Cancelar
         </Link>
         < button 
-        className="flex h-10 items-center rounded-lg bg-red-400 px-4 text-sm text-white font-medium transition-colors hover:bg-blue-500" 
+        className="flex h-10 items-center rounded-lg bg-red-400 px-4 text-sm text-white font-medium transition-colors hover:bg-red-500" 
         type="submit">
          Eliminar
         </button>

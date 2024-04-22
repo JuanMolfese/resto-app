@@ -57,8 +57,8 @@ export default function UpdateSubrubroPage({params,}:{
   };
 
   return (
-    <>      
+    <div className="flex justify-center">      
       {renderFormUpdateSubrubro()}
-    </>
+    </div>
   );
 }

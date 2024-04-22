@@ -6,6 +6,7 @@ import { Rubro } from "../../app/utils/models/types/rubro";
 import { Subrubro } from "../../app/utils/models/types/subrubro";
 import updateSubrubro from "../../app/utils/actions/subrubros/update";
 
+
 interface FormUpdateSubrubroProps {
   id: number;
   rubros?: Rubro[];
@@ -31,7 +32,7 @@ export default function FormUpdateSubrubro ({ id, rubros, infoRubro, infoSubRubr
 
 
   return (
-    <form className="bg-gray-50 my-4 mx-2 rounded-md" onSubmit={handleUpdate}>
+    <form className="bg-gray-50 lg:w-[500px] my-4 mx-2 rounded-md" onSubmit={handleUpdate}>
 
       <input type="number" id="id_subrubro" className="hidden" defaultValue={id} name="id_subrubro"/> {/* Paso id al utils/actions/subrubros/update */}
       
@@ -100,7 +101,7 @@ export default function FormUpdateSubrubro ({ id, rubros, infoRubro, infoSubRubr
         >
           Cancelar
         </Link>
-        <button className="flex h-10 items-center rounded-lg bg-blue-400 px-4 text-sm text-white font-medium text-gray-600 transition-colors hover:bg-blue-500" 
+        <button className="flex h-10 items-center rounded-lg bg-blue-400 px-4 text-sm text-white font-medium transition-colors hover:bg-blue-500" 
         type="submit">
          Modificar
         </button>
