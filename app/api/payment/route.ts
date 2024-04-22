@@ -30,6 +30,7 @@ export async function POST(request: NextRequest) {
       payer_last_name: payment.payer?.last_name,
       payer_dni: payment.payer?.identification?.number,
       payer_phone: payment.payer?.phone?.area_code + "-" + payment.payer?.phone?.number,
+      cart: JSON.stringify(payment.metadata.cart),
       //y demas info que sea necesaria
     };   
     console.log("===== PEYMENT=======");

@@ -15,8 +15,8 @@ export default function Checkout(){
   const [preferenceId, setPreferenceId] = useState<any>(null);
   
   useEffect(() => {
-    initMercadoPago("APP_USR-d6ca0af3-157e-427a-8c3c-e720ff70bcd9", { locale: 'es-AR' });
-    getCart();
+    initMercadoPago( process.env.NEXT_PUBLIC_MP_PUBLIC_KEY!, { locale: 'es-AR' });
+    getCart();    
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // Solo se ejecuta una vez al inicio
 
@@ -51,6 +51,7 @@ export default function Checkout(){
         title: "El Balcon",
         quantity: Number (1),
         unit_price: cartAmount,
+        cart: cart
       }        
       const response:any = await fetch('/api/mp_preference',{
         method:'POST',
@@ -76,7 +77,7 @@ export default function Checkout(){
     }
   };  
 
-  /* setTimeout(()=>{ */
+  setTimeout(()=>{
     if (cart.length <= 0) {
       return (
         <div>
@@ -84,7 +85,7 @@ export default function Checkout(){
         </div>
       )
     }
-  /* },500 ); */
+  },500 );
  
   return (
     <div className="flex flex-col items-center m-3 pt-8">

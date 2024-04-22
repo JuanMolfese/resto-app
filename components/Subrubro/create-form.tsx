@@ -92,7 +92,7 @@ export default function FormSubrubro({rubros}:{rubros?: Rubro[]}) {
         >
           Cancelar
         </Link>
-        <button className="flex h-10 items-center rounded-lg bg-blue-400 px-4 text-sm text-white font-medium text-gray-600 transition-colors hover:bg-blue-500" 
+        <button className="flex h-10 items-center rounded-lg bg-blue-400 px-4 text-sm text-white font-medium transition-colors hover:bg-blue-500" 
         type="submit">
          Crear
         </button>
