@@ -13,7 +13,7 @@ export default async function StatusOrders() {
     <>
       <StatusForm estados={status || []}/>
       <Table>
-        <TableCaption>Listado de los estados de un pedido.</TableCaption>
+        <TableCaption className="caption-top mb-4">Listado de los estados de un pedido</TableCaption>
         <TableHeader>
           <TableRow>
             <TableHead>Id</TableHead>

@@ -8,7 +8,7 @@ export default async function Users() {
 
   return(
     <Table>
-      <TableCaption>Listado de usuarios.</TableCaption>
+      <TableCaption className="caption-top mb-4">Listado de usuarios</TableCaption>
       <TableHeader>
         <TableRow>
           <TableHead>Email</TableHead>

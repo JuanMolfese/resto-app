@@ -97,26 +97,44 @@ export default function MenuDashboard({
                   Administrar estados
                 </Link>
               </div>
-              <Link
-                href={
-                  products && products.length > 0
-                    ? "/dashboard/products?ms=true"
-                    : "/dashboard/products"
-                }
-                className={linkStyle("productos")}
-                onClick={() => handleClick("productos")}
-              >
-                <Package className="h-4 w-4" />
-                Productos
-                {products && products.length > 0 && (
-                  <Badge
-                    variant={"destructive"}
-                    className="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full"
-                  >
-                    {products.length}
-                  </Badge>
-                )}
-              </Link>
+              <div>
+                <Link
+                  href={
+                    products && products.length > 0
+                      ? "/dashboard/products?ms=true"
+                      : "/dashboard/products"
+                  }
+                  className={linkStyle("productos")}
+                  onClick={() => handleClick("productos")}
+                >
+                  <Package className="h-4 w-4" />
+                  Productos
+                  {products && products.length > 0 && (
+                    <Badge
+                      variant={"destructive"}
+                      className="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full"
+                    >
+                      {products.length}
+                    </Badge>
+                  )}
+                </Link>
+                <Link
+                  href="/dashboard/rubros"
+                  className={`${linkStyle("rubros")} text-base ml-2 lg:text-sm`}
+                  onClick={() => handleClick("rubros")}
+                >
+                  <Package2 className="h-4 w-4" />
+                  Administrar Rubros
+                </Link>
+                <Link
+                  href="/dashboard/subrubros"
+                  className={`${linkStyle("subrubros")} text-base ml-2 lg:text-sm`}
+                  onClick={() => handleClick("subrubros")}
+                >
+                  <Package2 className="h-4 w-4" />
+                  Administrar Sub Rubros
+                </Link>
+              </div>
               <Link
                 href="/dashboard/users"
                 className={linkStyle("usuarios")}
