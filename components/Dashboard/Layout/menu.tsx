@@ -62,7 +62,7 @@ export default function MenuDashboard({
               href="/dashboard"
               className="flex items-center gap-2 font-semibold"
             >
-              <Image src="/balcon-icon.png" alt="logo" width={80} height={80} />
+              <Image src="/balcon-icon.png" alt="logo" width={80} height={80} priority/>
               <span className="">El Balcon</span>
             </Link>
           </div>
