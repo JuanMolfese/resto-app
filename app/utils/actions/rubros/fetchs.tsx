@@ -27,8 +27,7 @@ export async function fetchRubro(id: number):Promise<Rubro>  {
     if(result.length === 0) {      
       throw new Error(`No se encontró ningún rubro con el ID ${id}`);
     }
-    const info:Rubro = result[0];
-    await connection.end();
+    const info:Rubro = result[0];    
     const infoPlano = JSON.parse(JSON.stringify(info));
     return infoPlano;
   } catch (error) {

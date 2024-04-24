@@ -33,6 +33,7 @@ export async function POST(req:any){
         //aca puedo indicar info que me sirva para trabajar luego q se procese el pago, ya que estara incluida en la respuesta del payment
         id_usuario:"2",
         cart_id:"1",
+        cart: compra.cart
       },
       auto_return: "approved",
 

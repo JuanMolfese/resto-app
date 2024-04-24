@@ -14,7 +14,7 @@ export default function Cart(
               <td className="px-4 py-2 whitespace-nowrap">{product.nombre}</td>
               <td className="px-4 py-2 whitespace-nowrap">{product.cantidad}</td>
               <td className="px-4 py-2 whitespace-nowrap">{(product.precio).toLocaleString('es-ar', {style: 'currency', currency: 'ARS', minimumFractionDigits: 2})}</td>
-              <td className="px-4 py-2 whitespace-nowrap flex justify-center items-center py-1">
+              <td className="px-4 py-2 whitespace-nowrap flex justify-center items-center">
                 <button className="bg-red-500 text-white rounded-full p-1 hover:bg-red-600" onClick={() => {
                   /* const newCart = cart.filter(p => p.id !== product.id);
                   setCart(newCart);
