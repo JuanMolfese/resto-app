@@ -4,6 +4,7 @@ import { Pencil, RectangleEllipsis } from "lucide-react";
 import { useState } from "react";
 import { UsuarioDetail } from "../../app/utils/models/types/usuario";
 import { Input } from "@/components/ui/input";
+import { myToastSuccess } from "../myToast";
 
 export default function EditPasswordModal({usuario} : {usuario: UsuarioDetail}){
   const [isOpen, setIsOpen] = useState(false);
@@ -54,6 +55,7 @@ export default function EditPasswordModal({usuario} : {usuario: UsuarioDetail}){
       setPasswordConfirm("");
       setError("");
       setIsOpen(false);
+      myToastSuccess("Contraseña cambiada correctamente");
     } else {
       setError("Ocurrió un error. Intente nuevamente");
     }
@@ -64,32 +66,10 @@ export default function EditPasswordModal({usuario} : {usuario: UsuarioDetail}){
 
   return (
     <>
-      {/* <Modal isOpen={isOpen} onClose={handleClose}>
-        <ModalHeader>Editar contraseña de {usuario.email}</ModalHeader>
-        <ModalBody>
-          <Input 
-            type="password" 
-            label="Nueva contraseña" 
-            value={password} 
-            onChange={(e) => setPassword(e.target.value)} 
-          />
-          <Input 
-            type="password" 
-            label="Confirmar contraseña" 
-            value={passwordConfirm} 
-            onChange={(e) => setPasswordConfirm(e.target.value)} 
-          />
-          {error && <Text color="red">{error}</Text>}
-        </ModalBody>
-        <ModalFooter>
-          <Button onClick={handleClose}>Cancelar</Button>
-          <Button onClick={handleSubmit} loading={loading}>Guardar</Button>
-        </ModalFooter>
-      </Modal> */}
 
-      <AlertDialog>
+      <AlertDialog open={isOpen}>
         <AlertDialogTrigger asChild>
-          <Button variant="ghost" size="icon">
+          <Button variant="ghost" size="icon" onClick={handleOpen}>
             <RectangleEllipsis width={20} height={20}/>
           </Button>
         </AlertDialogTrigger>
@@ -101,7 +81,7 @@ export default function EditPasswordModal({usuario} : {usuario: UsuarioDetail}){
             </AlertDialogDescription>
           </AlertDialogHeader>
           <form>
-          <AlertDialogDescription className="space-y-2">
+          <AlertDialogDescription className="space-y-2 mb-2">
             <Input 
               type="password" 
               value={password} 
