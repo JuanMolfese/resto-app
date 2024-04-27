@@ -1,10 +1,15 @@
 import { Table, TableBody, TableCaption, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { fetchUsers } from "../../utils/actions/users/fetchs"
+import { fetchUserByEmail, fetchUsers } from "../../utils/actions/users/fetchs"
 import ItemUser from "../../../components/Usuario/item-user";
+import { useSession } from "next-auth/react";
+import { getServerSession } from "next-auth";
+
 
 export default async function Users() {
 
   const users = await fetchUsers();
+  const user = await getServerSession();
+  const data_user = await fetchUserByEmail(user?.user?.email!);
 
   return(
     <Table>
@@ -12,14 +17,14 @@ export default async function Users() {
       <TableHeader>
         <TableRow>
           <TableHead>Email</TableHead>
-          <TableHead>Nombre</TableHead>
-          <TableHead>Apellido</TableHead>
+          {/* <TableHead>Nombre</TableHead>
+          <TableHead>Apellido</TableHead> */}
           <TableHead>Rol</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
         {users?.map((user) => (
-          <ItemUser key={user.id} usuario={user} />
+          <ItemUser key={user.id} usuario={user} user={data_user} />
         ))}
       </TableBody>
     </Table>

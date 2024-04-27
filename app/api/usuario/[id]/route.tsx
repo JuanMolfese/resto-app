@@ -2,6 +2,7 @@ import { NextApiRequest } from "next";
 import { NextResponse } from "next/server";
 import { connection } from "../../../utils/models/db";
 import { Usuario } from "../../../utils/models/types/usuario";
+import { hash } from "bcrypt";
 
 export async function GET({ params } : {params: {id: string}}) {
   try {
@@ -18,7 +19,8 @@ export async function PUT(request: Request, {params}: {params: {id: number}}) {
   try {
     const id = params.id;
     const { password } = await request.json();
-    await connection.query<Usuario>(`UPDATE Usuario SET pass = '${password}' WHERE id = ${id}`);
+    const passHash = await hash(password, 10);
+    await connection.query<Usuario>(`UPDATE Usuario SET pass = '${passHash}' WHERE id = ${id}`);
     await connection.end();
     NextResponse.json({ message: "Contraseña cambiada correctamente", status: 200 });
   } catch (error) {

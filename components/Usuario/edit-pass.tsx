@@ -99,7 +99,7 @@ export default function EditPasswordModal({usuario} : {usuario: UsuarioDetail}){
             
           </AlertDialogDescription>
           <AlertDialogFooter>
-            <AlertDialogCancel>Cancelar</AlertDialogCancel>
+            <AlertDialogCancel onClick={handleClose}>Cancelar</AlertDialogCancel>
             <AlertDialogAction onClick={handleSubmit}>Cambiar</AlertDialogAction>
           </AlertDialogFooter>
           </form>

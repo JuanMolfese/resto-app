@@ -11,7 +11,6 @@ import { getServerSession } from "next-auth";
 export default function DeleteUserModal({usuario} : {usuario: UsuarioDetail}){
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
 
   const handleOpen = () => {
     setIsOpen(true);
@@ -23,7 +22,6 @@ export default function DeleteUserModal({usuario} : {usuario: UsuarioDetail}){
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-   
     /* setLoading(true); */
     try {
       const res = await fetch(`/api/usuario/${usuario.id}`, {
@@ -33,7 +31,12 @@ export default function DeleteUserModal({usuario} : {usuario: UsuarioDetail}){
         },
         body: JSON.stringify({ user: usuario }),
       });
+      if (res.status !== 200) {
+        throw new Error("Error al eliminar usuario");
+      }
       myToastSuccess("Usuario eliminado correctamente");
+      setIsOpen(false);
+      window.location.reload();
     } catch (error) {
       myToastError("El usuario no pudo ser eliminado");
     }
@@ -44,32 +47,9 @@ export default function DeleteUserModal({usuario} : {usuario: UsuarioDetail}){
 
   return (
     <>
-      {/* <Modal isOpen={isOpen} onClose={handleClose}>
-        <ModalHeader>Editar contraseña de {usuario.email}</ModalHeader>
-        <ModalBody>
-          <Input 
-            type="password" 
-            label="Nueva contraseña" 
-            value={password} 
-            onChange={(e) => setPassword(e.target.value)} 
-          />
-          <Input 
-            type="password" 
-            label="Confirmar contraseña" 
-            value={passwordConfirm} 
-            onChange={(e) => setPasswordConfirm(e.target.value)} 
-          />
-          {error && <Text color="red">{error}</Text>}
-        </ModalBody>
-        <ModalFooter>
-          <Button onClick={handleClose}>Cancelar</Button>
-          <Button onClick={handleSubmit} loading={loading}>Guardar</Button>
-        </ModalFooter>
-      </Modal> */}
-
-      <AlertDialog>
+      <AlertDialog open={isOpen}>
         <AlertDialogTrigger asChild>
-          <Button variant="ghost" size="icon">
+          <Button variant="ghost" size="icon" onClick={handleOpen}>
             <Trash2 color="red" width={20} height={20} />
           </Button>
         </AlertDialogTrigger>
@@ -85,7 +65,7 @@ export default function DeleteUserModal({usuario} : {usuario: UsuarioDetail}){
            ¿Seguro que desea eliminar el usuario?            
           </AlertDialogDescription>
           <AlertDialogFooter>
-            <AlertDialogCancel>Cancelar</AlertDialogCancel>
+            <AlertDialogCancel onClick={handleClose}>Cancelar</AlertDialogCancel>
             <AlertDialogAction onClick={handleSubmit} className="bg-red-500 hover:bg-red-400">Eliminar</AlertDialogAction>
           </AlertDialogFooter>
          

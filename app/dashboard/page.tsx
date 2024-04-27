@@ -1,23 +1,29 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { fetchProducts } from "../utils/actions/products/fetchs";
 import Link from "next/link";
+import { getServerSession } from "next-auth";
+import { fetchUserByEmail } from "../utils/actions/users/fetchs";
+import { redirect } from "next/navigation";
+import { Chrome, Package, ShoppingBasket, ShoppingCart, User2, Users } from "lucide-react";
 
 export default async function Dashboard() {
 
   const links = [
-    { name: 'Productos', href: '/dashboard/products', target: '', description: 'Administrar productos'},
-    { name: 'Usuarios', href: '/dashboard/users', target: '', description: 'Administrar usuarios'},
-    { name: 'Pedidos', href: '/dashboard/orders', target: '', description: 'Administrar pedidos'},
-    { name: 'WEBSITE', href: '/products', target: '_blank', description: 'Ir a la página web'},
+    { name: 'Productos', href: '/dashboard/products', target: '', description: 'Administrar productos', icon: <Package />},
+    { name: 'Usuarios', href: '/dashboard/users', target: '', description: 'Administrar usuarios', icon: <Users /> },
+    { name: 'Pedidos', href: '/dashboard/orders', target: '', description: 'Administrar pedidos', icon: <ShoppingCart />},
+    { name: 'WEBSITE', href: '/products', target: '_blank', description: 'Ir a la página web', icon: <Chrome />}
   ]
 
+
   return (
-    <div className="flex">    
+    <div className="flex flex-wrap">    
       {
         links.map((link, index) => (
-          <Link key={index} href={link.href} target={link.target}>
-            <Card className="m-4">
-              <CardHeader>
+          <Link key={index} href={link.href} target={link.target} className="w-60">
+            <Card className="m-4 hover:bg-gray-100">
+              <CardHeader className="flex flex-row gap-1">
+                {link.icon && link.icon}
                 {link.name}
               </CardHeader>
               <CardContent>

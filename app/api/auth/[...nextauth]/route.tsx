@@ -2,6 +2,10 @@ import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";;
 import { compare } from "bcrypt";
 import { connection } from "../../../utils/models/db";
+import { Session } from "next-auth";
+import { JWT } from "next-auth/jwt";
+import { AdapterUser } from "next-auth/adapters";
+import { fetchUserByEmail } from "../../../utils/actions/users/fetchs";
 
 const handler = NextAuth({
   session: {
@@ -41,6 +45,7 @@ const handler = NextAuth({
       },
     }),
   ],
+    
 });
 
 export { handler as GET, handler as POST };

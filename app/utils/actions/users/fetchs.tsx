@@ -1,9 +1,11 @@
+import { unstable_noStore } from "next/cache";
 import { connection } from "../../models/db";
 import { Usuario, UsuarioDetail } from "../../models/types/usuario";
 
 export async function fetchUsers() {
+  unstable_noStore();
   try {
-    const response = await connection.query<UsuarioDetail[]>('SELECT * FROM Usuario u join Rol r on u.rol_id = r.id');
+    const response = await connection.query<UsuarioDetail[]>('SELECT u.*, r.descripcion FROM Usuario u join Rol r on u.rol_id = r.id');
     await connection.end();
     
     const user = response.map((user) => {

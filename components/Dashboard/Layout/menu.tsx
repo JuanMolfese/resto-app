@@ -37,9 +37,11 @@ import UserMenu from "./userMenu";
 export default function MenuDashboard({
   child,
   products,
+  user,
 }: {
   child: any;
   products: any;
+  user: any;
 }) {
   const [activeLink, setActiveLink] = useState(null);
 
@@ -283,7 +285,7 @@ export default function MenuDashboard({
               </div>
             </form>
           </div>
-          <UserMenu />
+          <UserMenu user={user}/>
         </header>
         <main className="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-2">
           {child}

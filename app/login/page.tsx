@@ -13,15 +13,13 @@ export default async function LoginPage() {
   }
 
   return (
-    <section className="h-screen flex items-center justify-center">
+    <section className="h-screen flex flex-col items-center justify-center">
       <div className="w-[600px]">
-        <LoginForm />
-        
-        <Button>
-          <a href="/register">Register</a>
-        </Button>
-        
+        <LoginForm />        
       </div>
+      <Button>
+        <a href="/register">Register</a>
+      </Button>
     </section>
   );
 }
