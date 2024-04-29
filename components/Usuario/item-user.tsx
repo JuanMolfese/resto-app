@@ -4,8 +4,33 @@ import { TableCell, TableRow } from "@/components/ui/table";
 import { UsuarioDetail } from "../../app/utils/models/types/usuario";
 import EditPasswordModal from "./edit-pass";
 import DeleteUserModal from "./delete-user";
+import { useState } from "react";
+import { Pencil, Save, X } from "lucide-react";
+import { Rol } from "../../app/utils/models/types/rol";
+import { myToastError, myToastSuccess } from "../myToast";
 
-export default function ItemUser({usuario, user} : {usuario: UsuarioDetail, user: any}){
+export default function ItemUser({usuario, user, roles} : {usuario: UsuarioDetail, user: any, roles: Rol[]}){
+
+  const [editMode, setEditMode] = useState(false);
+  const saveUser = async () => {
+    try {
+      const newRol = (document.getElementById('newRol') as HTMLSelectElement).value;
+      const res = await fetch(`/api/usuario/${usuario.id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          id_rol: newRol
+        })
+      });
+      const data = await res.json();
+      myToastSuccess(data.message);
+    } catch (error) {
+      myToastError("Error al actualizar usuario");
+    }
+    setEditMode(false);
+  }
 
   return (
     <>
@@ -13,10 +38,36 @@ export default function ItemUser({usuario, user} : {usuario: UsuarioDetail, user
         <TableCell>{usuario.email}</TableCell>
        {/*  <TableCell>{usuario.nombre}</TableCell>
         <TableCell>{usuario.apellido}</TableCell> */}
-        <TableCell className="text-start">{usuario.descripcion}</TableCell>
+        <TableCell className="text-start max-w-24">
+          {
+            editMode ? 
+              <div className="flex align-center justify-between">
+                <select name="newRol" id="newRol" className="p-1 rounded-md" defaultValue={usuario.descripcion}>
+                  {roles.map((rol: any) => (
+                    <option key={rol.id} value={rol.id}>{rol.descripcion}</option>
+                  ))}
+                </select>
+                <button type="button" className="btn btn-primary" onClick={saveUser}>
+                  <Save size={16} className="ml-0.5"/>
+                </button>
+                <button className="btn btn-link" onClick={() => setEditMode(false)}>
+                  <X size={16} className="ml-0.5" />
+                </button>
+              </div>
+            : 
+              <div className="flex align-center justify-between">
+                {usuario.descripcion}
+                {usuario.descripcion != "Super Admin" && user[0].id != usuario.id &&
+                  <button className="btn btn-link" onClick={() => setEditMode(true)}>
+                    <Pencil size={16} className="ml-0.5"/>
+                  </button>
+                }
+              </div>
+          }
+        </TableCell>
         {
         <TableCell className="text-right">
-          {usuario.descripcion != "Super Admin" && user.id != usuario.id &&
+          {usuario.descripcion != "Super Admin" && user[0].id != usuario.id &&
             <>
               <EditPasswordModal usuario={usuario} />
               <DeleteUserModal usuario={usuario} />

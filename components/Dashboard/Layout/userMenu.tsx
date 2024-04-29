@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { signOut } from "next-auth/react";
-import {  CircleUser } from "lucide-react";
+import {  CircleUser, LogOut } from "lucide-react";
 
 export default function UserMenu({user}: {user: any}) {
   return (
@@ -15,10 +15,13 @@ export default function UserMenu({user}: {user: any}) {
       <DropdownMenuContent align="end">
         <DropdownMenuLabel>{user}</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>Settings</DropdownMenuItem>
+        <DropdownMenuItem className="cursor-pointer">Cambiar contraseña</DropdownMenuItem>
         <DropdownMenuItem>Support</DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem className="cursor-pointer" onClick={() => signOut()}>Logout</DropdownMenuItem>
+        <DropdownMenuItem className="cursor-pointer" onClick={() => signOut()}>
+          <LogOut className="sm mr-1"/>
+          Salir
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   )

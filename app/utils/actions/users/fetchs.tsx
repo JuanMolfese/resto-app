@@ -1,6 +1,7 @@
 import { unstable_noStore } from "next/cache";
 import { connection } from "../../models/db";
 import { Usuario, UsuarioDetail } from "../../models/types/usuario";
+import { Rol } from "../../models/types/rol";
 
 export async function fetchUsers() {
   unstable_noStore();
@@ -41,6 +42,23 @@ export async function fetchUserByEmail(email: string) {
     });
     return user;
   } catch (error) {
+    console.error(error);
+  }
+}
+
+export async function getRoles() {
+  try {
+    const response = await connection.query<Rol[]>('SELECT * FROM Rol');
+    await connection.end();
+    const rol = response.map((rol) => {
+      return {
+        id: rol.id,
+        descripcion: rol.descripcion
+      };
+    });
+    return rol;
+  }
+  catch (error) {
     console.error(error);
   }
 }

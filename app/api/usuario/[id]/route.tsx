@@ -17,16 +17,23 @@ export async function GET({ params } : {params: {id: string}}) {
 
 export async function PUT(request: Request, {params}: {params: {id: number}}) {
   try {
+    let mensaje = "";
     const id = params.id;
-    const { password } = await request.json();
-    const passHash = await hash(password, 10);
-    await connection.query<Usuario>(`UPDATE Usuario SET pass = '${passHash}' WHERE id = ${id}`);
+    const { password, id_rol } = await request.json();  
+    if (password) {
+      const passHash = await hash(password, 10);
+      await connection.query<Usuario>(`UPDATE Usuario SET pass = '${passHash}' WHERE id = ${id}`);
+      mensaje = "Contraseña actualizada correctamente";
+    }
+    if (id_rol) {
+      await connection.query<Usuario>(`UPDATE Usuario SET rol_id = ${id_rol} WHERE id = ${id}`);
+      mensaje = "Rol actualizado correctamente";
+    }
     await connection.end();
-    NextResponse.json({ message: "Contraseña cambiada correctamente", status: 200 });
+    return NextResponse.json({ message: mensaje, status: 200 });
   } catch (error) {
     return NextResponse.json({ error: error },{ status: 500 });
   }
-  return NextResponse.json({ message: "Database error", status: 500 });
 }
 
 export async function DELETE(req: Request) {
