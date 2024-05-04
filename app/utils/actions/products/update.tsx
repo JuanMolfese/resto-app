@@ -3,9 +3,18 @@
 import { revalidatePath } from "next/cache";
 import { connection } from "../../models/db";
 import { ProductoDetail } from "../../models/types/producto";
+import {v2 as cloudinary} from 'cloudinary';
+import { writeFile } from "fs/promises";
+import path from "path";
 
+cloudinary.config({ 
+  cloud_name: 'db3mdkr5l', 
+  api_key: '717362839219266', 
+  api_secret: 'tMtN0bfKy9lHOH0-Bcf1mue6gug' 
+});
 
 export default async function updateProduct(id: number, formData: FormData) {
+      
   try {
     const rawFormData = {
       nombre: formData.get("name"),
@@ -13,30 +22,65 @@ export default async function updateProduct(id: number, formData: FormData) {
       subrubroId: formData.get("subrubroId"),
       precio: formData.get("precio"),
       stock: formData.get("stock"),
-      stock_minimo: formData.get("stock_minimo"),
+      stock_minimo: formData.get("stock_minimo"),      
+      image: formData.get("productImage"),
     };
+    console.log(rawFormData);  
     
-    //const result = await connection.query<Producto>("UPDATE Producto SET nombre = ? WHERE id = ?", [rawFormData.nombre, rawFormData.id]);
-    const result = await connection.query<ProductoDetail>(`
-      UPDATE Producto p JOIN Sucursal_Productos sp on sp.producto_id = p.id
-      SET 
-        p.nombre = ?,
-        p.subrubro_id = ?,
-        sp.precio = ?,
-        sp.stock = ?,
-        sp.stock_minimo = ?
-      WHERE id = ?`, 
-      [rawFormData.nombre, rawFormData.subrubroId, rawFormData.precio, rawFormData.stock, rawFormData.stock_minimo, rawFormData.id]
-    );
-    await connection.end();
-    return { 
-      success: true,
-      message: 'Product Updated.' 
-    };
-  }  catch (error) {
+    let imageUrl;
+
+    if (rawFormData.image instanceof File && rawFormData.image.size > 0) {
+      // Procesar nueva imagen
+      const bytes = await rawFormData.image.arrayBuffer();
+      const buffer = Buffer.from(bytes);
+      const filePath = path.join(process.cwd(), 'public', rawFormData.image.name);
+      await writeFile(filePath, buffer);
+      const uploadResult = await cloudinary.uploader.upload(filePath);
+      imageUrl = uploadResult.secure_url;        
+    
+      // Realizar el UPDATE en la base de datos utilizando la URL de la imagen
+      const result = await connection.query<ProductoDetail>(`
+        UPDATE Producto p JOIN Sucursal_Productos sp on sp.producto_id = p.id
+        SET 
+          p.nombre = ?,
+          p.subrubro_id = ?,
+          p.image = ?,
+          sp.precio = ?,
+          sp.stock = ?,
+          sp.stock_minimo = ?
+        WHERE id = ?`, 
+        [rawFormData.nombre, rawFormData.subrubroId, imageUrl, rawFormData.precio, rawFormData.stock, rawFormData.stock_minimo, rawFormData.id]
+      );
+  
+      await connection.end();
+      return { 
+        success: true,
+        message: 'Producto actualizado.', 
+      };
+    }else {
+      // Si no se proporciona una nueva imagen, realizar el UPDATE sin cambiar el campo de imagen
+      const result = await connection.query<ProductoDetail>(`
+        UPDATE Producto p JOIN Sucursal_Productos sp on sp.producto_id = p.id
+        SET 
+          p.nombre = ?,
+          p.subrubro_id = ?,
+          sp.precio = ?,
+          sp.stock = ?,
+          sp.stock_minimo = ?
+        WHERE id = ?`, 
+        [rawFormData.nombre, rawFormData.subrubroId, rawFormData.precio, rawFormData.stock, rawFormData.stock_minimo, rawFormData.id]
+      );    
+      await connection.end();
+      return { 
+        success: true,
+        message: 'Producto actualizado.', 
+      };
+    }    
+  }catch (error) {
+    console.error('Error al actualizar el producto:', error);
     return { 
       success: false,
-      message: 'Database Error: Failed to Update Product.' 
+      message: 'Error al actualizar el producto.', 
     };
   }
 }
