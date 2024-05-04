@@ -20,8 +20,7 @@ export default async function Products({
   const query = searchParams?.ms || false;
   const products = query ? await fetchProductsOutofStock(1) : await fetchProductsSucursal(1);
   const rubros = await fetchRubros();
-  const subrubros = await fetchSubrubros();
-
+  const subrubros = await fetchSubrubros();  
 
   return (
     <ScrollArea>

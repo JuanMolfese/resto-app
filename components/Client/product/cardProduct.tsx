@@ -38,7 +38,7 @@ export default function CardProduct({ product, agregar }: { product: ProductoDet
   }
 
   return (
-    <li key={product.id} className="shadow-md flex flex-row items-center m-2 w-80">
+    <li key={product.id} className="shadow-md flex flex-row items-center w-80 m-auto">
       <div className="">
         <Image src='/dona.jpg' alt={product.nombre} width={150} height={150} className=""/>
       </div>

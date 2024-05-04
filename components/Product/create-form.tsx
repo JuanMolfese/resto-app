@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { Rubro } from "../../app/utils/models/types/rubro";
 import { Subrubro } from "../../app/utils/models/types/subrubro";
 import { useState } from "react";
@@ -19,13 +20,15 @@ export default function FormProduct({
   
   const [subrubrosFilter, setSubrubrosFilter] = useState(subrubros);
   const router = useRouter();
+  const  [file, setFile] = useState<File | null>(null);
 
   const handleCreate = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const newFormData = new FormData(event.currentTarget);
+    const newFormData = new FormData(event.currentTarget);      
     const res = await createProduct(newFormData);
     if (res.success) {
       router.push("/dashboard/products");
+      router.refresh();
     } else {
       alert("Error al crear el producto");
     }
@@ -33,7 +36,7 @@ export default function FormProduct({
   }
 
   return (
-    <form id="formCreate" className="bg-gray-50 my-4 mx-2 rounded-md" onSubmit={handleCreate}>
+    <form id="formCreate" className="bg-gray-50 my-4 mx-96 rounded-md" onSubmit={handleCreate}>
       <div className="flex justify-between items-center px-4 py-2 border-b border-gray-200 sm:px-6">
         <h2 className="text-lg leading-6 font-medium text-gray-900">
           Crear producto
@@ -170,12 +173,32 @@ export default function FormProduct({
             ))}
         </div> */}
         </div>
-
+        <div className="mb-4">
+          <label className="mb-2 block text-sm font-medium" htmlFor="productImage">Imagen</label>
+          <input 
+            type="file"
+            className="block w-80 rounded-md py-2 px-3 text-sm outline-2 placeholder:text-gray-500"
+            accept=".png,.jpg,.jpeg"
+            id="productImage"
+            name="productImage"
+            onChange={(e) => {
+              const selectedFile = e.target.files?.[0];
+              if (selectedFile){
+                setFile(selectedFile);
+              } 
+            }}
+            />
+            {file && <Image
+              className="object-contain mx-auto my-5"
+              width={180} height={180}
+              src={URL.createObjectURL(file)}
+              alt="imagen del producto" />}            
+          </div>
       </div>
-      <div className="mt-6 flex justify-end gap-4">
+      <div className="mr-6 flex justify-end gap-4">
         <Link
           href="/dashboard/products"
-          className="flex h-10 items-center rounded-lg bg-gray-100 px-4 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-200"
+          className="flex mb-6 h-10 items-center rounded-lg bg-gray-100 px-4 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-200"
         >
           Cancelar
         </Link>

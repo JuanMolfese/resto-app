@@ -12,8 +12,10 @@ export async function fetchProducts() {
         id: product.id,
         nombre: product.nombre,
         subrubro_id: product.subrubro_id,
+        image: product.image
       };
     });
+    console.log(products);
     return products;
   } catch (error) {
     console.log(error);
@@ -29,6 +31,7 @@ export async function fetchProductsSucursal(sucursal_id: number)
         p.id, 
         p.nombre, 
         p.descripcion, 
+        p.image,
         sp.stock,
         sp.stock_minimo, 
         sp.precio, 
@@ -48,6 +51,7 @@ export async function fetchProductsSucursal(sucursal_id: number)
         id: product.id,
         nombre: product.nombre,
         descripcion: product.descripcion,
+        image: product.image,
         stock: product.stock,
         stock_minimo: product.stock_minimo,
         precio: product.precio,
@@ -72,7 +76,8 @@ export async function fetchProductsOutofStock(sucursal_id: number) {
       `SELECT 
         p.id, 
         p.nombre, 
-        p.descripcion, 
+        p.descripcion,
+        p.image, 
         sp.stock, 
         sp.stock_minimo,
         sp.precio, 
@@ -93,6 +98,7 @@ export async function fetchProductsOutofStock(sucursal_id: number) {
         id: product.id,
         nombre: product.nombre,
         descripcion: product.descripcion,
+        image: product.image,
         stock: product.stock,
         stock_minimo: product.stock_minimo,
         precio: product.precio,

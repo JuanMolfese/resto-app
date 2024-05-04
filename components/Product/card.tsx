@@ -8,18 +8,19 @@ import { Rubro } from "../../app/utils/models/types/rubro";
 import { Subrubro } from "../../app/utils/models/types/subrubro";
 import { useState } from "react";
 import deleteProduct from "../../app/utils/actions/products/delete";
+import Image from "next/image";
 
 export default function CardProduct({
   product,
   rubros,
-  subrubros,
+  subrubros,  
 }: {
   product: ProductoDetail;
   rubros?: Rubro[];
   subrubros?: Subrubro[];
 }) {
   const [subrubrosFilter, setSubrubrosFilter] = useState(subrubros);
-
+   
   const handleEdit = (e: any) => {
     e.preventDefault();
     const input = document.querySelector(`#input-name-product-${product.id}`);
@@ -62,10 +63,10 @@ export default function CardProduct({
   return (
     <form
       id={`formEdit-${product.id}`}
-      className={`shadow-md rounded-md w-80 m-2 flex flex-col ${product.stock < product.stock_minimo ? "bg-red-100" : "bg-white"}`}
+      className={`h-60 shadow-md rounded-md w-80 m-2 flex flex-col ${product.stock < product.stock_minimo ? "bg-red-100" : "bg-white"}`}
       action={handleUpdate}
     >
-      <div className="p-3 flex-auto">
+      <div className="p-3 flex">
         <div id={`name-product-${product.id}`}>
           <h3 className="text-lg font-semibold py-1">{product.nombre}</h3>
 
@@ -74,9 +75,18 @@ export default function CardProduct({
           </p>
           <p className="text-sm">{product.descripcion}</p>
           <p className="text-sm">Stock: {product.stock} - Min: {product.stock_minimo}</p>
-          <p className="text-sm">Precio: ${product.precio}</p>
-          {/* <p className="text-sm text-gray-500">Descripcion</p> */}
+          <p className="text-sm">Precio: ${product.precio}</p>                           
+          {/* <p className="text-sm text-gray-500">Descripcion</p> */}         
         </div>
+        {product.image && typeof product.image === 'string' && product.image.trim() !== '' && 
+          <Image 
+            src={product.image}
+            className="w-auto h-auto m-auto mt-2 rounded-md"
+            width={80}
+            height={80}
+            alt="Imagen del producto"
+          /> }
+        
         <input
           type="hidden"
           name="productId"
@@ -84,7 +94,7 @@ export default function CardProduct({
           value={product.id}
         />
         <div
-          className="hidden flex flex-col gap-2"
+          className="hidden flex-col gap-2"
           id={`input-name-product-${product.id}`}
         >
           {/* <label htmlFor="name" className="mb-2 block text-sm font-medium">
@@ -179,7 +189,7 @@ export default function CardProduct({
                 required
               />
             </>
-          </div>
+          </div>          
           <div className="flex items-center">
             <label className="text-xs mr-2" htmlFor="precio">
               Precio
@@ -198,7 +208,7 @@ export default function CardProduct({
           </div>
         </div>
       </div>
-      <div className="p-3 flex" id={`btns-edit-${product.id}`}>
+      <div className="p-3 flex justify-center" id={`btns-edit-${product.id}`}>
         <ButtonOk
           className="bg-blue-500 text-white transition-colors rounded-lg px-4 py-2 hover:bg-blue-600"
           onClick={handleEdit}

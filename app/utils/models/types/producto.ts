@@ -1,7 +1,8 @@
 export type Producto = {
     id: number;
     nombre: string;
-    subrubro_id: number; // No faltaria precio ?
+    subrubro_id: number; 
+    image: string;
 };
   
 export type ProductoDetail = {
@@ -15,4 +16,5 @@ export type ProductoDetail = {
     subrubro_nombre: string;
     rubro_id: number;
     rubro_nombre: string;
+    image: string;
 }
