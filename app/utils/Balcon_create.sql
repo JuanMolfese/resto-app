@@ -87,6 +87,7 @@ CREATE TABLE Producto (
     nombre varchar(50)  NOT NULL,
     descripcion varchar(150),
     subrubro_id int  NOT NULL,
+    image varchar(255),
     CONSTRAINT Producto_pk PRIMARY KEY (id)
 );
 

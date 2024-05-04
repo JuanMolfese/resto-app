@@ -20,7 +20,8 @@ export default function CardProduct({
   subrubros?: Subrubro[];
 }) {
   const [subrubrosFilter, setSubrubrosFilter] = useState(subrubros);
-   
+  const  [file, setFile] = useState<File | null>(null); 
+
   const handleEdit = (e: any) => {
     e.preventDefault();
     const input = document.querySelector(`#input-name-product-${product.id}`);
@@ -63,40 +64,44 @@ export default function CardProduct({
   return (
     <form
       id={`formEdit-${product.id}`}
-      className={`h-60 shadow-md rounded-md w-80 m-2 flex flex-col ${product.stock < product.stock_minimo ? "bg-red-100" : "bg-white"}`}
+      className={`shadow-md rounded-md w-80 m-2 flex flex-col justify-between ${product.stock < product.stock_minimo ? "bg-red-100" : "bg-white"}`}
       action={handleUpdate}
     >
-      <div className="p-3 flex">
-        <div id={`name-product-${product.id}`}>
-          <h3 className="text-lg font-semibold py-1">{product.nombre}</h3>
+      <div className="px-3 my-0">
+        <div id={`name-product-${product.id}`} className="flex justify-evenly gap-4">
+          <div className="mx-3">
+            <h3 className="text-lg font-semibold py-1">{product.nombre}</h3>
 
-          <p className="text-xs">
-            {product.rubro_nombre} {`->`} {product.subrubro_nombre}
-          </p>
-          <p className="text-sm">{product.descripcion}</p>
-          <p className="text-sm">Stock: {product.stock} - Min: {product.stock_minimo}</p>
-          <p className="text-sm">Precio: ${product.precio}</p>                           
-          {/* <p className="text-sm text-gray-500">Descripcion</p> */}         
+            <p className="text-xs">
+              {product.rubro_nombre} {`->`} {product.subrubro_nombre}
+            </p>
+            <p className="text-sm py-0.5">{product.descripcion}</p>
+            <p className="text-sm py-0.5">Stock: {product.stock} - Min: {product.stock_minimo}</p>
+            <p className="text-sm py-0.5">Precio: ${product.precio}</p>                           
+            {/* <p className="text-sm text-gray-500">Descripcion</p> */}         
+          </div>
+          <div className="mr-2 -red-700">
+            {product.image && typeof product.image === 'string' && product.image.trim() !== '' && 
+              <Image 
+              src={product.image}
+              className="w-auto h-auto m-auto mt-2 rounded-md"
+                width={80}
+                height={80}
+                alt="Imagen del producto"            
+              /> }
+          </div>
         </div>
-        {product.image && typeof product.image === 'string' && product.image.trim() !== '' && 
-          <Image 
-            src={product.image}
-            className="w-auto h-auto m-auto mt-2 rounded-md"
-            width={80}
-            height={80}
-            alt="Imagen del producto"
-          /> }
         
+        
+
+        {/* HIDDEN MENUS */}
         <input
           type="hidden"
           name="productId"
           id="productId"
           value={product.id}
         />
-        <div
-          className="hidden flex-col gap-2"
-          id={`input-name-product-${product.id}`}
-        >
+        <div className="hidden my-0" id={`input-name-product-${product.id}`}>
           {/* <label htmlFor="name" className="mb-2 block text-sm font-medium">
             Nombre
           </label> */}
@@ -104,7 +109,7 @@ export default function CardProduct({
             type="text"
             name="name"
             id="name"
-            className="block w-full rounded-md border border-gray-200 py-1 px-3 text-sm outline-2 placeholder:text-gray-500"
+            className="block w-full rounded-md border border-gray-200 py-1 mb-1 px-3 text-sm outline-2 placeholder:text-gray-500"
             placeholder="Nombre"
             aria-describedby="name-error"
             defaultValue={product.nombre}
@@ -118,7 +123,7 @@ export default function CardProduct({
             <select
               id="rubro"
               name="rubroId"
-              className="peer block w-full rounded-md border border-gray-200 py-1 px-2 text-xs outline-2 placeholder:text-gray-500"
+              className="peer mb-1 block w-full rounded-md border border-gray-200 py-1 px-2 text-xs outline-2 placeholder:text-gray-500"
               defaultValue={product.rubro_id}
               aria-describedby="customer-error"
               onChange={(e) => {
@@ -146,7 +151,7 @@ export default function CardProduct({
             <select
               id="subrubro"
               name="subrubroId"
-              className="peer block w-full rounded-md border border-gray-200 py-1 px-2 text-xs outline-2 placeholder:text-gray-500"
+              className="peer mb-1 block w-full rounded-md border border-gray-200 py-1 px-2 text-xs outline-2 placeholder:text-gray-500"
               defaultValue={product.subrubro_id}
               aria-describedby="customer-error"
               required
@@ -167,7 +172,7 @@ export default function CardProduct({
                 type="number"
                 name="stock"
                 id="stock"
-                className="block w-full rounded-md border border-gray-200 py-1 px-3 text-sm outline-2 placeholder:text-gray-500"
+                className="block mb-1 w-full rounded-md border border-gray-200 py-1 px-3 text-sm outline-2 placeholder:text-gray-500"
                 placeholder="Stock"
                 aria-describedby="stock"
                 defaultValue={product.stock}
@@ -181,7 +186,7 @@ export default function CardProduct({
                 type="number"
                 name="stock_minimo"
                 id="stock_minimo"
-                className="block w-full rounded-md border border-gray-200 py-1 px-3 text-sm outline-2 placeholder:text-gray-500"
+                className="block mb-1 w-full rounded-md border border-gray-200 py-1 px-3 text-sm outline-2 placeholder:text-gray-500"
                 placeholder="Stock minimo"
                 aria-describedby="stock_minimo"
                 defaultValue={product.stock_minimo}
@@ -198,7 +203,7 @@ export default function CardProduct({
               type="number"
               name="precio"
               id="precio"
-              className="block w-full rounded-md border border-gray-200 py-1 px-3 text-sm outline-2 placeholder:text-gray-500"
+              className="block w-full mb-1 rounded-md border border-gray-200 py-1 px-3 text-sm outline-2 placeholder:text-gray-500"
               placeholder="Precio"
               aria-describedby="precio"
               defaultValue={product.precio}
@@ -206,9 +211,32 @@ export default function CardProduct({
               required
             />
           </div>
+          <div className="mb-4 flex items-center">
+            <label className="mb-2 text-xs" htmlFor="productImage">Imagen</label>
+            <input 
+              type="file"
+              className="w-full rounded-md py-2 px-3 text-sm outline-2 placeholder:text-gray-500"
+              accept=".png,.jpg,.jpeg"
+              id="productImage"
+              name="productImage"
+              onChange={(e) => {
+                const selectedFile = e.target.files?.[0];
+                if (selectedFile){
+                  setFile(selectedFile);
+                } 
+              }}
+            />
+            {/* {file && <Image
+              className="object-contain mx-auto my-5"
+              width={180} height={180}
+              src={URL.createObjectURL(file)}
+              alt="imagen del producto" 
+              />
+            }    */}         
+          </div>
         </div>
       </div>
-      <div className="p-3 flex justify-center" id={`btns-edit-${product.id}`}>
+      <div className="px-3 py-5 flex justify-center" id={`btns-edit-${product.id}`}>
         <ButtonOk
           className="bg-blue-500 text-white transition-colors rounded-lg px-4 py-2 hover:bg-blue-600"
           onClick={handleEdit}
@@ -243,10 +271,10 @@ export default function CardProduct({
           </span>
         </button>
       </div>
-      <div className="p-3 hidden" id={`btns-confirm-${product.id}`}>
+      <div className="px-3 py-5 mx-auto hidden" id={`btns-confirm-${product.id}`}>
         <button
           type="submit"
-          className="bg-blue-500 text-white transition-colors rounded-lg px-4 py-2 hover:bg-blue-600"
+          className="bg-green-500 text-white transition-colors rounded-lg px-4 py-2 hover:bg-green-600"
         >
           <span className="flex" id="btn-edit">
             <svg
@@ -265,7 +293,7 @@ export default function CardProduct({
           </span>
         </button>
         <button
-          className="bg-red-500 text-white transition-colors rounded-lg px-4 py-2 ml-4 hover:bg-red-600"
+          className="bg-orange-400 text-white transition-colors rounded-lg px-4 py-2 ml-4 hover:bg-orange-600"
           onClick={handleEdit}
         >
           <span className="flex">

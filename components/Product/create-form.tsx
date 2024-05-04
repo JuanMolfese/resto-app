@@ -187,13 +187,15 @@ export default function FormProduct({
                 setFile(selectedFile);
               } 
             }}
+          />
+          {file && <Image
+            className="object-contain mx-auto my-5"
+            width={180} height={180}
+            src={URL.createObjectURL(file)}
+            alt="imagen del producto" 
             />
-            {file && <Image
-              className="object-contain mx-auto my-5"
-              width={180} height={180}
-              src={URL.createObjectURL(file)}
-              alt="imagen del producto" />}            
-          </div>
+          }            
+        </div>
       </div>
       <div className="mr-6 flex justify-end gap-4">
         <Link
