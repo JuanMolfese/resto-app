@@ -24,8 +24,7 @@ export default async function updateProduct(id: number, formData: FormData) {
       stock: formData.get("stock"),
       stock_minimo: formData.get("stock_minimo"),      
       image: formData.get("productImage"),
-    };
-    console.log(rawFormData);  
+    };     
     
     let imageUrl;
 
