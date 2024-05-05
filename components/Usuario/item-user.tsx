@@ -26,6 +26,7 @@ export default function ItemUser({usuario, user, roles} : {usuario: UsuarioDetai
       });
       const data = await res.json();
       myToastSuccess(data.message);
+      window.location.reload();
     } catch (error) {
       myToastError("Error al actualizar usuario");
     }

@@ -25,7 +25,7 @@ export default async function Users() {
       </TableHeader>
       <TableBody>
         {users?.map((user) => (
-          <ItemUser key={user.id} usuario={user} user={data_user} roles={roles} />
+          <ItemUser key={user.id} usuario={user} user={data_user} roles={roles!} />
         ))}
       </TableBody>
     </Table>

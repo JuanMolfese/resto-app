@@ -1,7 +1,6 @@
 import { toast } from "@/components/ui/use-toast";
 
 export function myToastError(msg: string) {
-
   const mytoast = toast({
     title: 'Error',
     description: msg,

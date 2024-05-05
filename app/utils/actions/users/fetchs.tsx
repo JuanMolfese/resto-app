@@ -2,6 +2,7 @@ import { unstable_noStore } from "next/cache";
 import { connection } from "../../models/db";
 import { Usuario, UsuarioDetail } from "../../models/types/usuario";
 import { Rol } from "../../models/types/rol";
+import { compare } from "bcrypt";
 
 export async function fetchUsers() {
   unstable_noStore();
@@ -27,7 +28,7 @@ export async function fetchUsers() {
 
 export async function fetchUserByEmail(email: string) {
   try {
-    const response = await connection.query<UsuarioDetail[]>('SELECT * FROM Usuario u join Rol r on u.rol_id = r.id WHERE email = ?', [email]);
+    const response = await connection.query<UsuarioDetail[]>('SELECT u.id, u.email, u.nombre, u.apellido, u.rol_id, r.descripcion FROM Usuario u join Rol r on u.rol_id = r.id WHERE email = ?', [email]);
     await connection.end();
     
     const user = response.map((user) => {
@@ -61,4 +62,8 @@ export async function getRoles() {
   catch (error) {
     console.error(error);
   }
+}
+
+export async function checkPass(pass: string) {
+  console.log(pass);
 }
