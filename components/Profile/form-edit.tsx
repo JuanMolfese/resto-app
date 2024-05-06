@@ -99,6 +99,9 @@ export default function FormEditPass({user} : {user: UsuarioDetail}) {
         <Button className="btn btn-primary" type="submit">
           Cambiar contraseña
         </Button>
+        <Button className="btn btn-link" onClick={() => { window.history.back()}}>
+          Volver
+        </Button>
       </form>
   )
 }

@@ -1,8 +1,10 @@
 import { getServerSession } from "next-auth";
-import { fetchUserByEmail } from "../../utils/actions/users/fetchs";
+import { fetchUserByEmail } from "../utils/actions/users/fetchs";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import FormEditPass from "../../../components/Profile/form-edit";
+import FormEditPass from "../../components/Profile/form-edit";
+import Link from "next/link";
+import Header from "../../components/Header";
 
 export default async function Profile() {
 
@@ -10,7 +12,7 @@ export default async function Profile() {
   const data_user = await fetchUserByEmail(user?.user?.email!);
 
   return (
-    <div>
+    <div className="p-4">
       <p className="mt-10 scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0">
         Cambio de contraseña
       </p>

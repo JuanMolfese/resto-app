@@ -10,15 +10,15 @@ export default async function Home() {
 
   const session = await getServerSession();
 
-  if (session) {
+  /* if (session) {
     const email = session?.user?.email;
     const userData = await fetchUserByEmail(email!);
     const user = userData && userData[0];
     user?.rol_id === 4 ? redirect("/productos") : redirect("/dashboard");
   } else {
-    // Redirect to the login page
     window.location.href = "/login";
-  }
+  } */
+
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">

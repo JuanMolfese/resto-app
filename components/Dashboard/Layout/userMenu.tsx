@@ -17,7 +17,7 @@ export default function UserMenu({user}: {user: any}) {
         <DropdownMenuLabel>{user}</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem className="cursor-pointer">
-          <Link href="/dashboard/profile" className="flex">
+          <Link href="/profile" className="flex">
             <RectangleEllipsis className="sm mr-1"/>
             Editar contraseña
           </Link>
