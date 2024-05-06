@@ -70,7 +70,7 @@ export default function CardProduct({
       <div className="px-3 my-0">
         <div id={`name-product-${product.id}`} className="flex justify-evenly gap-4">
           <div className="mx-3">
-            <h3 className="text-lg font-semibold py-1">{product.nombre}</h3>
+            <p className="text-lg font-semibold py-1 max-w-44 line-clamp-1">{product.nombre}</p>
 
             <p className="text-xs">
               {product.rubro_nombre} {`->`} {product.subrubro_nombre}
@@ -80,11 +80,11 @@ export default function CardProduct({
             <p className="text-sm py-0.5">Precio: ${product.precio}</p>                           
             {/* <p className="text-sm text-gray-500">Descripcion</p> */}         
           </div>
-          <div className="mr-2 -red-700">
+          <div className="content-center">
             {product.image && typeof product.image === 'string' && product.image.trim() !== '' && 
               <Image 
               src={product.image}
-              className="w-auto h-auto m-auto mt-2 rounded-md"
+              className="w-auto h-auto rounded-md max-h-24"
                 width={80}
                 height={80}
                 alt="Imagen del producto"            
