@@ -9,9 +9,9 @@ import { buffer } from "stream/consumers";
 import {v2 as cloudinary} from 'cloudinary';
           
 cloudinary.config({ 
-  cloud_name: 'db3mdkr5l', 
-  api_key: '717362839219266', 
-  api_secret: 'tMtN0bfKy9lHOH0-Bcf1mue6gug' 
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY, 
+  api_secret: process.env.CLOUDINARY_API_SECRET, 
 });
 
 export default async function createProduct(formData: FormData) {
