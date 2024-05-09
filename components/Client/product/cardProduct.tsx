@@ -54,7 +54,7 @@ export default function CardProduct({ product }: { product: ProductoDetail }) {
       />
       
       <div className="mx-2 w-3/5 h-3/4">
-        <h2 className="text-md font-bold ml-3 text-slate-900">{product.nombre}</h2>
+        <h2 className="text-md font-bold ml-3 text-slate-900 line-clamp-1">{product.nombre}</h2>
         {/* <p className="text-xs">{product.descripcion}</p> */}
         {product.stock > 0 ? 
         <>
