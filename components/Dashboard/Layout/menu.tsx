@@ -14,14 +14,6 @@ import {
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import {
   Sheet,
@@ -31,17 +23,14 @@ import {
 } from "@/components/ui/sheet";
 import { useState } from "react";
 import Image from "next/image";
-import { signOut, useSession } from "next-auth/react";
 import UserMenu from "./userMenu";
 
 export default function MenuDashboard({
   child,
   products,
-  user,
 }: {
   child: any;
   products: any;
-  user: any;
 }) {
   const [activeLink, setActiveLink] = useState(null);
 
@@ -285,7 +274,7 @@ export default function MenuDashboard({
               </div>
             </form>
           </div>
-          <UserMenu user={user}/>
+          <UserMenu />
         </header>
         <main className="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-2">
           {child}

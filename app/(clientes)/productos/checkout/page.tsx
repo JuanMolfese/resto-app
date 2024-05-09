@@ -1,7 +1,5 @@
 "use client"
 import { Button } from "@/components/ui/button";
-import { ButtonIcon } from "@radix-ui/react-icons";
-import { Radio } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { initMercadoPago, Wallet } from '@mercadopago/sdk-react';

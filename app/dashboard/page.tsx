@@ -1,10 +1,7 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { fetchProducts } from "../utils/actions/products/fetchs";
 import Link from "next/link";
-import { getServerSession } from "next-auth";
-import { fetchUserByEmail } from "../utils/actions/users/fetchs";
-import { redirect } from "next/navigation";
-import { Chrome, Package, ShoppingBasket, ShoppingCart, User2, Users } from "lucide-react";
+
+import { Chrome, Package, ShoppingCart, Users } from "lucide-react";
 
 export default async function Dashboard() {
 

@@ -23,6 +23,6 @@ export default async function Layout({children,}:
   }
 
   return (
-    <MenuDashboard child={children} products={productos} user={session?.user?.email}/>
+    <MenuDashboard child={children} products={productos}/>
   );
 }
