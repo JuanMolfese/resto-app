@@ -1,6 +1,5 @@
 "use client";
 
-import { useFormState } from "react-dom";
 import updateProduct from "../../app/utils/actions/products/update";
 import { ProductoDetail } from "../../app/utils/models/types/producto";
 import { ButtonOk } from "../../ui/button";

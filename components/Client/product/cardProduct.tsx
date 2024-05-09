@@ -46,7 +46,7 @@ export default function CardProduct({ product }: { product: ProductoDetail }) {
     <li key={product.id} className="shadow-lg flex flex-row items-center w-80 h-44 m-auto">
       
       <Image 
-        src={product.image}
+        src={product.image ? product.image : "/no-image.png"}
         alt={product.nombre}
         width={90}
         height={90}

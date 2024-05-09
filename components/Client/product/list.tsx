@@ -1,4 +1,5 @@
 "use client"
+
 import Link from "next/link";
 import Image from "next/image";
 import Search from "./search";
@@ -6,11 +7,26 @@ import CardProduct from "./cardProduct";
 import Cart from "../../Cart";
 import UserMenu from "../../Dashboard/Layout/userMenu";
 import { useAppSelector } from "@/redux/hooks";
+import { useSession } from "next-auth/react";
+import { useEffect } from "react";
+import { useGetProductsQuery } from "@/redux/services/productsApi";
 
 
-export default function ListProducts({ products, user }: { products?: any[], user: any }) {
-
+export default function ListProducts() {
+  
+  const user = useSession();
   const carrito = useAppSelector(state => state.cart);
+
+  const { data, error, isLoading } = useGetProductsQuery();
+
+  useEffect(() => {
+    if (!user) {
+      window.location.href = '/login';
+    }
+  }, [user]);
+
+  if (isLoading) { return <div>Loading...</div> }
+  if (error) { return <div>Error</div> }
 
   const viewCart = () => {
     document.getElementById('listProd')?.classList.toggle('hidden');
@@ -39,19 +55,19 @@ export default function ListProducts({ products, user }: { products?: any[], use
       </nav>
       <main id="listProd" className="flex">
         <ul className="flex flex-wrap py-2 gap-1">
-          {products?.map(product => (
+          {data?.map(product => (
             <CardProduct product={product} key={product.id} />
             ))}
         </ul>
         <div className="hidden lg:block min-w-96 p-4 border-l-2">
-          <Cart />
+          <Cart viewCart={viewCart}/>
         </div>
       </main>
 
       
       
       <div id="cartProd" className="hidden container p-4">
-        <Cart/>
+        <Cart viewCart={viewCart}/>
       </div>
 
     </div>

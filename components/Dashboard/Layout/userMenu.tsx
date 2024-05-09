@@ -1,3 +1,4 @@
+"use client"
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { signOut } from "next-auth/react";
@@ -5,6 +6,7 @@ import {  CircleUser, LogOut, RectangleEllipsis } from "lucide-react";
 import Link from "next/link";
 
 export default function UserMenu({user}: {user: any}) {
+  
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -14,7 +16,7 @@ export default function UserMenu({user}: {user: any}) {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuLabel>{user}</DropdownMenuLabel>
+        <DropdownMenuLabel>{user.data.user.email}</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem className="cursor-pointer">
           <Link href="/profile" className="flex">

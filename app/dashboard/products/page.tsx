@@ -6,6 +6,8 @@ import fetchSubrubros from "../../utils/actions/subrubros/fetchs";
 import { redirect } from "next/navigation";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Badge } from "@/components/ui/badge";
+import { useGetProductsQuery } from "@/redux/services/productsApi";
+import ProductListRedux from "./pr";
 
 
 export default async function Products({
@@ -27,6 +29,7 @@ export default async function Products({
     {/*   <div className="text-center my-2 text-xl">
         <h2>Listado de productos</h2>
       </div> */}
+      <ProductListRedux />
       <div className="flex items-center justify-between gap-2">
         <div className="flex justify-between w-full p-4">
           
@@ -79,7 +82,8 @@ export default async function Products({
           </div>
         ))}
       </div>
-      
+
+  
     </ScrollArea>
   );
 }
