@@ -1,10 +1,13 @@
 "use client"
 
 import Image from "next/image";
-import { Producto, ProductoDetail } from "../../../app/utils/models/types/producto";
+import { ProductoDetail } from "../../../app/utils/models/types/producto";
 import styles from "./cardProduct.module.css";
+import { useAppDispatch } from "@/redux/hooks";
+import { addToCart } from "@/redux/features/cartSlice";
 
-export default function CardProduct({ product, agregar }: { product: ProductoDetail, agregar: any}) {
+export default function CardProduct({ product }: { product: ProductoDetail }) {
+  const dispatch = useAppDispatch();
 
   const numbers = [0,1,2,3,4,5,6,7,8,9];
 
@@ -31,8 +34,10 @@ export default function CardProduct({ product, agregar }: { product: ProductoDet
 
   const addCart = () => {
     const input = document.getElementById(`i${product.id}`) as HTMLInputElement;
-    if (input && parseInt(input.value) > 0){
-      agregar(product, input.value);
+    const cant = parseInt(input.value);
+    const prodCart = {...product, cantidad: cant}
+    if (input && cant > 0){
+      dispatch(addToCart({prodCart}));
       input.value = "0";
     }
   }

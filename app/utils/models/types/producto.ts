@@ -18,3 +18,13 @@ export type ProductoDetail = {
     rubro_nombre: string;
     image: string;
 }
+
+export type ProductCart = {
+    id: number;
+    nombre: string;
+    precio: number;
+    cantidad: number;
+    subrubro_id: number; 
+    image: string;
+    stock: number;
+};

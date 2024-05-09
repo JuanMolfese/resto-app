@@ -5,43 +5,20 @@ import { Radio } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { initMercadoPago, Wallet } from '@mercadopago/sdk-react';
+import { useAppSelector } from "@/redux/hooks";
 
 
 
 export default function Checkout(){   
-  
-  const [cart, setCart] = useState<any[]>([]);  
-  const [cartAmount, setCartAmount] = useState<Number>(0);  
+
+  const carrito = useAppSelector(state => state.cart);
   const [preferenceId, setPreferenceId] = useState<any>(null);
   
   useEffect(() => {
     initMercadoPago( process.env.NEXT_PUBLIC_MP_PUBLIC_KEY!, { locale: 'es-AR' });
-    getCart();    
+       
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // Solo se ejecuta una vez al inicio
-
- const getCart = async () => {
-    try {
-      const res = await fetch('/api/client/cart');
-      if (res.ok) {
-        const { cart } = await res.json();
-        console.log("Cart:", cart);
-        setCart(cart);
-        setCartAmount(calcTotal(cart)); // Calcular el total del carrito después de obtenerlo
-      }
-    } catch(err) {
-      console.error("Error al obtener el carrito:", err);
-    }
-  };
-
-  const calcTotal = (cart: any[]) => {
-    let total = 0;
-    for (const producto of cart){
-      total += producto.precio * producto.cantidad;
-    }
-    console.log("Total calculado:", total); // Verificar si se calcula el total correctamente
-    return total;
-  };
 
   // MERCARDO PAGO //
   const createPreference = async () => {
@@ -50,8 +27,8 @@ export default function Checkout(){
         id:"Compra",
         title: "El Balcon",
         quantity: Number (1),
-        unit_price: cartAmount,
-        cart: cart
+        unit_price: carrito.total,
+        cart: carrito.items
       }        
       const response:any = await fetch('/api/mp_preference',{
         method:'POST',
@@ -78,7 +55,7 @@ export default function Checkout(){
   };  
 
   setTimeout(()=>{
-    if (cart.length <= 0) {
+    if (carrito.items.length <= 0) {
       return (
         <div>
           <h1>No hay productos en el carrito</h1>
