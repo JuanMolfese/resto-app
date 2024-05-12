@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/carousel"
 import Autoplay from "embla-carousel-autoplay"
 import React from 'react'
+import Link from 'next/link'
 
 const Slider = () => {
   const plugin = React.useRef(
@@ -40,9 +41,15 @@ const Slider = () => {
        {/*  <CarouselPrevious />
         <CarouselNext /> */}
       </Carousel>
-      <Button variant="destructive"
-        className='absolute bottom-3 left-5 animate-bounce rounded-full h-14'
-      >Ordenar ahora !</Button>
+      
+        <Button variant="destructive"
+          className='absolute bottom-3 left-5 animate-bounce rounded-full h-14'
+        >
+          <Link href="/productos">
+            Ordenar ahora !
+          </Link>
+        </Button>        
+      
     </div>
   )}
           
