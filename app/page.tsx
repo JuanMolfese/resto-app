@@ -21,7 +21,7 @@ export default async function Home() {
 
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between relative bg-black text-white">
+    <main className="flex min-h-screen flex-col items-center justify-between relative bg-white text-white">
      {/* <Header/>  */}
      <Hero/>   {/* view destacados */}
      {/* <Presentation/> */}  {/* view products */}

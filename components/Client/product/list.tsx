@@ -23,7 +23,7 @@ export default function ListProducts() {
       
       <nav className="flex gap-1 items-center bg-color-nav justify-around sticky top-0 ">
         <Link href={'/'} className="drop-shadow-md hover:drop-shadow-xl">
-          <Image src="/LogoPizza3_high.png" alt="logo" width={80} height={80} className="cursor-pointer mx-2"/>
+          <Image src="/LogoPizza3_high.png" alt="logo" width={80} height={80} className="cursor-pointer mx-2" priority/>
         </Link>
         <Search placeholder="Buscar productos"/>
         <UserMenu />

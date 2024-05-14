@@ -43,7 +43,7 @@ const Slider = () => {
       </Carousel>
       
         <Button
-          className='absolute top-48 left-32 animate-bounce rounded-full h-14 bg-slate-800'
+          className='absolute top-48 left-32 animate-bounce rounded-full h-14 bg-green-900'
         >
           <Link href="/productos">
             Ordenar ahora !
