@@ -1,5 +1,10 @@
+"use client"
+import Slider from "./Slider"
+
 export default function Hero() {
     return(
-        <h1>Esto es el Hero Section</h1>
+        <main>
+         <Slider/>   
+        </main>
     )    
 };

@@ -21,11 +21,11 @@ export default async function Home() {
 
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-     <Header/> 
+    <main className="flex min-h-screen flex-col items-center justify-between relative bg-black text-white">
+     {/* <Header/>  */}
      <Hero/>   {/* view destacados */}
-     <Presentation/>  {/* view products */}
-     <Footer/>
+     {/* <Presentation/> */}  {/* view products */}
+     {/* <Footer/> */}
     </main>
   )  
 }
