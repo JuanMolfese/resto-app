@@ -8,8 +8,8 @@ import StoreProvider from "@/redux/providers";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "El Balcon App",
-  description: "Pagina oficial de El Balcon",
+  title: "Pizza 3 App",
+  description: "Pagina oficial de Pizza 3",
 };
 
 export default function RootLayout({

@@ -15,7 +15,7 @@ export async function POST(req:any){
           //Aca va la info del carrito
           id:compra.id,
           category_id: "Resto",
-          description:"El Balcon",
+          description:"Pizza 3",
           title: compra.title,
           quantity: compra.quantity,
           unit_price: compra.unit_price,

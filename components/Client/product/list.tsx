@@ -23,9 +23,9 @@ export default function ListProducts() {
       
       <nav className="flex gap-1 items-center bg-color-nav justify-around sticky top-0 ">
         <Link href={'/'} className="drop-shadow-md hover:drop-shadow-xl">
-          <Image src="/balcon-icon.png" alt="logo" width={80} height={80} className="cursor-pointer"/>
+          <Image src="/LogoPizza3_high.png" alt="logo" width={80} height={80} className="cursor-pointer mx-2"/>
         </Link>
-        <Search placeholder="Buscar productos" />
+        <Search placeholder="Buscar productos"/>
         <UserMenu />
         <div id="cart" className="flex row-reverse cursor-pointer p-2 rounded-full lg:hidden" onClick={() => viewCart()}>
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">

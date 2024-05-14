@@ -42,8 +42,8 @@ const Slider = () => {
         <CarouselNext /> */}
       </Carousel>
       
-        <Button variant="destructive"
-          className='absolute bottom-3 left-5 animate-bounce rounded-full h-14'
+        <Button
+          className='absolute top-48 left-32 animate-bounce rounded-full h-14 bg-slate-800'
         >
           <Link href="/productos">
             Ordenar ahora !
