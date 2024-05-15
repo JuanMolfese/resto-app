@@ -1,6 +1,8 @@
 "use client"
+import { useAppSelector } from "@/redux/hooks";
+import { Wallet, initMercadoPago } from "@mercadopago/sdk-react";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 
 export default function LocationPreference(){ 
@@ -8,6 +10,51 @@ export default function LocationPreference(){
     const [option, setOption] = useState<'pickup' | 'delivery' | null>(null);
     const [address, setAddress] = useState('');
     const [submitButtonDisabled, setSubmitButtonDisabled] = useState(true);
+
+
+    /* pagar directo */
+    const carrito = useAppSelector(state => state.cart);
+    const [preferenceId, setPreferenceId] = useState<any>(null);
+  
+    useEffect(() => {
+      initMercadoPago( process.env.NEXT_PUBLIC_MP_PUBLIC_KEY!, { locale: 'es-AR' });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []); // Solo se ejecuta una vez al inicio
+
+  // MERCARDO PAGO //
+    const createPreference = async () => {
+      try{
+        const compra = {           
+          id:"Compra",
+          title: "El Balcon",
+          quantity: Number (1),
+          unit_price: carrito.total,
+          cart: carrito.items
+        }        
+        const response:any = await fetch('/api/mp_preference',{
+          method:'POST',
+          headers:{
+            'Content-Type':'application/json'
+          },
+          body:JSON.stringify(compra),
+        });
+        
+        const responseData = await response.json();
+        
+        return responseData.result.id;
+  
+      }catch(err)
+        {console.log("Error al realizar la compra", err)};       
+    }; 
+
+    const handleClick = async ()=> {    
+      const id = await createPreference();
+      console.log("Se generó la preferencia: " + id );    
+      if(id!=null) {
+        setPreferenceId(id);
+      }
+    }; 
+    /* end */
   
     const handleOptionChange = (newOption: 'pickup' | 'delivery') => {
       setOption(newOption);
@@ -33,6 +80,9 @@ export default function LocationPreference(){
       }
     };
 
+    if (carrito.items.length <= 0) {
+      window.location.href = "/productos";
+    }
    
 
   return(
@@ -82,14 +132,17 @@ export default function LocationPreference(){
     <label className="block mt-10 font-bold">Forma de pago:</label>
 
     {/* AQUI SE TENDRIA QUE GUARDAR EN LA API EN ALGUN LUGAR DONDE QUEDA EL DETALLE COMPLETO DEL PEDIDO: productos, si esta pago o no y si retira o va a domilicio */}
-    <div className="justify-center items-center flex flex-col">        
-      <button className={`px-4 py-2 my-4 w-[70%] rounded border ${submitButtonDisabled ? 'bg-gray-300 text-gray-700 cursor-not-allowed' : 'bg-green-500 text-white hover:bg-green-600'}`}
-      disabled={submitButtonDisabled}>
-        <Link href="/productos/checkout"> {/* Esto hace que no quede deshabilitado realmente hasta que una opcion de entrega se seleccionada */}
-          Pagar ahora
-        </Link>
-      </button>
-      
+    <div className="justify-center items-center flex flex-col">      
+
+      {
+        preferenceId ? 
+        <Wallet initialization={{preferenceId: preferenceId }} customization={{ texts:{ valueProp: 'smart_option'}}} />
+        :  
+        <button className={`px-4 py-2 my-4 w-[70%] rounded border ${submitButtonDisabled ? 'bg-gray-300 text-gray-700 cursor-not-allowed' : 'bg-green-500 text-white hover:bg-green-600'}`}
+        disabled={submitButtonDisabled} onClick={handleClick}>
+            Pagar ahora
+        </button>
+      }
       {/* <Link href="/api/pedidos"> A DEFINIR, esto enviaria el modulo de pedido PAGO: NO, detalle de entrega y detalle de productos*/}
           <button
           type="submit"

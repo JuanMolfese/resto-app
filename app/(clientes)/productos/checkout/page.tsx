@@ -14,7 +14,6 @@ export default function Checkout(){
   
   useEffect(() => {
     initMercadoPago( process.env.NEXT_PUBLIC_MP_PUBLIC_KEY!, { locale: 'es-AR' });
-       
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // Solo se ejecuta una vez al inicio
 
