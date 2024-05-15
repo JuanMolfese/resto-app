@@ -9,7 +9,7 @@ export default function sidebar() {
         <div className="h-screen w-72">
           <nav className="px-6">
             <Link className="flex justify-center " href={'/'}>
-              <Image src="/balcon-icon.png" alt="logo" width={150} height={150} className="cursor-pointer hover:shadow-sm"/>
+              <Image src="/LogoPizza3_high.png" alt="logo" width={150} height={150} className="cursor-pointer hover:shadow-sm"/>
             </Link>
             <div>
 

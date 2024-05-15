@@ -23,7 +23,7 @@ export default function Search({ placeholder }: { placeholder: string }) {
   }, 300);
 
   return (
-    <div className="relative w-3/4">
+    <div className="relative w-1/2 mt-3">
       <label htmlFor="search" className="sr-only">
         Search
       </label>

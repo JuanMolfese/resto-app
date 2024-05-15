@@ -22,7 +22,7 @@ export default function Checkout(){
     try{
       const compra = {           
         id:"Compra",
-        title: "El Balcon",
+        title: "Pizza 3",
         quantity: Number (1),
         unit_price: carrito.total,
         cart: carrito.items
