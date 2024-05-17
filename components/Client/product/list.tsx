@@ -7,6 +7,7 @@ import Cart from "../../Cart";
 import UserMenu from "../../Dashboard/Layout/userMenu";
 import { useAppSelector } from "@/redux/hooks";
 import ListadoProductos from "./listadoProductos";
+import ListadoRubros from "./listadoRubros";
 
 export default function ListProducts() {
   
@@ -39,6 +40,7 @@ export default function ListProducts() {
       </nav>
       <main id="listProd" className="flex">
         <div className="grow">
+          <ListadoRubros />
           <ListadoProductos />
         </div>
         <div className="hidden lg:block min-w-96 p-4 border-l-2">
