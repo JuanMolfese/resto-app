@@ -24,14 +24,14 @@ export default function ListadoSubrubros() {
   }
 
   return (
-    <div className="flex justify-center mt-4 mb-2">
-      <ul className="flex flex-wrap py-2">
+    <div className="flex flex-nowrap overflow-x-auto mt-4 mb-2 max-w-[100vw]">
+      <ul className="flex flex-nowrap py-2">
         {rubros?.map(subrubro => (
-          <li className="p-1 hover:border-b-4 border-blue-700 cursor-pointer w-28 h-10 hover:font-bold text-center" key={subrubro.id} onClick={() => handleClick(subrubro)}>{subrubro.nombre}</li>
+          <li className="p-1 hover:border-b-4 border-blue-700 cursor-pointer w-36 h-10 hover:font-bold text-center" key={subrubro.id} onClick={() => handleClick(subrubro)}>{subrubro.nombre}</li>
         ))}
       </ul>
       <div className="flex flex-wrap py-2">
-        <div className="p-1 hover:border-b-4 border-blue-700 cursor-pointer w-28 h-10 hover:font-bold text-center" onClick={() => handleClickTodos()}>Todos</div>
+        <div className="p-1 hover:border-b-4 border-blue-700 cursor-pointer w-36 h-10 hover:font-bold text-center" onClick={() => handleClickTodos()}>Todos</div>
       </div>
     </div>
   )
