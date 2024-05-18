@@ -12,7 +12,7 @@ export default function ListadoProductos() {
 
   const filteredProducts = data?.filter(product => {
     const query = params.get('query');
-    return !query || product.rubro_nombre.toLowerCase().includes(query.toLowerCase());
+    return !query || product.subrubro_nombre.toLowerCase().includes(query.toLowerCase());
   });
 
   // Hook para manejar la actualización periódica

@@ -3,6 +3,7 @@ import cartReducer from './features/cartSlice'
 import productsListReducer from './features/productSlice'
 import { productApi } from './services/productsApi'
 import { rubrosApi } from './services/rubrosApi'
+import { subrubrosApi } from './services/subrubrosApi'
 
 export const makeStore = () => {
   return configureStore({
@@ -12,9 +13,10 @@ export const makeStore = () => {
       productsList: productsListReducer,
       [productApi.reducerPath]: productApi.reducer,
       [rubrosApi.reducerPath]: rubrosApi.reducer,
+      [subrubrosApi.reducerPath]: subrubrosApi.reducer,
     },
     middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware().concat(productApi.middleware, rubrosApi.middleware),
+      getDefaultMiddleware().concat(productApi.middleware, rubrosApi.middleware, subrubrosApi.middleware),
   })
 }
 
