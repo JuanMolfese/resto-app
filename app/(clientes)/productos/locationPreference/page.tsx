@@ -26,7 +26,8 @@ export default function LocationPreference(){
       try{
         const compra = {           
           id:"Compra",
-          title: "El Balcon",
+          description:"Pizza 3",
+          title: "Pizza 3",
           quantity: Number (1),
           unit_price: carrito.total,
           cart: carrito.items
@@ -58,7 +59,7 @@ export default function LocationPreference(){
   
     const handleOptionChange = (newOption: 'pickup' | 'delivery') => {
       setOption(newOption);
-      updateSubmitButtonState(newOption, address);
+      updateSubmitButtonState(newOption, address);      
     };
   
     const handleAddressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -134,6 +135,7 @@ export default function LocationPreference(){
     {/* AQUI SE TENDRIA QUE GUARDAR EN LA API EN ALGUN LUGAR DONDE QUEDA EL DETALLE COMPLETO DEL PEDIDO: productos, si esta pago o no y si retira o va a domilicio */}
     <div className="justify-center items-center flex flex-col">      
 
+      {/* <Link href={"/productos/checkout"}> Ir Check</Link> */}
       {
         preferenceId ? 
         <Wallet initialization={{preferenceId: preferenceId }} customization={{ texts:{ valueProp: 'smart_option'}}} />

@@ -14,11 +14,14 @@ export async function POST(request: NextRequest) {
   
   const paymentId = request.nextUrl.searchParams.get('id');
   
+  console.log(paymentId);
+
   new Promise<void> ( async (resolve, reject) => {
     const payment = await new Payment(mercadopago).get({id: parseFloat(paymentId!)} );      
     if (payment.status != 'approved'){
       return Response.json({success: true});
-    }      
+    }     
+    
     const pedido = {
       id: payment.id,
       amount: payment.transaction_amount,
@@ -33,7 +36,7 @@ export async function POST(request: NextRequest) {
       cart: JSON.stringify(payment.metadata.cart),
       //y demas info que sea necesaria
     };   
-    console.log("===== PEYMENT=======");
+    console.log("===== PAYMENT=======");
     console.log(payment);
     console.log("===== PEDIDO=======");
     console.log(pedido);

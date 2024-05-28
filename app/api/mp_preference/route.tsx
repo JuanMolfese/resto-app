@@ -26,12 +26,10 @@ export async function POST(req:any){
         failure: `${process.env.NEXT_PUBLIC_SITE}/failure`,
         pending: `${process.env.NEXT_PUBLIC_SITE}/pending`
       },
-      notification_url:"https://d5jrb33g-3000.brs.devtunnels.ms/messages",
+      notification_url:"https://04658vr5-3000.brs.devtunnels.ms/api/payment?source_news=ipn",
       external_reference: "id_cliente", //para relacionar con dato interno
       metadata:{
         //aca puedo indicar info que me sirva para trabajar luego q se procese el pago, ya que estara incluida en la respuesta del payment
-        id_usuario:"2",
-        cart_id:"1",
         cart: compra.cart
       },
       auto_return: "approved",
@@ -43,8 +41,7 @@ export async function POST(req:any){
     
     /* if (result.id !== undefined){
       redirect(result.init_point!);
-    } */
-      
+    } */     
     return NextResponse.json({result},{status: 200}); 
   }
    catch(err) {
