@@ -26,7 +26,7 @@ export async function POST(req:any){
         failure: `${process.env.NEXT_PUBLIC_SITE}/failure`,
         pending: `${process.env.NEXT_PUBLIC_SITE}/pending`
       },
-      notification_url:"https://04658vr5-3000.brs.devtunnels.ms/api/payment?source_news=ipn",
+      notification_url: process.env.MP_NOTIFICATION_URL,
       external_reference: "id_cliente", //para relacionar con dato interno
       metadata:{
         //aca puedo indicar info que me sirva para trabajar luego q se procese el pago, ya que estara incluida en la respuesta del payment
