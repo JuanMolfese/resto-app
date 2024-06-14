@@ -30,7 +30,10 @@ export async function POST(req:any){
       external_reference: "id_cliente", //para relacionar con dato interno
       metadata:{
         //aca puedo indicar info que me sirva para trabajar luego q se procese el pago, ya que estara incluida en la respuesta del payment
-        cart: compra.cart
+        cart: compra.cart,
+        option: compra.option,
+        name: compra.name,
+        address: compra.address,
       },
       auto_return: "approved",
 

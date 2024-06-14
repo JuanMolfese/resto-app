@@ -34,10 +34,13 @@ export async function POST(request: NextRequest) {
       payer_dni: payment.payer?.identification?.number,
       payer_phone: payment.payer?.phone?.area_code + "-" + payment.payer?.phone?.number,
       cart: JSON.stringify(payment.metadata.cart),
+      option: payment.metadata?.option,
+      name: payment.metadata?.name,
+      address: payment.metadata?.address,
       //y demas info que sea necesaria
     };   
-    console.log("===== PAYMENT=======");
-    console.log(payment);
+    /* console.log("===== PAYMENT=======");
+    console.log(payment); */
     console.log("===== PEDIDO=======");
     console.log(pedido);
     
