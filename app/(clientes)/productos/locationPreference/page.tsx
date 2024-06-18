@@ -4,15 +4,20 @@ import { useAppSelector } from "@/redux/hooks";
 import { Wallet, initMercadoPago } from "@mercadopago/sdk-react";
 import Link from "next/link";
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger,} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button"
 
 export default function LocationPreference(){
   const [option, setOption] = useState<'pickup' | 'delivery' | null>(null);
   const [name, setName] = useState('');
   const [address, setAddress] = useState('');
   const [step, setStep] = useState(1);
+  const router = useRouter();
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const carrito = useAppSelector(state => state.cart);
-    const [preferenceId, setPreferenceId] = useState<any>(null);
+  const [preferenceId, setPreferenceId] = useState<any>(null);
   
     useEffect(() => {
       initMercadoPago( process.env.NEXT_PUBLIC_MP_PUBLIC_KEY!, { locale: 'es-AR' });
@@ -65,9 +70,12 @@ export default function LocationPreference(){
           },
           body:JSON.stringify(unpaidOrder),        
         });
-        const resposeData = await response.json();
-        //Si hay respuesta mostrar cartel de su pedido ha sido recibido.
-        return resposeData.result.id;
+        const responseData = await response.json();
+        if (responseData.success){
+            setIsDialogOpen(true);            
+            return responseData.result.id;
+            //IMPORTANTE ACA TMB SE DEBERIA BORRAR EL CARRITO
+          }
       } catch (error) {
         {console.log("Error al realizar el pedido", error)};
       }
@@ -96,6 +104,11 @@ export default function LocationPreference(){
   const handleNextStep = () => {
     setStep(2);
   }; 
+
+  const handleDialogConfirm = () => {
+    setIsDialogOpen(false);    
+    router.push('/productos');    
+  };
 
   return (
     <div className="space-y-4 m-8">
@@ -210,6 +223,22 @@ export default function LocationPreference(){
           </div>        
       )
     }
+    {isDialogOpen && (
+        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+          <DialogContent className="h-[40%] w-[85%] rounded-lg">
+            <DialogHeader>
+              <DialogTitle>Pedido Confirmado</DialogTitle>
+              <DialogDescription className="text-base pt-8">
+                {option === 'pickup' ? 'Te esperamos en 30 minutos en nuestro local para retirar tu pedido'
+                :`En 30 minutos aproximadamente recibirás tu pedido en ${address}.`}
+              </DialogDescription>
+            </DialogHeader>
+            <DialogFooter>
+              <Button type="button" onClick={handleDialogConfirm}>Confirmar</Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+      )}
     </div>
   );
 };
