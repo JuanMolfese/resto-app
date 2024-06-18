@@ -119,7 +119,7 @@ export default function LocationPreference(){
             <div className="space-x-4 flex justify-center">
               <button
                 className={`px-4 py-2 rounded-lg border w-[45%] font-bold drop-shadow-md ${
-                  option === 'pickup' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700'
+                  option === 'pickup' ? 'bg-slate-800 text-white' : 'bg-gray-200 text-gray-700'
                 }`}
                 onClick={() => handleOptionChange('pickup')}
               >
@@ -127,7 +127,7 @@ export default function LocationPreference(){
               </button>
               <button
                 className={`px-4 py-2 rounded-lg border w-[45%] font-bold drop-shadow-md ${
-                  option === 'delivery' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700'
+                  option === 'delivery' ? 'bg-slate-800 text-white' : 'bg-gray-200 text-gray-700'
                 }`}
                 onClick={() => handleOptionChange('delivery')}
               >
@@ -143,7 +143,7 @@ export default function LocationPreference(){
                   value={name}
                   onChange={handleNameChange}
                   placeholder="Ingrese su nombre"
-                  className="w-[90%] p-2 border mt-10 drop-shadow-md border-blue-400 rounded-md focus:outline-none focus:border-blue-500 placeholder-gray-600"
+                  className="w-[90%] p-2 border mt-10 drop-shadow-md border-slate-800 rounded-md focus:outline-none focus:border-red-500 placeholder-gray-600"
                 />
               </div>
               {option === 'delivery' && (
@@ -153,7 +153,7 @@ export default function LocationPreference(){
                     value={address}
                     onChange={handleAddressChange}
                     placeholder="Ingrese su dirección"
-                    className="w-[90%] mt-8 p-2 border drop-shadow-md border-blue-400 rounded-md focus:outline-none focus:border-blue-500 placeholder-gray-600"
+                    className="w-[90%] mt-8 p-2 border drop-shadow-md border-slate-800 rounded-md focus:outline-none focus:border-red-500 placeholder-gray-600"
                   />
                 </div>
               )}
@@ -164,7 +164,7 @@ export default function LocationPreference(){
             <>
               <button
                 type="button"                
-                className="w-[20%] px-4 py-2 rounded-lg drop-shadow-md h-16 bg-blue-400 text-white hover:bg-blue-600"
+                className="w-[20%] px-4 py-2 rounded-lg drop-shadow-md h-16 bg-slate-800 text-white hover:bg-slate-900"
               >
                 <Link href="/productos">
                   Volver
@@ -173,7 +173,7 @@ export default function LocationPreference(){
               <button
                 type="button"
                 onClick={handleNextStep}
-                className="w-[55%] px-4 py-2 ml-4 rounded-lg drop-shadow-md h-16 bg-blue-500 text-white hover:bg-blue-600"
+                className="w-[55%] px-4 py-2 ml-4 rounded-lg drop-shadow-md h-16 bg-slate-800 text-white hover:bg-slate-900"
               >
                 Siguiente
               </button>
@@ -188,13 +188,23 @@ export default function LocationPreference(){
               width={250}
               height={200}
               alt="Logo"
-            />
-            <h2 className="text-center font-bold mb-4">¡Gracias por comprar en Pizza 3!</h2>
+              className="mb-10"
+            />            
             {
               preferenceId ? 
-              <Wallet initialization={{preferenceId: preferenceId }} customization={{ texts:{ valueProp: 'smart_option'}}} />
+              <>
+                <Wallet initialization={{preferenceId: preferenceId }} customization={{ texts:{ valueProp: 'smart_option'}}} />
+                <button 
+                type="button"              
+                className="px-4 py-2 mt-14 w-[70%] rounded-lg bg-slate-500 text-white hover:bg-slate-500"
+                >
+                <Link href="/productos">
+                  Cancelar
+                </Link>
+              </button>
+              </>
               :  
-              <button className="px-4 py-2 my-12 w-[70%] rounded border bg-sky-800 text-white hover:bg-sky-600"
+              <button className="px-4 py-2 my-12 w-[70%] rounded-lg bg-slate-800 text-white hover:bg-sky-600"
               onClick={handleClick}>
                   Pagar ahora
               </button>
@@ -203,7 +213,7 @@ export default function LocationPreference(){
               <button 
                 type="button"
                 onClick={createUnpaidOrder}
-                className="px-4 py-2 my-4 w-[70%] rounded border bg-sky-800 text-white hover:bg-sky-600"
+                className="px-4 py-2 my-4 w-[70%] rounded-lg bg-slate-800 text-white hover:bg-sky-600"
               >
                 {option === 'delivery' ? "Pagar al recibir" : "Pagar al retirar"}
               </button>
@@ -212,7 +222,7 @@ export default function LocationPreference(){
               {!preferenceId && (
               <button 
                 type="button"              
-                className="px-4 py-2 mt-4 w-[70%] rounded border bg-slate-400 text-white hover:bg-sky-600"
+                className="px-4 py-2 mt-4 w-[70%] rounded-lg bg-slate-500 text-white hover:bg-sky-600"
               >
                 <Link href="/productos">
                   Cancelar

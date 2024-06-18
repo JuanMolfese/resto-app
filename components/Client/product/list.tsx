@@ -48,7 +48,7 @@ export default function ListProducts() {
         </div>
       </main>
       
-      <div id="cartProd" className="hidden container p-4">
+      <div id="cartProd" className="hidden container p-0 m-0">
         <Cart viewCart={viewCart}/>
       </div>
 
