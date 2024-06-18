@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useAppSelector } from "@/redux/hooks";
 import { Wallet, initMercadoPago } from "@mercadopago/sdk-react";
 import Link from "next/link";
+import Image from 'next/image';
 
 export default function LocationPreference(){
   const [option, setOption] = useState<'pickup' | 'delivery' | null>(null);
@@ -147,24 +148,40 @@ export default function LocationPreference(){
           )}
           <div className="flex justify-center w-full fixed bottom-20 left-0">
           {option && name.trim() && (option === 'pickup' || (option === 'delivery' && address.trim().length >= 5)) && (
-            <button
-              type="button"
-              onClick={handleNextStep}
-              className="w-[90%] px-4 py-2 mt-4 rounded-lg drop-shadow-md h-16 bg-blue-500 text-white hover:bg-blue-600"
-            >
-              Siguiente
-            </button>
+            <>
+              <button
+                type="button"                
+                className="w-[20%] px-4 py-2 rounded-lg drop-shadow-md h-16 bg-blue-400 text-white hover:bg-blue-600"
+              >
+                <Link href="/productos">
+                  Volver
+                </Link>
+              </button>
+              <button
+                type="button"
+                onClick={handleNextStep}
+                className="w-[55%] px-4 py-2 ml-4 rounded-lg drop-shadow-md h-16 bg-blue-500 text-white hover:bg-blue-600"
+              >
+                Siguiente
+              </button>
+            </>
           )}
           </div>
         </>
-      ) : (
-        <div>
-          <div className="justify-center items-center flex flex-col">             
+      ) : (        
+          <div className="h-[90vh] flex justify-center items-center flex-col">
+            <Image
+              src="/LogoPizza3_high.png"
+              width={250}
+              height={200}
+              alt="Logo"
+            />
+            <h2 className="text-center font-bold mb-4">¡Gracias por comprar en Pizza 3!</h2>
             {
               preferenceId ? 
               <Wallet initialization={{preferenceId: preferenceId }} customization={{ texts:{ valueProp: 'smart_option'}}} />
               :  
-              <button className="px-4 py-2 my-4 w-[70%] rounded border bg-sky-800 text-white hover:bg-sky-600"
+              <button className="px-4 py-2 my-12 w-[70%] rounded border bg-sky-800 text-white hover:bg-sky-600"
               onClick={handleClick}>
                   Pagar ahora
               </button>
@@ -177,9 +194,20 @@ export default function LocationPreference(){
               >
                 {option === 'delivery' ? "Pagar al recibir" : "Pagar al retirar"}
               </button>
-              )}           
-          </div>
-        </div>
+              )}
+
+              {!preferenceId && (
+              <button 
+                type="button"              
+                className="px-4 py-2 mt-4 w-[70%] rounded border bg-slate-400 text-white hover:bg-sky-600"
+              >
+                <Link href="/productos">
+                  Cancelar
+                </Link>
+              </button>
+              )}
+
+          </div>        
       )
     }
     </div>

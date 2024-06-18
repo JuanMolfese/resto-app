@@ -32,23 +32,24 @@ export default function Cart({viewCart} : {viewCart: () => void}) {
           ))}
         </tbody>
       </table>
-      <div className="flex justify-end mt-4">
-        <span className="text-xl font-bold">Total: {(carrito.total).toLocaleString('es-ar', {style: 'currency', currency: 'ARS', minimumFractionDigits: 2})}</span>
-      </div>
-      <div className="flex justify-around">
-        <button className="mt-8 mx-auto py-2 px-4 text-white border rounded-full bg-blue-400 hover:bg-blue-500 flex justify-center lg:hidden" onClick={viewCart}>
-          Seguir comprando
-        </button>
-        {
-          carrito.items.length > 0 && (
-            <Link href="/productos/locationPreference">
-              <button className="mt-8 mx-auto py-2 px-4 text-white border rounded-full bg-blue-400 hover:bg-blue-500 flex justify-center">
-                Confirma compra
+        <div className="mt-12 fixed bottom-30 right-14">
+          <span className="text-xl font-bold">Total: {(carrito.total).toLocaleString('es-ar', {style: 'currency', currency: 'ARS', minimumFractionDigits: 2})}</span>
+        </div>
+      <div className="flex justify-center w-full fixed bottom-20 left-0">
+        <div className="flex justify-around mt-10">
+          <button className="px-4 py-2 rounded-lg bg-blue-400 text-white border w-[45%] font-bold drop-shadow-md lg:hidden" onClick={viewCart}>
+            Seguir Comprando
+          </button>
+          {
+            carrito.items.length > 0 && (
+              <button className="px-4 py-2 rounded-lg bg-blue-500 text-white border w-[45%] font-bold drop-shadow-md">
+                  <Link href="/productos/locationPreference">
+                    Confirma Compra
+                  </Link>
               </button>
-            </Link>
-          )
-        }
-
+            )
+          }
+        </div>
       </div>
     </>
   )
