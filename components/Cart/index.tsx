@@ -13,14 +13,18 @@ export default function Cart({viewCart} : {viewCart: () => void}) {
   
   return(
     <>
-      <h1 className="text-center text-xl font-bold mb-2">Carrito de compras</h1>
+      <h1 className="text-center text-xl font-bold my-2">Carrito de compras</h1>
       <table className="w-full divide-y divide-gray-200">
-        <tbody className="bg-white-200 divide-y divide-gray-200">
+      <tbody className="bg-white-200 divide-y divide-gray-200">
           {carrito.items.map(product => (
-            <tr key={product.id} className="text-center mt-2">
-              <td className="px-4 py-2 whitespace-nowrap">{product.nombre}</td>
+            <tr key={product.id} className="mt-2">
+              <td className="px-0 py-2 max-w-[150px] overflow-hidden text-ellipsis whitespace-nowrap">
+                {product.nombre}
+              </td>
               <td className="px-4 py-2 whitespace-nowrap">{product.cantidad}</td>
-              <td className="px-4 py-2 whitespace-nowrap">{(product.precio).toLocaleString('es-ar', {style: 'currency', currency: 'ARS', minimumFractionDigits: 2})}</td>
+              <td className="px-4 py-2 whitespace-nowrap text-end">
+                {(product.precio).toLocaleString('es-ar', { style: 'currency', currency: 'ARS', minimumFractionDigits: 2 })}
+              </td>
               <td className="px-4 py-2 whitespace-nowrap flex justify-center items-center">
                 <button className="bg-red-500 text-white rounded-full p-1 hover:bg-red-600" onClick={() => handleDelete(product)}>
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
