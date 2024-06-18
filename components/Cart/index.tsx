@@ -35,22 +35,25 @@ export default function Cart({viewCart} : {viewCart: () => void}) {
         <div className="mt-12 fixed bottom-30 right-14">
           <span className="text-xl font-bold">Total: {(carrito.total).toLocaleString('es-ar', {style: 'currency', currency: 'ARS', minimumFractionDigits: 2})}</span>
         </div>
-      <div className="flex justify-center w-full fixed bottom-20 left-0">
-        <div className="flex justify-around mt-10">
-          <button className="px-4 py-2 rounded-lg bg-blue-400 text-white border w-[45%] font-bold drop-shadow-md lg:hidden" onClick={viewCart}>
-            Seguir Comprando
-          </button>
-          {
-            carrito.items.length > 0 && (
-              <button className="px-4 py-2 rounded-lg bg-blue-500 text-white border w-[45%] font-bold drop-shadow-md">
-                  <Link href="/productos/locationPreference">
-                    Confirma Compra
-                  </Link>
+        <div className="flex justify-center w-full fixed bottom-20 left-0">
+          <div className="flex justify-around mt-10 w-full px-4 gap-2">
+            <button
+              className="px-4 py-2 rounded-lg bg-blue-400 text-white border w-1/2 font-bold drop-shadow-md lg:hidden"
+              onClick={viewCart}
+            >
+              Seguir Comprando
+            </button>
+            {carrito.items.length > 0 && (
+              <button
+                className="px-4 py-2 rounded-lg bg-blue-500 text-white border w-1/2 font-bold drop-shadow-md"
+              >
+                <Link href="/productos/locationPreference">
+                  Confirma Compra
+                </Link>
               </button>
-            )
-          }
+            )}
+          </div>
         </div>
-      </div>
     </>
   )
 }

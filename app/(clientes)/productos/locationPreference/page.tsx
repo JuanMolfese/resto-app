@@ -72,10 +72,10 @@ export default function LocationPreference(){
         });
         const responseData = await response.json();
         if (responseData.success){
-            setIsDialogOpen(true);            
-            return responseData.result.id;
-            //IMPORTANTE ACA TMB SE DEBERIA BORRAR EL CARRITO
-          }
+          //Borro el carrito y muestro el modal 
+          setIsDialogOpen(true); 
+           return responseData.result.id;            
+        }
       } catch (error) {
         {console.log("Error al realizar el pedido", error)};
       }
