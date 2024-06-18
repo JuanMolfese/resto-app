@@ -20,7 +20,7 @@ export default function CardProduct({ product }: { product: ProductoDetail }) {
 
   const removeProd = () => {
     const input = document.getElementById(`i${product.id}`) as HTMLInputElement;
-    if (input && parseInt(input.value) > 2){
+    if (input && parseInt(input.value) > 0){
       input.value = (parseInt(input.value) - 1).toString();
     }
   }
