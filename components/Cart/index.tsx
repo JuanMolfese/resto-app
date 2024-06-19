@@ -37,8 +37,18 @@ export default function Cart({viewCart} : {viewCart: () => void}) {
             ))}
           </tbody>
         </table>
+        <div className="hidden lg:block">
+        {carrito.items.length > 0 && (
+          <button className="px-4 py-2 mt-2 rounded-lg bg-slate-800 text-white border w-full font-bold drop-shadow-md">
+            <Link href="/productos/locationPreference">
+              Confirma Compra
+            </Link>
+          </button>
+        )}
+        </div>
       </div>
-      <div className="fixed bottom-4 left-0 w-full bg-white">
+    
+      <div className="fixed bottom-4 left-0 w-full bg-white lg:hidden">
         <div className="flex justify-around py-2 px-4">
           <button
             className="px-4 py-2 rounded-lg bg-slate-800 text-white border w-2/5 font-bold drop-shadow-md"

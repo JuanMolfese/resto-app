@@ -3,10 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "node server.js",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "start": "NODE_ENV=production node server.js"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",
@@ -42,6 +41,8 @@
     "react-hook-form": "^7.51.2",
     "react-redux": "^9.1.2",
     "serverless-mysql": "^1.5.5",
+    "socket.io": "^4.7.5",
+    "socket.io-client": "^4.7.5",
     "tailwind-merge": "^2.2.2",
     "tailwindcss-animate": "^1.0.7",
     "use-debounce": "^10.0.0",

@@ -3,28 +3,36 @@ import CardProduct from "./cardProduct";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import Spinner from "../../spinner";
+import io, { Socket } from 'socket.io-client';
 
 export default function ListadoProductos() {
-
   const { data, error, isLoading, refetch } = useGetProductsQuery();
-  const [refreshInterval, setRefreshInterval] = useState(5000); // Intervalo de actualización en milisegundos (1 minuto)
   const params = useSearchParams();
+  const [socket, setSocket] = useState<Socket | null>(null);
 
   const filteredProducts = data?.filter(product => {
+    
     const query = params.get('query');
     return !query || product.subrubro_nombre.toLowerCase().includes(query.toLowerCase());
   });
 
-  // Hook para manejar la actualización periódica
   useEffect(() => {
-    const intervalId = setInterval(() => {
-      // Llamar a refetch para actualizar los datos
-      refetch();
-    }, refreshInterval);
+    // Crear la conexión socket.io
+    const socket = io('http://localhost:3000');
+    setSocket(socket);
 
-    // Limpiar el intervalo cuando el componente se desmonte
-    return () => clearInterval(intervalId);
-  }, [refreshInterval, refetch]);
+    // Definir el evento onproduct_updated para actualizar los datos cuando el servidor envíe una notificación
+    socket.on('product_updated', (message) => {
+      if (message.type === 'PRODUCT_UPDATED') {
+        refetch(); // Refetch los datos cuando ocurra un cambio en los productos
+      }
+    });
+
+    // Limpiar la conexión socket.io cuando el componente se desmonte
+    return () => {
+      socket.disconnect();
+    };
+  }, [refetch]);
 
   if (isLoading) { 
     return (
@@ -35,11 +43,10 @@ export default function ListadoProductos() {
 
   return (
     <>
-      
       <ul className="flex flex-wrap py-2 gap-1">
         {filteredProducts?.map(product => (
           <CardProduct product={product} key={product.id} />
-          ))}
+        ))}
       </ul>
     </>
   )

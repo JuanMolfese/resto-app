@@ -1,13 +1,13 @@
 import { NextRequest, NextResponse} from "next/server";
+import { connection } from "../../utils/models/db";
 
 export async function POST(request: NextRequest) {
     
   try{
 
     const order = await request.json();
-  
-    console.log(order);
-     const pedido = {
+
+    const pedido = {
       amount: order.cart_price,
       payer_name: order.name,      
       payer_address: order.address,
@@ -15,7 +15,30 @@ export async function POST(request: NextRequest) {
       cart: JSON.stringify(order.cart),
       pago:"false",
     }; 
-    console.log(pedido);
+    
+    try {
+      const resultPedido = await connection.query<any>(
+        `INSERT INTO Pedido (pago, modo_entrega_id, payer_first_name, payer_adress, total) VALUES (?, ?, ?, ?, ?)`,
+        [
+          false,
+          pedido.delivery_method === "delivery" ? 1 : 2,
+          pedido.payer_name,
+          pedido.payer_address,
+          pedido.amount,
+        ]
+      );
+      const pedidoCart = JSON.parse(pedido.cart);
+      for (const item of pedidoCart) {
+        await connection.query<any>(
+          `INSERT INTO Pedido_Productos (pedido_id, producto_id, cantidad, precio) VALUES (?, ?, ?, ?)`,
+          [resultPedido.insertId, item.id, item.cantidad]
+        );
+      }
+    }
+    catch (error) {
+      console.log("Error al insertar el pedido en la base de datos", error);
+      return NextResponse.json({ success: false, message: "Error al insertar el pedido en la base de datos" });
+    }
     
     //cargar en BBDD el pedido, payment y demas info necesaria
     //await pedido.insert(pedido)

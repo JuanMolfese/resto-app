@@ -1,0 +1,16 @@
+INSERT INTO `Comercio` (`id`, `razon_social`, `cuit`, `nombre_fantasia`, `logo`) VALUES ('1', 'Geronimo Balda', '20123456785', 'Pizza 3', '');
+INSERT INTO `Modo_Entrega` (`id`, `descripcion`) VALUES ('1', 'A domicilio'), ('2', 'En local');
+INSERT INTO `Rubro` (`id`, `nombre`) VALUES ('1', 'Comidas'), ('2', 'Bebidas');
+INSERT INTO `Subrubro` (`id`, `rubro_id`, `nombre`) VALUES ('1', '1', 'Pizza'), ('2', '1', 'Empanada'), ('3', '2', 'Tarta');
+INSERT INTO `Producto` (`id`, `nombre`, `subrubro_id`) VALUES ('1', 'Jamon y Queso', '2'), ('2', 'Carne', '2');
+INSERT INTO `Producto` (`id`, `nombre`, `subrubro_id`) VALUES ('3', 'Muzzarella', '1'), ('4', 'Especial', '1');
+INSERT INTO `Producto` (`id`, `nombre`, `subrubro_id`) VALUES ('5', 'Cuatro Quesos', '2'), ('6', 'Humita', '2');
+INSERT INTO `Producto` (`id`, `nombre`, `subrubro_id`) VALUES ('7', 'Jamon y Queso', '3');
+INSERT INTO `Rol` (`id`, `descripcion`) VALUES ('1', 'Super Admin'), ('2', 'Admin'), ('3', 'Employee');
+INSERT INTO `Status_Sucursal` (`id`, `nombre`) VALUES ('1', 'Abierta'), ('2', 'Cerrada');
+INSERT INTO `Sucursal` (`id`, `nombre`, `domicilio_calle`, `domicilio_nro`, `domicilio_piso`, `domicilio_dpto`, `telefono`, `status_sucursal_id`, `comercio_id`) VALUES ('1', 'Pizza 3 Central', 'AV. Moreno', '164', NULL, NULL, '430557', '2', '1');
+INSERT INTO `Usuario` (`id`, `email`, `pass`, `nombre`, `apellido`, `rol_id`) VALUES ('1', 'fedecrespi@gmail.com', '12345678', 'Federico', 'Crespi', '1'), ('2', 'juanmolfese@gmail.com', '12345678', 'Juan Jose', 'Molfese', '2');
+INSERT INTO `Usuario` (`id`, `email`, `pass`, `nombre`, `apellido`, `rol_id`) VALUES ('3', 'administracion@pizza3.com.ar', '12345678', 'Administrador', 'Uno', '3');
+INSERT INTO `Sucursal_Productos` (`producto_id`, `sucursal_id`, `stock`, `precio`) VALUES ('1', '1', 999, 50), ('2', '1', 1, 50), ('3', '1', 2, 50), ('4', '1', 4, 50), ('5', '1', 5, 50), ('6', '1', 6, 50), ('7', '1', 7, 50);
+INSERT INTO `Estado_Pedido` (`descripcion`, `orden`) VALUES ('Pendiente', '1'), ('En Preparacion', '2'), ('Enviado', '3'), ('Entregado', '4');
+INSERT INTO `Cliente` (`id`, `nombre`, `domicilio`, `telefono`) VALUES ('1', 'UNICO', 'UNICO', '123456');
