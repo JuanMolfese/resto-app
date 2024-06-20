@@ -82,13 +82,13 @@ CREATE TABLE Producto (
 CREATE TABLE Pedido (
     id int  NOT NULL AUTO_INCREMENT,
     fecha_emision datetime  NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    cliente_id int  NOT NULL,
+    cliente_id int  NOT NULL DEFAULT 1,
     estado_pedido_id int  NOT NULL DEFAULT 1,
     fecha_finalizacion datetime,
     pago boolean  NOT NULL,
     modo_entrega_id int  NOT NULL,
     -- save products
-    mp_id int,
+    mp_id bigint,
     payer_first_name varchar(50),
     payer_last_name varchar(50),
     payer_email varchar(50),

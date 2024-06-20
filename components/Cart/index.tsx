@@ -20,7 +20,7 @@ export default function Cart({viewCart} : {viewCart: () => void}) {
             {carrito.items.map(product => (
               <tr key={product.id} className="mt-2">
                 <td className="px-4 py-1 max-w-[150px] overflow-hidden text-ellipsis whitespace-nowrap flex flex-col">
-                  <span className="text-xs text-center">{product.subrubro_nombre}</span>
+                  <span className="text-xs">{product.subrubro_nombre}</span>
                   {product.nombre}
                 </td>
                 <td className="px-4 py-1 whitespace-nowrap">{product.cantidad}</td>

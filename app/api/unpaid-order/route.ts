@@ -18,20 +18,19 @@ export async function POST(request: NextRequest) {
     
     try {
       const resultPedido = await connection.query<any>(
-        `INSERT INTO Pedido (pago, modo_entrega_id, payer_first_name, payer_adress, total) VALUES (?, ?, ?, ?, ?)`,
+        `INSERT INTO Pedido (pago, modo_entrega_id, payer_first_name, payer_address) VALUES (?, ?, ?, ?)`,
         [
           false,
           pedido.delivery_method === "delivery" ? 1 : 2,
           pedido.payer_name,
-          pedido.payer_address,
-          pedido.amount,
+          pedido.payer_address
         ]
       );
       const pedidoCart = JSON.parse(pedido.cart);
       for (const item of pedidoCart) {
         await connection.query<any>(
           `INSERT INTO Pedido_Productos (pedido_id, producto_id, cantidad, precio) VALUES (?, ?, ?, ?)`,
-          [resultPedido.insertId, item.id, item.cantidad]
+          [resultPedido.insertId, item.id, item.cantidad, item.precio]
         );
       }
     }
