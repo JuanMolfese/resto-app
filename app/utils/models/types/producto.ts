@@ -25,6 +25,7 @@ export type ProductCart = {
     precio: number;
     cantidad: number;
     subrubro_id: number; 
+    subrubro_nombre: string;
     image: string;
     stock: number;
 };
