@@ -1,12 +1,13 @@
 "use client"
 import { useEffect, useState } from 'react';
-import { useAppSelector } from "@/redux/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { Wallet, initMercadoPago } from "@mercadopago/sdk-react";
 import Link from "next/link";
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger,} from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button"
+import { clearCart } from '@/redux/features/cartSlice';
 
 export default function LocationPreference(){
   const [option, setOption] = useState<'pickup' | 'delivery' | null>(null);
@@ -18,6 +19,7 @@ export default function LocationPreference(){
 
   const carrito = useAppSelector(state => state.cart);
   const [preferenceId, setPreferenceId] = useState<any>(null);
+  const dispatch = useAppDispatch();
   
     useEffect(() => {
       initMercadoPago( process.env.NEXT_PUBLIC_MP_PUBLIC_KEY!, { locale: 'es-AR' });
@@ -73,6 +75,7 @@ export default function LocationPreference(){
         const responseData = await response.json();
         if (responseData.success){
           //Borro el carrito y muestro el modal 
+          dispatch(clearCart());
           setIsDialogOpen(true); 
            return responseData.result.id;            
         }
