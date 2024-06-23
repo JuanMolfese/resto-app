@@ -186,13 +186,13 @@ CREATE TABLE Historial_Producto (
 * Se encarga de actualizar el stock de los productos en la sucursal
  */
 DELIMITER //
-CREATE TRIGGER update_stock
+CREATE OR REPLACE TRIGGER update_stock
 AFTER INSERT ON Pedido_Productos
 FOR EACH ROW
 BEGIN
     UPDATE Sucursal_Productos
     SET stock = stock - NEW.cantidad
-    WHERE producto_id = NEW.producto_id AND sucursal_id = NEW.pedido_id;
+    WHERE producto_id = NEW.producto_id AND sucursal_id = 1;
 END;
 //
 DELIMITER ;

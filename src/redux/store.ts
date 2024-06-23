@@ -4,6 +4,7 @@ import productsListReducer from './features/productSlice'
 import { productApi } from './services/productsApi'
 import { rubrosApi } from './services/rubrosApi'
 import { subrubrosApi } from './services/subrubrosApi'
+import { orderApi } from './services/ordersApi'
 
 export const makeStore = () => {
   return configureStore({
@@ -14,9 +15,10 @@ export const makeStore = () => {
       [productApi.reducerPath]: productApi.reducer,
       [rubrosApi.reducerPath]: rubrosApi.reducer,
       [subrubrosApi.reducerPath]: subrubrosApi.reducer,
+      [orderApi.reducerPath]: orderApi.reducer
     },
     middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware().concat(productApi.middleware, rubrosApi.middleware, subrubrosApi.middleware),
+      getDefaultMiddleware().concat(productApi.middleware, rubrosApi.middleware, subrubrosApi.middleware, orderApi.middleware),
   })
 }
 

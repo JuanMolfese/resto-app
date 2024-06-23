@@ -24,6 +24,7 @@ import {
 import { useState } from "react";
 import Image from "next/image";
 import UserMenu from "./userMenu";
+import { useGetPedidosQuery } from "@/redux/services/ordersApi";
 
 export default function MenuDashboard({
   child,
@@ -33,6 +34,7 @@ export default function MenuDashboard({
   products: any;
 }) {
   const [activeLink, setActiveLink] = useState(null);
+  const { data, error, isLoading, refetch } = useGetPedidosQuery();
 
   const handleClick = (name: any) => {
     setActiveLink(name);
@@ -44,6 +46,9 @@ export default function MenuDashboard({
       ? "flex items-center bg-muted gap-3 rounded-lg px-3 py-2 text-primary transition-all hover:text-primary"
       : "flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary";
   };
+
+  isLoading && <div>Loading...</div>;
+  error && <div>Error...</div>
 
   return (
     <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
@@ -74,7 +79,9 @@ export default function MenuDashboard({
                   <ShoppingCart className="h-4 w-4" />
                   Pedidos
                   <Badge className="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full">
-                    6
+                    {
+                      data && data.filter((pedido) => pedido.estado_pedido_id === 1).length
+                    }
                   </Badge>
                 </Link>
                 <Link
@@ -187,7 +194,7 @@ export default function MenuDashboard({
                       <ShoppingCart className="h-4 w-4" />
                       Pedidos
                       <Badge className="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full">
-                        6
+                        {data && data.filter((pedido) => pedido.estado_pedido_id === 1).length}
                       </Badge>
                     </Link>
                     </SheetClose>
