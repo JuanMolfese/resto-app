@@ -63,9 +63,6 @@ export function DialogDetailOrder(order: Pedido) {
                 <p>Pedido impago</p>
               </div>
           }
-       
-  
-                  
         </div>
         <DialogFooter>
           <DialogClose className="bg-black text-white p-1 md:px-8 rounded-full hover:bg-gray-600">Cerrar</DialogClose>

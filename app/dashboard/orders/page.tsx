@@ -6,6 +6,8 @@ import { useGetPedidosQuery } from "@/redux/services/ordersApi";
 import { BadgeDollarSign, HandPlatter, Receipt, ReceiptText, Truck } from "lucide-react";
 import { Pedido } from "../../utils/models/types/pedido";
 import { DialogDetailOrder } from "../../../components/Order/dialogDetail";
+import { useGetStatusQuery } from "@/redux/services/statusApi";
+
 
 
 const orderTakeaway = (order: Pedido) => {
@@ -54,13 +56,14 @@ export default function Orders() {
 
   
   const { data: pedidos, error, isLoading } = useGetPedidosQuery();
+  const { data: status, error: errorStatus, isLoading: isLoadingStatus } = useGetStatusQuery();
 
-  if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>Error</p>;
+  if (isLoading || isLoadingStatus) return <p>Loading...</p>;
+  if (error || errorStatus) return <p>Error</p>;
 
   return(
     <>
-      {/* <div className="flex">
+      <div className="flex">
         {status?.map((status) => (
           <Link key={status.id} href={`/dashboard/orders/${status.id}`}>
             <Badge key={status.id} variant="outline" className="mr-2">
@@ -68,7 +71,12 @@ export default function Orders() {
             </Badge>
           </Link>
         ))}
-      </div> */}
+        <Link href={`/dashboard/orders?filter=todos`}>
+          <Badge variant="outline" className="mr-2">
+            Todos
+          </Badge>
+        </Link>
+      </div> 
       <div>
         
         {pedidos?.length === 0 && <p>No hay pedidos</p>}

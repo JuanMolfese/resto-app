@@ -89,11 +89,7 @@ CREATE TABLE Pedido (
     modo_entrega_id int  NOT NULL,
     -- save products
     mp_id bigint,
-    payer_first_name varchar(50),
-    payer_last_name varchar(50),
-    payer_email varchar(50),
-    payer_dni int,
-    payer_phone VARCHAR(50),
+    payer_first_name varchar(50), 
     payer_address varchar(150),
     CONSTRAINT Pedido_pk PRIMARY KEY (id),
     CONSTRAINT foreign key (cliente_id) REFERENCES Cliente (id),
@@ -119,7 +115,7 @@ CREATE  TABLE Usuario (
     pass varchar(150)  NOT NULL,
     nombre varchar(150)  NULL,
     apellido varchar(150)  NULL,
-    rol_id int  NOT NULL,
+    rol_id int  NOT NULL DEFAULT 1,
     CONSTRAINT Usuario_pk PRIMARY KEY (id),
     CONSTRAINT foreign key (rol_id) REFERENCES Rol (id)
 );
