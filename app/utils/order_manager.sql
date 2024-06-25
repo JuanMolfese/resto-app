@@ -91,6 +91,7 @@ CREATE TABLE Pedido (
     mp_id bigint,
     payer_first_name varchar(50), 
     payer_address varchar(150),
+    total float NOT NULL,
     CONSTRAINT Pedido_pk PRIMARY KEY (id),
     CONSTRAINT foreign key (cliente_id) REFERENCES Cliente (id),
     CONSTRAINT foreign key (estado_pedido_id) REFERENCES Estado_Pedido (id),

@@ -18,12 +18,13 @@ export async function POST(request: NextRequest) {
     
     try {
       const resultPedido = await connection.query<any>(
-        `INSERT INTO Pedido (pago, modo_entrega_id, payer_first_name, payer_address) VALUES (?, ?, ?, ?)`,
+        `INSERT INTO Pedido (pago, modo_entrega_id, payer_first_name, payer_address, total) VALUES (?, ?, ?, ?, ?)`,
         [
           false,
           pedido.delivery_method === "delivery" ? 1 : 2,
           pedido.payer_name,
-          pedido.payer_address
+          pedido.payer_address,
+          pedido.amount
         ]
       );
       const pedidoCart = JSON.parse(pedido.cart);

@@ -7,6 +7,7 @@ import { BadgeDollarSign, HandPlatter, Receipt, ReceiptText, Truck } from "lucid
 import { Pedido } from "../../utils/models/types/pedido";
 import { DialogDetailOrder } from "../../../components/Order/dialogDetail";
 import { useGetStatusQuery } from "@/redux/services/statusApi";
+import { useSearchParams } from "next/navigation";
 
 
 
@@ -57,6 +58,13 @@ export default function Orders() {
   
   const { data: pedidos, error, isLoading } = useGetPedidosQuery();
   const { data: status, error: errorStatus, isLoading: isLoadingStatus } = useGetStatusQuery();
+  
+  const params = useSearchParams();
+  const filter = params.get('filter');
+  
+  const filteredOrders = pedidos?.filter(pedido => {
+    return !filter || pedido.estado_pedido_descripcion.toLowerCase().includes(filter.toLowerCase());
+  });
 
   if (isLoading || isLoadingStatus) return <p>Loading...</p>;
   if (error || errorStatus) return <p>Error</p>;
@@ -65,13 +73,13 @@ export default function Orders() {
     <>
       <div className="flex">
         {status?.map((status) => (
-          <Link key={status.id} href={`/dashboard/orders/${status.id}`}>
+          <Link key={status.id} href={`/dashboard/orders?filter=${status.descripcion}`}>
             <Badge key={status.id} variant="outline" className="mr-2">
               {status.descripcion}
             </Badge>
           </Link>
         ))}
-        <Link href={`/dashboard/orders?filter=todos`}>
+        <Link href="/dashboard/orders">
           <Badge variant="outline" className="mr-2">
             Todos
           </Badge>
@@ -79,9 +87,9 @@ export default function Orders() {
       </div> 
       <div>
         
-        {pedidos?.length === 0 && <p>No hay pedidos</p>}
+        {filteredOrders?.length === 0 && <p>No hay pedidos</p>}
         <ul>
-          {pedidos?.map((order) => (
+          {filteredOrders?.map((order) => (
             <li key={order.id} className="flex w-full justify-between items-center p-4 bg-slate-200/20 my-2 rounded-full shadow shadow-slate-400/20 hover:bg-slate-100">    
               {
                 (order.modo_entrega_id == 1) ? orderDelivery(order) : orderTakeaway(order)
