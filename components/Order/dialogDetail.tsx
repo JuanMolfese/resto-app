@@ -25,6 +25,7 @@ export function DialogDetailOrder(order: Pedido) {
           <DialogTitle>Detalle de la Orden</DialogTitle>
           <DialogDescription>
             Orden #{order.id}
+            <p className="text-sm mb-2">Estado: {order.estado_pedido_descripcion}</p>
           </DialogDescription>
         </DialogHeader>
         <div className="py-4">
@@ -51,6 +52,9 @@ export function DialogDetailOrder(order: Pedido) {
               }
             </div>
           </div>
+          <p className="w-full text-end mt-4">
+              Total: <span className="font-semibold">${order.total}</span>
+          </p>
           {
             order.pago ? 
               <div className="flex p-2 items-center gap-2">
@@ -63,6 +67,11 @@ export function DialogDetailOrder(order: Pedido) {
                 <p>Pedido impago</p>
               </div>
           }
+          <div className="px-4 py-2 shadow w-full rounded-lg">
+            <ul className="list-disc list-inside">
+            
+            </ul>
+          </div>
         </div>
         <DialogFooter>
           <DialogClose className="bg-black text-white p-1 md:px-8 rounded-full hover:bg-gray-600">Cerrar</DialogClose>

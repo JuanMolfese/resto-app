@@ -15,5 +15,6 @@ export type Pedido = {
     payer_dni: string;
     payer_phone: string;
     payer_address: string;
+    total: number;
 };
   

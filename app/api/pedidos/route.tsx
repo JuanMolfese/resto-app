@@ -19,7 +19,8 @@ export async function GET() {
         p.payer_email,
         p.payer_dni,
         p.payer_phone,
-        p.payer_address
+        p.payer_address,
+        p.total
       FROM Pedido p 
         JOIN Estado_Pedido e on p.estado_pedido_id = e.id 
         JOIN Modo_Entrega m on p.modo_entrega_id = m.id
