@@ -14,11 +14,7 @@ export async function GET() {
         p.modo_entrega_id,
         m.descripcion as modo_entrega_descripcion,
         p.mp_id,
-        p.payer_first_name,
-        p.payer_last_name,
-        p.payer_email,
-        p.payer_dni,
-        p.payer_phone,
+        p.payer_first_name,        
         p.payer_address,
         p.total
       FROM Pedido p 

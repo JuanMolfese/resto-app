@@ -32,12 +32,12 @@ export async function POST(request: NextRequest) {
         net_amount: payment.transaction_details?.net_received_amount,
         message: payment.description,
         status: payment.status,
-        payer_email: payment.payer?.email,
-        payer_first_name: payment.payer?.first_name,
-        payer_last_name: payment.payer?.last_name,
+        /* payer_email: payment.payer?.email, */
+        payer_first_name: payment.metadata?.name,
+        /* payer_last_name: payment.payer?.last_name,
         payer_dni: payment.payer?.identification?.number,
         payer_phone:
-          payment.payer?.phone?.area_code + "-" + payment.payer?.phone?.number,
+          payment.payer?.phone?.area_code + "-" + payment.payer?.phone?.number, */
         cart: JSON.stringify(payment.metadata.cart),
         option: payment.metadata?.option,
         name: payment.metadata?.name,
@@ -51,16 +51,12 @@ export async function POST(request: NextRequest) {
 
       try {
         const resultPedido = await connection.query<any>(
-          `INSERT INTO Pedido (pago, modo_entrega_id, mp_id, payer_first_name, payer_last_name, payer_dni, payer_phone, payer_email, payer_adress, total) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+          `INSERT INTO Pedido (pago, modo_entrega_id, mp_id, payer_first_name, payer_address, total) VALUES (?, ?, ?, ?, ?, ?)`,
           [
             true,
             pedido.option === "delivery" ? 1 : 2,
             pedido.id,
-            pedido.payer_first_name,
-            pedido.payer_last_name,
-            pedido.payer_dni,
-            pedido.payer_phone,
-            pedido.payer_email,
+            pedido.payer_first_name,            
             pedido.address,
             pedido.amount,
           ]
@@ -70,7 +66,7 @@ export async function POST(request: NextRequest) {
         for (const item of pedidoCart) {
           await connection.query<any>(
             `INSERT INTO Pedido_Productos (pedido_id, producto_id, cantidad, precio) VALUES (?, ?, ?, ?)`,
-            [resultPedido.insertId, item.id, item.cantidad]
+            [resultPedido.insertId, item.id, item.cantidad, item.precio]
           );
         }
       } catch (error) {
