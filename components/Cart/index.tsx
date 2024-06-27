@@ -60,7 +60,7 @@ export default function Cart({viewCart} : {viewCart: () => void}) {
           {carrito.items.length > 0 && (
             <button className="px-4 py-2 rounded-lg bg-slate-800 text-white border w-2/5 font-bold drop-shadow-md">
               <Link href="/productos/locationPreference">
-                Confirma Compra
+                Confirmar Compra
               </Link>
             </button>
           )}
