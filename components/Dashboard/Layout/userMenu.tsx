@@ -17,6 +17,7 @@ export default function UserMenu() {
   }, [user]);
 
   return (
+    <div className="mt-1">
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="secondary" size="icon" className="rounded-full hover:bg-gray-200">
@@ -41,5 +42,6 @@ export default function UserMenu() {
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
+    </div>
   )
 }
