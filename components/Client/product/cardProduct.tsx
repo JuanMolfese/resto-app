@@ -107,7 +107,7 @@ export default function CardProduct({ product }: { product: ProductoDetail }) {
             </button>
           </div>
         </>
-        : <p className="text-xs text-red-400">Agotado</p>}
+        : <p className="text-base text-red-600 ml-4 mt-4">Agotado</p>}
       </div>
     </li>
   )
