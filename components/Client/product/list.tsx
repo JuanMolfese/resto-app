@@ -22,7 +22,7 @@ export default function ListProducts() {
   return (
     <div className="h-screen">
       
-      <nav className="flex gap-1 items-center bg-color-nav justify-around sticky top-0 ">
+      <nav className="flex gap-1 items-center bg-slate-50 justify-around sticky top-0 ">
         <Link href={'/'} className="drop-shadow-md hover:drop-shadow-xl">
           <Image src="/LogoPizza3_high.png" alt="logo" width={80} height={80} className="cursor-pointer ml-3" priority/>
         </Link>
