@@ -114,7 +114,7 @@ export default function LocationPreference(){
   };
 
   return (
-    <div className="space-y-4 m-8">
+    <div className="space-y-4 m-8 md:m-auto md:max-w-[50%] md:mt-10">
       {step === 1 ? (
         <>
           <div>
@@ -162,7 +162,7 @@ export default function LocationPreference(){
               )}
             </div>
           )}
-          <div className="flex justify-center w-full fixed bottom-20 left-0">
+          <div className="flex justify-center w-full fixed bottom-20 left-0 md:w-[50%] md:mx-auto md:left-auto">
           {option && name.trim() && (option === 'pickup' || (option === 'delivery' && address.trim().length >= 5)) && (
             <>
               <button

@@ -12,7 +12,7 @@ export default function Cart({viewCart} : {viewCart: () => void}) {
   }
   
   return(
-      <main className="w-screen max-h-screen">
+      <main className="max-w-screen max-h-screen">
       <h1 className="text-center text-xl font-bold my-4">Carrito de compras</h1>
       <div className="overflow-auto h-[60vh]">
         <table className="w-full divide-y divide-gray-200 table-fixed">
@@ -49,21 +49,21 @@ export default function Cart({viewCart} : {viewCart: () => void}) {
         )}
         </div> */}
       </div>
-    {/* Muestra Total del Carrito */}
+      {/* Muestra Total del Carrito */}
       <div className="flex justify-end mr-10">
         <span className="text-xl font-bold">Total: {(carrito.total).toLocaleString('es-ar', {style: 'currency', currency: 'ARS', minimumFractionDigits: 2})}</span>
       </div>
 
-      <div className="fixed bottom-4 left-0 w-full bg-white lg:hidden">
+      <div className="fixed bottom-4 left-0 w-full bg-white md:m-auto md:relative md:bottom-1">
         <div className="flex justify-around py-2 px-4">
           <button
-            className="px-4 py-2 rounded-lg bg-slate-800 text-white border w-2/5 font-bold drop-shadow-md"
+            className="px-4 py-2 rounded-lg bg-slate-800 text-white border w-2/5 md:w-1/5 md:mt-2 font-bold drop-shadow-md"
             onClick={viewCart}
           >
             Seguir Comprando
           </button>
           {carrito.items.length > 0 && (
-            <button className="px-4 py-2 rounded-lg bg-slate-800 text-white border w-2/5 font-bold drop-shadow-md">
+            <button className="px-4 py-2 rounded-lg bg-slate-800 text-white border w-2/5 md:w-1/5 md:mt-4 font-bold drop-shadow-md">
               <Link href="/productos/locationPreference">
                 Confirmar Compra
               </Link>
