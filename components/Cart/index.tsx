@@ -14,8 +14,8 @@ export default function Cart({viewCart} : {viewCart: () => void}) {
   return(
       <main className="max-w-screen max-h-screen">
       <h1 className="text-center text-xl font-bold my-4">Carrito de compras</h1>
-      <div className="overflow-auto h-[60vh]">
-        <table className="w-full divide-y divide-gray-200 table-fixed">
+      <div className="overflow-auto w-full">
+        <table className="divide-y divide-gray-200 w-full">
           <tbody className="bg-white-200 divide-y divide-gray-200">
             {carrito.items.map(product => (
               <tr key={product.id} className="mt-2 flex">
@@ -50,20 +50,20 @@ export default function Cart({viewCart} : {viewCart: () => void}) {
         </div> */}
       </div>
       {/* Muestra Total del Carrito */}
-      <div className="flex justify-end mr-10">
+      <div className="flex justify-end mr-10 mt-4">
         <span className="text-xl font-bold">Total: {(carrito.total).toLocaleString('es-ar', {style: 'currency', currency: 'ARS', minimumFractionDigits: 2})}</span>
       </div>
-
-      <div className="fixed bottom-4 left-0 w-full bg-white md:m-auto md:relative md:bottom-1">
-        <div className="flex justify-around py-2 px-4">
+    
+      <div className="fixed bottom-4 left-0 w-full bg-white md:m-auto md:relative md:bottom-1 ">
+        <div className="flex justify-around py-2 px-4 gap-2">
           <button
-            className="px-4 py-2 rounded-lg bg-slate-800 text-white border w-2/5 md:w-1/5 md:mt-2 font-bold drop-shadow-md"
+            className="px-4 py-2 rounded-lg bg-slate-800 text-white border font-bold drop-shadow-md"
             onClick={viewCart}
           >
             Seguir Comprando
           </button>
           {carrito.items.length > 0 && (
-            <button className="px-4 py-2 rounded-lg bg-slate-800 text-white border w-2/5 md:w-1/5 md:mt-4 font-bold drop-shadow-md">
+            <button className="px-4 py-2 rounded-lg bg-slate-800 text-white border  font-bold drop-shadow-md">
               <Link href="/productos/locationPreference">
                 Confirmar Compra
               </Link>

@@ -74,13 +74,13 @@ export default function Orders() {
       <div className="flex">
         {status?.map((status) => (
           <Link key={status.id} href={`/dashboard/orders?filter=${status.descripcion}`}>
-            <Badge key={status.id} variant="outline" className="mr-2">
+            <Badge key={status.id} variant="outline" className={`mr-2 ${status.descripcion == filter ? 'bg-green-200' : 'bg-slate-100'}`}>
               {status.descripcion}
             </Badge>
           </Link>
         ))}
         <Link href="/dashboard/orders">
-          <Badge variant="outline" className="mr-2">
+          <Badge variant="outline" className={`mr-2 ${!filter ? 'bg-green-200' : 'bg-slate-100'}`}>
             Todos
           </Badge>
         </Link>
