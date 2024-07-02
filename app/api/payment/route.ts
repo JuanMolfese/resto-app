@@ -7,6 +7,9 @@ const mercadopago = new MercadoPagoConfig({
   accessToken: process.env.MP_ACCESS_TOKEN!,
 });
 
+import io from 'socket.io-client';
+const socket = io('http://localhost:3000');
+
 export async function POST(request: NextRequest) {
   if (request.nextUrl.searchParams.get("topic") !== "payment")
     return Response.json({ success: true }); //Siempre informar a MP que recibi la notificacion.
@@ -69,6 +72,7 @@ export async function POST(request: NextRequest) {
             [resultPedido.insertId, item.id, item.cantidad, item.precio]
           );
         }
+        socket.emit('addPedido', 'Sync Process Completed');
       } catch (error) {
         console.error("Error al insertar pedido en la base de datos:", error);
         return Response.json({ success: false });
