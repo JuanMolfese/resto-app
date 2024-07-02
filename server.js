@@ -19,18 +19,14 @@ app.prepare().then(() => {
   io.on('connection', (socket) => {
     console.log('Client connected');
 
-    // Emit an event when a product is added, updated, or deleted
-    const notifyClients = (message) => {
-      io.emit('product_updated', message);
-    };
+    socket.on('addPedido', (data) => {
+      console.log('Recieved from API ::', data);
+      io.emit('updatePedido', data);
+    });
 
-    // Example function to simulate adding, updating, or deleting a product
-    const simulateProductChange = () => {
-      const message = { type: 'PRODUCT_UPDATED' };
-      notifyClients(message);
-    };
-
-    setInterval(simulateProductChange, 10000); // Simulate a product change every 10 seconds
+    socket.on('disconnect', () => {
+      console.log('Client disconnected');
+    });
   });
 
   server.listen(3000, (err) => {

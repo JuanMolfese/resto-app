@@ -8,8 +8,8 @@ import { Pedido } from "../../utils/models/types/pedido";
 import { DialogDetailOrder } from "../../../components/Order/dialogDetail";
 import { useGetStatusQuery } from "@/redux/services/statusApi";
 import { useSearchParams } from "next/navigation";
-
-
+import { useEffect } from "react";
+import io from "socket.io-client";
 
 const orderTakeaway = (order: Pedido) => {
   return (
@@ -53,10 +53,12 @@ const orderDelivery = (order: Pedido) => {
   )
 }
 
+const socket = io('http://localhost:3000');
+
 export default function Orders() {
 
   
-  const { data: pedidos, error, isLoading } = useGetPedidosQuery();
+  const { data: pedidos, error, isLoading, refetch } = useGetPedidosQuery();
   const { data: status, error: errorStatus, isLoading: isLoadingStatus } = useGetStatusQuery();
   
   const params = useSearchParams();
@@ -65,6 +67,14 @@ export default function Orders() {
   const filteredOrders = pedidos?.filter(pedido => {
     return !filter || pedido.estado_pedido_descripcion.toLowerCase().includes(filter.toLowerCase());
   });
+
+  useEffect(() => {
+    socket.on('updatePedido', (data) => {
+        console.log("Recieved from SERVER ::", data)
+        refetch();
+        // Execute any command
+    })
+  }, [refetch]);
 
   if (isLoading || isLoadingStatus) return <p>Loading...</p>;
   if (error || errorStatus) return <p>Error</p>;

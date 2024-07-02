@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse} from "next/server";
 import { connection } from "../../utils/models/db";
 
+import io from 'socket.io-client';
+const socket = io('http://localhost:3000');
+
 export async function POST(request: NextRequest) {
     
   try{
@@ -39,7 +42,7 @@ export async function POST(request: NextRequest) {
       console.log("Error al insertar el pedido en la base de datos", error);
       return NextResponse.json({ success: false, message: "Error al insertar el pedido en la base de datos" });
     }
-    
+    socket.emit('addPedido', 'Sync Process Completed');
     //cargar en BBDD el pedido, payment y demas info necesaria
     //await pedido.insert(pedido)
     
