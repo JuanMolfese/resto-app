@@ -24,7 +24,7 @@ app.prepare().then(() => {
       io.emit('updatePedido', data);
     });
 
-    socket.on('deleteProduct', (data) => {
+    socket.on('updateProducto', (data) => {
       console.log('Recieved from API ::', data);
       io.emit('updateProduct', data);
     });

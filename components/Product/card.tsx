@@ -1,6 +1,5 @@
 "use client";
 
-import updateProduct from "../../app/utils/actions/products/update";
 import { ProductoDetail } from "../../app/utils/models/types/producto";
 import { ButtonOk } from "../../ui/button";
 import { Rubro } from "../../app/utils/models/types/rubro";
@@ -8,7 +7,9 @@ import { Subrubro } from "../../app/utils/models/types/subrubro";
 import { useState } from "react";
 import deleteProduct from "../../app/utils/actions/products/delete";
 import Image from "next/image";
-import { useRemoveProductMutation } from "@/redux/services/productsApi";
+import { useRemoveProductMutation, useUpdateProductMutation } from "@/redux/services/productsApi";
+import { myToastError, myToastSuccess } from "../myToast";
+import Spinner from "../spinner";
 
 export default function CardProduct({
   product,
@@ -22,6 +23,7 @@ export default function CardProduct({
   const [subrubrosFilter, setSubrubrosFilter] = useState(subrubros);
   const  [file, setFile] = useState<File | null>(null); 
   const [removeProduct] = useRemoveProductMutation();
+  const [updateProduct] = useUpdateProductMutation();
 
   const handleEdit = (e: any) => {
     e.preventDefault();
@@ -49,11 +51,37 @@ export default function CardProduct({
     }
   };
 
-  const handleUpdate = async (e: any) => {
+  const handleUpdate = () => {
     const form = document.querySelector(`#formEdit-${product.id}`);
+    
     const formData = new FormData(form as HTMLFormElement);
-    const res = await updateProduct(product.id, formData);
-    res.success ? location.reload() : alert(res.message);
+    const body = {
+      id: product.id,
+      nombre: formData.get("name"),
+      rubro_id: formData.get("rubroId"),
+      subrubro_id: formData.get("subrubroId"),
+      stock: formData.get("stock"),
+      stock_minimo: formData.get("stock_minimo"),
+      precio: formData.get("precio"),
+      image: file
+    };
+
+  /*   const res = await updateProduct(product.id, formData);
+    res.success ? location.reload() : alert(res.message); */
+
+    try {
+      const id = product.id;
+      updateProduct({id, body}).then((res: any) => {
+       
+       (res.data.status === 200) ? 
+        myToastSuccess("Producto actualizado. Espere por favor")
+        : myToastError("Error al actualizar el producto. Espere por favor"); 
+        setInterval(() =>
+          location.reload(), 3000);
+      });
+    } catch (error) {
+      console.error
+    }
   };
 
   const handleDelete = (e: any) => {
@@ -62,7 +90,9 @@ export default function CardProduct({
     res.success ? location.reload() : alert(res.message); */
     try {
       removeProduct(product.id).then((res: any) => {
-        (res.data.status === 200) ? alert("Producto eliminado") : alert('Error');
+        (res.data.status === 200) ? 
+        myToastSuccess("Producto eliminado")
+        : myToastError("Error al eliminar el producto");
         location.reload();
       });
       
