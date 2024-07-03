@@ -3,12 +3,13 @@ import CardProduct from "./cardProduct";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import Spinner from "../../spinner";
-import io, { Socket } from 'socket.io-client';
+import io from "socket.io-client";
+
+const socket = io('http://localhost:3000');
 
 export default function ListadoProductos() {
   const { data, error, isLoading, refetch } = useGetProductsQuery();
   const params = useSearchParams();
-  const [socket, setSocket] = useState<Socket | null>(null);
 
   const filteredProducts = data?.filter(product => {
     
@@ -17,21 +18,11 @@ export default function ListadoProductos() {
   });
 
   useEffect(() => {
-    // Crear la conexión socket.io
-    const socket = io('http://localhost:3000');
-    setSocket(socket);
-
-    // Definir el evento onproduct_updated para actualizar los datos cuando el servidor envíe una notificación
-    socket.on('product_updated', (message) => {
-      if (message.type === 'PRODUCT_UPDATED') {
-        refetch(); // Refetch los datos cuando ocurra un cambio en los productos
-      }
-    });
-
-    // Limpiar la conexión socket.io cuando el componente se desmonte
-    return () => {
-      socket.disconnect();
-    };
+    socket.on('updateProduct', (data) => {
+        //console.log("Recieved from SERVER ::", data)
+        refetch();
+        // Execute any command
+    })
   }, [refetch]);
 
   if (isLoading) { 

@@ -24,6 +24,11 @@ app.prepare().then(() => {
       io.emit('updatePedido', data);
     });
 
+    socket.on('deleteProduct', (data) => {
+      console.log('Recieved from API ::', data);
+      io.emit('updateProduct', data);
+    });
+
     socket.on('disconnect', () => {
       console.log('Client disconnected');
     });

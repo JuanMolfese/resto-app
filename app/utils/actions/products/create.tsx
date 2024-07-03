@@ -23,6 +23,7 @@ export default async function createProduct(formData: FormData) {
       nombre: formData.get("name"),
       subrubro_id: formData.get("subrubroId"),      
     };    
+   
     const image = formData.get("productImage");
     
     if(image instanceof File) {    
@@ -32,19 +33,21 @@ export default async function createProduct(formData: FormData) {
       await writeFile(filePath, buffer)      
       res = await cloudinary.uploader.upload(filePath);      
     }
-
+   
     if(!res) {
       throw new Error('No se pudo cargar la imagen');
     }
+  
+    console.log(res.secure_url);
 
-    const resultProduct = await connection.query<any>("INSERT INTO Producto (nombre, subrubro_id, image) VALUES (?, ?, ?)", 
-    [rawFormData.nombre, rawFormData.subrubro_id, res.secure_url ]);
+    const resultProduct = await connection.query<any>("INSERT INTO producto (nombre, subrubro_id, image) VALUES (?, ?, ?)", 
+    [rawFormData.nombre, rawFormData.subrubro_id, res.secure_url]);
     
     if (!resultProduct.affectedRows) {
       throw new Error("Error al crear el producto");
     }
     const productId = resultProduct.insertId;
-    const resultSucProduct = await connection.query<any>("INSERT INTO Sucursal_Productos (producto_id, sucursal_id) VALUES (?, ?)", [productId, 1]);
+    const resultSucProduct = await connection.query<any>("INSERT INTO sucursal_productos (producto_id, sucursal_id) VALUES (?, ?)", [productId, 1]);
     await connection.end();
     if (!resultSucProduct.affectedRows) {
       throw new Error("Error al crear el producto en la sucursal");

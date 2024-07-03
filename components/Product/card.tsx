@@ -8,6 +8,7 @@ import { Subrubro } from "../../app/utils/models/types/subrubro";
 import { useState } from "react";
 import deleteProduct from "../../app/utils/actions/products/delete";
 import Image from "next/image";
+import { useRemoveProductMutation } from "@/redux/services/productsApi";
 
 export default function CardProduct({
   product,
@@ -20,6 +21,7 @@ export default function CardProduct({
 }) {
   const [subrubrosFilter, setSubrubrosFilter] = useState(subrubros);
   const  [file, setFile] = useState<File | null>(null); 
+  const [removeProduct] = useRemoveProductMutation();
 
   const handleEdit = (e: any) => {
     e.preventDefault();
@@ -54,10 +56,19 @@ export default function CardProduct({
     res.success ? location.reload() : alert(res.message);
   };
 
-  const handleDelete = async (e: any) => {
+  const handleDelete = (e: any) => {
     e.preventDefault();
-    const res = await deleteProduct(product.id);
-    res.success ? location.reload() : alert(res.message);
+    /* const res = await deleteProduct(product.id);
+    res.success ? location.reload() : alert(res.message); */
+    try {
+      removeProduct(product.id).then((res: any) => {
+        (res.data.status === 200) ? alert("Producto eliminado") : alert('Error');
+        location.reload();
+      });
+      
+    } catch (error) {
+      console.error
+    }
   };
 
   return (

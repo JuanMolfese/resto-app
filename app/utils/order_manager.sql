@@ -158,7 +158,7 @@ CREATE TABLE Sucursal_Productos (
     stock_minimo int NOT NULL DEFAULT 0,
     precio float(10,2)  NOT NULL DEFAULT 0,
     CONSTRAINT Sucursal_Productos_pk PRIMARY KEY (producto_id,sucursal_id),
-    CONSTRAINT foreign key (producto_id) REFERENCES Producto (id),
+    CONSTRAINT foreign key (producto_id) REFERENCES Producto (id) ON DELETE CASCADE,
     CONSTRAINT foreign key (sucursal_id) REFERENCES Sucursal (id)
 );
 
