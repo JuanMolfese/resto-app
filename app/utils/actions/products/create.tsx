@@ -29,10 +29,10 @@ export default async function createProduct(formData: FormData) {
     if(image instanceof File) {    
       const bytes = await image.arrayBuffer();
       const buffer = Buffer.from(bytes);
-      const filePath = path.join(process.cwd(), 'public', image.name)      
+      const filePath = path.join(process.cwd(), 'public', image.name)    
       await writeFile(filePath, buffer)      
       res = await cloudinary.uploader.upload(filePath);      
-    }
+    } 
    
     if(!res) {
       throw new Error('No se pudo cargar la imagen');

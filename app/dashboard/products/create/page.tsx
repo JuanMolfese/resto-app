@@ -1,10 +1,16 @@
+"use client"
+import { useGetRubrosQuery } from "@/redux/services/rubrosApi";
 import FormProduct from "../../../../components/Product/create-form";
-import {fetchRubros} from "../../../utils/actions/rubros/fetchs";
-import fetchSubrubros from "../../../utils/actions/subrubros/fetchs";
+import { useGetSububrosQuery } from "@/redux/services/subrubrosApi";
+import Spinner from "../../../../components/spinner";
 
-export default async function CreateProduct() {
-  const rubros = await fetchRubros();
-  const subrubros = await fetchSubrubros();
+export default function CreateProduct() {
+  const {data: rubros, error: errorRubros, isLoading: loadingRubros} = useGetRubrosQuery();
+  const {data: subrubros, error: errorSubrubros, isLoading: loadingSubrubros} = useGetSububrosQuery();
+
+  if (loadingRubros || loadingSubrubros) {
+    return <Spinner />;
+  }
 
   return (
     <div>

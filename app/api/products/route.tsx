@@ -41,36 +41,17 @@ export async function GET() {
     });
     return NextResponse.json(products);
   } catch (error) {
-    return { status: 500, error: error };
+    return NextResponse.json({ status: 500, error: error });
   }
 }
 
-export async function POST(body: any) {
+export async function POST(req: Request) {
   try {
+    const body = await req.json();
     const res = await connection.query('INSERT INTO Producto SET ?', body);
     await connection.end();
-    return { status: 200, data: res };
+    return NextResponse.json({ status: 200, data: res });
   } catch (error) {
-    return { status: 500, error: error };
-  }
-}
-
-export async function PUT(id: number, body: any) {
-  try {
-    const res = await connection.query('UPDATE Producto SET ? WHERE id = ?', [body, id]);
-    await connection.end();
-    return { status: 200, data: res };
-  } catch (error) {
-    return { status: 500, error: error };
-  }
-}
-
-export async function DELETE(id: number) {
-  try {
-    const res = await connection.query('DELETE FROM Producto WHERE id = ?', id);
-    await connection.end();
-    return { status: 200, data: res };
-  } catch (error) {
-    return { status: 500, error: error };
+    return NextResponse.json({ status: 500, error: error });
   }
 }
