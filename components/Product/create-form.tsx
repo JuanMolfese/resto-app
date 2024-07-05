@@ -7,6 +7,7 @@ import { Subrubro } from "../../app/utils/models/types/subrubro";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAddProductMutation } from "@/redux/services/productsApi";
+import { myToastError, myToastSuccess } from "../myToast";
 
 
 export default function FormProduct({
@@ -27,10 +28,16 @@ export default function FormProduct({
     try {
       const newFormData = new FormData(event.currentTarget);      
       await addProduct(newFormData).unwrap().then((res: any) =>
-        console.log(res)
+        {
+          (res.status === 200) ?
+            myToastSuccess("Producto agregado con exito")
+            :
+            myToastError("No se ha podido agregar el producto");
+        }
       );
     } catch (error) {
       console.error(error);
+      myToastError("Error");
     }
     /* const res = await createProduct(newFormData);
     if (res.success) {s
@@ -209,7 +216,7 @@ export default function FormProduct({
           href="/dashboard/products"
           className="flex mb-6 h-10 items-center rounded-lg bg-gray-100 px-4 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-200"
         >
-          Cancelar
+          Volver
         </Link>
         <button
           className="flex h-10 items-center rounded-lg bg-blue-400 px-4 text-sm text-white font-medium transition-colors hover:bg-blue-500"

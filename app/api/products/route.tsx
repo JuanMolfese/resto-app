@@ -59,7 +59,7 @@ export async function GET() {
 
 import { v2 as cloudinary } from 'cloudinary';
 import path from "path";
-import { writeFile } from "fs/promises";
+import { promises as fs } from 'fs';
 
 
 cloudinary.config({
@@ -68,30 +68,44 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
+function isFile(obj: any) {
+  return obj instanceof Buffer || obj instanceof Uint8Array || obj instanceof ArrayBuffer;
+}
+
 export async function POST(req: Request) {
   try {
     
     const data = await req.formData();
     const nombre = data.get('name');
     const subrubro_id = data.get('subrubroId');
-    const image = data.get('image');
-
+    const image = data.get('productImage');
     try {
-      let secure_url = null;
-      if(image && image instanceof File) {    
+      let imageUrl = null;
+
+      if (image && typeof image === 'object' && 'name' in image && 'size' in image) {
         const bytes = await image.arrayBuffer();
         const buffer = Buffer.from(bytes);
-        const filePath = path.join(process.cwd(), 'public', image.name)    
-        await writeFile(filePath, buffer)      
-        const result = await cloudinary.uploader.upload(filePath);    
-        if (result) secure_url = result.secure_url
-        console.log(secure_url);
+
+        const tempDir = path.join(process.cwd(), 'public', 'uploads');
+        await fs.mkdir(tempDir, { recursive: true });
+        const filePath = path.join(tempDir, image.name);
+        await fs.writeFile(filePath, buffer);
+
+        const result = await cloudinary.uploader.upload(filePath, {
+          folder: 'productos',
+        });
+
+        if (result) {
+          imageUrl = result.secure_url;
+        }
+
+        await fs.unlink(filePath);
       }
       // Guarda la información del producto en la base de datos
       try {
         
         await connection.query("INSERT INTO producto (nombre, subrubro_id, image) VALUES (?, ?, ?)", 
-        [nombre, subrubro_id, secure_url]);
+        [nombre, subrubro_id, imageUrl]);
         return NextResponse.json({ message: 'Producto agregado con éxito', status: 200 });
       } catch (dbError) {
         return NextResponse.json({ message: 'Error al agregar producto', status: 500 });
