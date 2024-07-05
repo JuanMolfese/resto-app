@@ -5,9 +5,8 @@ import Image from "next/image";
 import { Rubro } from "../../app/utils/models/types/rubro";
 import { Subrubro } from "../../app/utils/models/types/subrubro";
 import { useState } from "react";
-import createProduct from "../../app/utils/actions/products/create";
-import { useFormState } from "react-dom";
 import { useRouter } from "next/navigation";
+import { useAddProductMutation } from "@/redux/services/productsApi";
 
 
 export default function FormProduct({
@@ -21,17 +20,25 @@ export default function FormProduct({
   const [subrubrosFilter, setSubrubrosFilter] = useState(subrubros);
   const router = useRouter();
   const  [file, setFile] = useState<File | null>(null);
+  const [addProduct] = useAddProductMutation();
 
   const handleCreate = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const newFormData = new FormData(event.currentTarget);      
-    const res = await createProduct(newFormData);
-    if (res.success) {
+    try {
+      const newFormData = new FormData(event.currentTarget);      
+      await addProduct(newFormData).unwrap().then((res: any) =>
+        console.log(res)
+      );
+    } catch (error) {
+      console.error(error);
+    }
+    /* const res = await createProduct(newFormData);
+    if (res.success) {s
       router.push("/dashboard/products");
       router.refresh();
     } else {
       alert("Error al crear el producto");
-    }
+    } */
 
   }
 

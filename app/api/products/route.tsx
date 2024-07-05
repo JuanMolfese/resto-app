@@ -45,7 +45,7 @@ export async function GET() {
   }
 }
 
-export async function POST(req: Request) {
+/* export async function POST(req: Request) {
   try {
     const body = await req.json();
     const res = await connection.query('INSERT INTO Producto SET ?', body);
@@ -53,5 +53,53 @@ export async function POST(req: Request) {
     return NextResponse.json({ status: 200, data: res });
   } catch (error) {
     return NextResponse.json({ status: 500, error: error });
+  }
+}
+ */
+
+import { v2 as cloudinary } from 'cloudinary';
+import path from "path";
+import { writeFile } from "fs/promises";
+
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
+export async function POST(req: Request) {
+  try {
+    
+    const data = await req.formData();
+    const nombre = data.get('name');
+    const subrubro_id = data.get('subrubroId');
+    const image = data.get('image');
+
+    try {
+      let secure_url = null;
+      if(image && image instanceof File) {    
+        const bytes = await image.arrayBuffer();
+        const buffer = Buffer.from(bytes);
+        const filePath = path.join(process.cwd(), 'public', image.name)    
+        await writeFile(filePath, buffer)      
+        const result = await cloudinary.uploader.upload(filePath);    
+        if (result) secure_url = result.secure_url
+        console.log(secure_url);
+      }
+      // Guarda la información del producto en la base de datos
+      try {
+        
+        await connection.query("INSERT INTO producto (nombre, subrubro_id, image) VALUES (?, ?, ?)", 
+        [nombre, subrubro_id, secure_url]);
+        return NextResponse.json({ message: 'Producto agregado con éxito', status: 200 });
+      } catch (dbError) {
+        return NextResponse.json({ message: 'Error al agregar producto', status: 500 });
+      }
+    } catch (uploadError) {
+      return NextResponse.json({ message: 'Error al subir la imagen a cloudinary', status: 500 });
+    }
+  } catch (error) {
+    return NextResponse.json({ message: 'Error al agregar producto', status: 500 });
   }
 }
