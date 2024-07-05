@@ -104,8 +104,16 @@ export async function POST(req: Request) {
       // Guarda la información del producto en la base de datos
       try {
         
-        await connection.query("INSERT INTO producto (nombre, subrubro_id, image) VALUES (?, ?, ?)", 
+        const resultProduct = await connection.query<any>("INSERT INTO producto (nombre, subrubro_id, image) VALUES (?, ?, ?)", 
         [nombre, subrubro_id, imageUrl]);
+        if (!resultProduct.affectedRows) {
+          throw new Error("Error al crear el producto");
+        }
+        const productId = resultProduct.insertId;
+        const resultSucProduct = await connection.query<any>("INSERT INTO sucursal_productos (producto_id, sucursal_id) VALUES (?, ?)", [productId, 1]);
+        if (!resultSucProduct.affectedRows) {
+          throw new Error("Error al crear el producto en la sucursal");
+        }
         return NextResponse.json({ message: 'Producto agregado con éxito', status: 200 });
       } catch (dbError) {
         return NextResponse.json({ message: 'Error al agregar producto', status: 500 });
