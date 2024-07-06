@@ -72,7 +72,7 @@ export default function MenuDashboard({
               </Link>
               <div>
                 <Link
-                  href="/dashboard/orders"
+                  href="/dashboard/orders?filter=Pendiente"
                   className={linkStyle("pedidos")}
                   onClick={() => handleClick("pedidos")}
                 >
@@ -187,7 +187,7 @@ export default function MenuDashboard({
                 <SheetClose asChild>
                  
                     <Link
-                      href="/dashboard/orders"
+                      href="/dashboard/orders?filter=Pendiente"
                       className={linkStyle("pedidos")}
                       onClick={() => handleClick("pedidos")}
                     >
