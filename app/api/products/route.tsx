@@ -79,10 +79,10 @@ export async function POST(req: Request) {
     const nombre = data.get('name');
     const subrubro_id = data.get('subrubroId');
     const image = data.get('productImage');
+    
     try {
       let imageUrl = null;
-
-      if (image && typeof image === 'object' && 'name' in image && 'size' in image) {
+      if (image != null && image && typeof image === 'object' && 'name' in image && 'size' in image) {
         const bytes = await image.arrayBuffer();
         const buffer = Buffer.from(bytes);
 
@@ -103,14 +103,13 @@ export async function POST(req: Request) {
       }
       // Guarda la información del producto en la base de datos
       try {
-        
-        const resultProduct = await connection.query<any>("INSERT INTO producto (nombre, subrubro_id, image) VALUES (?, ?, ?)", 
+        const resultProduct = await connection.query<any>("INSERT INTO Producto (nombre, subrubro_id, image) VALUES (?, ?, ?)", 
         [nombre, subrubro_id, imageUrl]);
         if (!resultProduct.affectedRows) {
           throw new Error("Error al crear el producto");
         }
         const productId = resultProduct.insertId;
-        const resultSucProduct = await connection.query<any>("INSERT INTO sucursal_productos (producto_id, sucursal_id) VALUES (?, ?)", [productId, 1]);
+        const resultSucProduct = await connection.query<any>("INSERT INTO Sucursal_Productos (producto_id, sucursal_id) VALUES (?, ?)", [productId, 1]);
         if (!resultSucProduct.affectedRows) {
           throw new Error("Error al crear el producto en la sucursal");
         }

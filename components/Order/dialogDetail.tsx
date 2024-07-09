@@ -13,8 +13,19 @@ import {
 import { Pedido } from "../../app/utils/models/types/pedido"
 import { BadgeDollarSign, HandPlatter, ReceiptText, Truck } from "lucide-react"
 import { DialogClose } from "@radix-ui/react-dialog"
+import { useGetDetailPedidoQuery, useGetPedidosQuery } from "@/redux/services/ordersApi"
+import { Card } from "@/components/ui/card"
 
 export function DialogDetailOrder(order: Pedido) {
+
+  const { data, error, isLoading } = useGetDetailPedidoQuery(order.id)
+
+  if (isLoading) {
+    return <p>Cargando...</p>
+  }
+
+  if (error) { return <p>Error</p> }
+ 
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -24,8 +35,8 @@ export function DialogDetailOrder(order: Pedido) {
         <DialogHeader>
           <DialogTitle>Detalle de la Orden</DialogTitle>
           <DialogDescription>
-            Orden #{order.id}
-            <p className="text-sm mb-2">Estado: {order.estado_pedido_descripcion}</p>
+            <span>Orden #{order.id}</span>
+            <span className="text-sm mb-2">Estado: {order.estado_pedido_descripcion}</span>
           </DialogDescription>
         </DialogHeader>
         <div className="py-4">
@@ -42,18 +53,30 @@ export function DialogDetailOrder(order: Pedido) {
               }
               {
                 order.pago ? 
-                  <>
+                  <div>
                     <p>{order.payer_last_name}</p>
                     <p>{order.payer_dni}</p>
                     <p>{order.payer_email}</p>
                     <p>{order.payer_phone}</p>
-                  </>  
+                  </div>  
                 : null
               }
             </div>
           </div>
-          <p className="w-full text-end mt-4">
-              Total: <span className="font-semibold">${order.total}</span>
+          <Card className="my-2 p-4">
+            <ul>
+            {
+              data.pedido.map((pedido: any) => (
+                <li key={pedido.producto_id} className="flex justify-between items-center">
+                 <p> {`${pedido.subrubro} - ${pedido.producto}`} </p>
+                 <p>{`${pedido.cantidad} x $ ${pedido.precio}`}</p>
+                </li>
+              )) 
+            }
+            </ul>
+          </Card>
+          <p className="w-full text-end mt-4 font-semibold">
+              Total: <span className="">${order.total}</span>
           </p>
           {
             order.pago ? 
