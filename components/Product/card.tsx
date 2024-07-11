@@ -24,7 +24,7 @@ export default function CardProduct({
   const  [file, setFile] = useState<File | null>(null); 
   const [removeProduct] = useRemoveProductMutation();
   const [updateProduct] = useUpdateProductMutation();
-
+  const [image, setImage] = useState(product.image);
   const handleEdit = (e: any) => {
     e.preventDefault();
     const input = document.querySelector(`#input-name-product-${product.id}`);
@@ -55,24 +55,15 @@ export default function CardProduct({
     const form = document.querySelector(`#formEdit-${product.id}`);
     
     const formData = new FormData(form as HTMLFormElement);
-    const body = {
-      id: product.id,
-      nombre: formData.get("name"),
-      rubro_id: formData.get("rubroId"),
-      subrubro_id: formData.get("subrubroId"),
-      stock: formData.get("stock"),
-      stock_minimo: formData.get("stock_minimo"),
-      precio: formData.get("precio"),
-      image: file
-    };
 
-  /*   const res = await updateProduct(product.id, formData);
-    res.success ? location.reload() : alert(res.message); */
+    if (file) {
+      formData.append('productImage', file);
+    } else {
+      formData.append('productImage', image); // Mantener la imagen actual si no hay una nueva seleccionada
+    }
 
     try {
-      const id = product.id;
-      updateProduct({id, body}).then((res: any) => {
-       
+      updateProduct({id: product.id, update: formData}).then((res: any) => {
        (res.data.status === 200) ? 
         myToastSuccess("Producto actualizado. Espere por favor")
         : myToastError("Error al actualizar el producto. Espere por favor"); 
@@ -121,14 +112,14 @@ export default function CardProduct({
             {/* <p className="text-sm text-gray-500">Descripcion</p> */}         
           </div>
           <div className="content-center">
-            {product.image && typeof product.image === 'string' && product.image.trim() !== '' && 
+            {/* {product.image && typeof product.image === 'string' && product.image.trim() !== '' &&  */}
               <Image 
-              src={product.image}
+              src={product.image ? product.image : "/no-image.png"}
               className="w-auto h-auto rounded-md max-h-24"
                 width={80}
                 height={80}
                 alt="Imagen del producto"            
-              /> }
+              />
           </div>
         </div>
         
@@ -251,8 +242,8 @@ export default function CardProduct({
               required
             />
           </div>
-          <div className="mb-4 flex items-center">
-            <label className="mb-2 text-xs" htmlFor="productImage">Imagen</label>
+          <div className="mb-4">
+            <label className="mb-2 block text-sm font-medium" htmlFor="productImage">Imagen</label>
             <input 
               type="file"
               className="w-full rounded-md py-2 px-3 text-sm outline-2 placeholder:text-gray-500"
@@ -263,16 +254,17 @@ export default function CardProduct({
                 const selectedFile = e.target.files?.[0];
                 if (selectedFile){
                   setFile(selectedFile);
+                  setImage(URL.createObjectURL(selectedFile));
                 } 
               }}
             />
-            {/* {file && <Image
+            {image && <Image
               className="object-contain mx-auto my-5"
               width={180} height={180}
-              src={URL.createObjectURL(file)}
+              src={image}
               alt="imagen del producto" 
               />
-            }    */}         
+            }         
           </div>
         </div>
       </div>

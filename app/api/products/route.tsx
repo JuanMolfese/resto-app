@@ -79,7 +79,7 @@ export async function POST(req: Request) {
     const nombre = data.get('name');
     const subrubro_id = data.get('subrubroId');
     const image = data.get('productImage');
-    
+   
     try {
       let imageUrl = null;
       if (image != null && image && typeof image === 'object' && 'name' in image && 'size' in image) {
