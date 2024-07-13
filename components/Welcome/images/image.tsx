@@ -11,4 +11,10 @@ export const images =[
         title: "slider 2",
         alt: "Imagen de un producto",
     },
+    {
+        id: 3,
+        src: "/slider_6.jpg", 
+        title: "slider 3",
+        alt: "Imagen de un producto",
+    },
 ];

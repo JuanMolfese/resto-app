@@ -10,7 +10,7 @@ export default function Landing() {
             <Image src="/LogoPizza3_high.png" alt="Logotipo" width={600} height={300} className="mb-8" priority/>
             <div className="animate-slide-in-up">
               <Link href="/productos">
-                <button className="bg-green-500 text-white px-8 py-6 rounded-lg shadow-lg hover:bg-green-700 transition duration-300 ease-in-out">
+                <button className="bg-green-500 text-white px-8 py-6 rounded-lg font-bold text-xl border-spacing-2 border-solid border-4 border-green-400 tracking-widest shadow-lg hover:bg-green-700 transition duration-300 ease-in-out">
                   Ordenar
                 </button>
               </Link>
