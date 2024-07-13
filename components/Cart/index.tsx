@@ -12,7 +12,7 @@ export default function Cart({viewCart} : {viewCart: () => void}) {
   }
   
   return(
-      <main className="max-w-screen max-h-screen">
+    <main className="max-w-screen max-h-screen">
       <h1 className="text-center text-xl font-bold my-4">Carrito de compras</h1>
       <div className="overflow-auto w-full">
         <table className="divide-y divide-gray-200 w-full">
@@ -54,16 +54,16 @@ export default function Cart({viewCart} : {viewCart: () => void}) {
         <span className="text-xl font-bold">Total: {(carrito.total).toLocaleString('es-ar', {style: 'currency', currency: 'ARS', minimumFractionDigits: 2})}</span>
       </div>
     
-      <div className="fixed bottom-4 left-0 w-full bg-white md:m-auto md:relative md:bottom-1 ">
+      <div className="fixed bottom-4 left-0 w-full bg-white md:m-auto md:relative md:bottom-0 ">
         <div className="flex justify-around py-2 px-4 gap-2">
           <button
-            className="px-4 py-2 rounded-lg bg-slate-800 text-white border font-bold drop-shadow-md"
+            className="px-4 py-2 rounded-lg bg-slate-800 text-white border font-bold drop-shadow-md md:hidden lg:hidden"
             onClick={viewCart}
           >
             Seguir Comprando
           </button>
           {carrito.items.length > 0 && (
-            <button className="px-4 py-2 rounded-lg bg-slate-800 text-white border  font-bold drop-shadow-md">
+            <button className="px-4 py-2 rounded-lg bg-slate-800 text-white border font-bold drop-shadow-md md:mt-10">
               <Link href="/productos/locationPreference">
                 Confirmar Compra
               </Link>

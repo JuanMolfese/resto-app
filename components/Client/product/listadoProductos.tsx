@@ -34,7 +34,7 @@ export default function ListadoProductos() {
 
   return (
     <>
-      <ul className="flex flex-wrap py-2 gap-1">
+      <ul className="flex flex-wrap py-2 gap-4 justify-start">
         {filteredProducts?.map(product => (
           <CardProduct product={product} key={product.id} />
         ))}
