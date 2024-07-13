@@ -5,8 +5,6 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
 } from "@/components/ui/carousel"
 import Autoplay from "embla-carousel-autoplay"
 import React from 'react'
@@ -28,7 +26,7 @@ const Slider = () => {
             <Image 
                 src={pic.src}
                 alt={pic.alt}
-                /* layout='fill' */
+                
                 quality={100}
                 width={1080}
                 height={1920}
@@ -38,12 +36,11 @@ const Slider = () => {
           </CarouselItem>
         )}
         </CarouselContent>
-       {/*  <CarouselPrevious />
-        <CarouselNext /> */}
+       
       </Carousel>
       
         <Button
-          className='absolute top-48 left-32 animate-bounce rounded-full h-14 bg-green-900'
+          className='absolute top-48 left-32 rounded-full h-16 bg-green-600'
         >
           <Link href="/productos">
             Ordenar ahora !
@@ -53,7 +50,5 @@ const Slider = () => {
     </div>
   )}
           
-{/*           'block w-full h-[80vh] object-cover transition-all duration-500 ease-in-out'
-          : "hidden" */}
 
 export default Slider

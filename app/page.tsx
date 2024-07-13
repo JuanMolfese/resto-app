@@ -1,10 +1,7 @@
-import Header from "../components/Header";
-import Footer from "../components/Footer";
-import Hero from '../components/Hero';
-import Presentation from '../components/Presentation';
 import { getServerSession } from "next-auth";
 import { fetchUserByEmail } from "./utils/actions/users/fetchs";
 import { redirect } from "next/navigation";
+import Welcome from "../components/Welcome"
 
 export default async function Home() {
 
@@ -21,11 +18,8 @@ export default async function Home() {
 
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between relative bg-white text-white">
-     {/* <Header/>  */}
-     <Hero/>   {/* view destacados */}
-     {/* <Presentation/> */}  {/* view products */}
-     {/* <Footer/> */}
-    </main>
+    <Welcome/>            
   )  
 }
+{/* main className="flex min-h-screen flex-col items-center justify-between relative bg-white text-white"> */}    
+
