@@ -12,11 +12,11 @@ import Link from 'next/link';
 
 const Slider = () => {
   const plugin = React.useRef(
-    Autoplay({ delay: 5000, stopOnInteraction: true })
+    Autoplay({ delay: 5000, stopOnInteraction: true, containScroll: "trimSnaps"}),    
   );
 
   return (
-    <div className="relative w-full min-h-screen">
+    <div className="relative w-screen min-h-screen">
       <Carousel
         plugins={[plugin.current]}
         /* onMouseEnter={plugin.current.stop}
