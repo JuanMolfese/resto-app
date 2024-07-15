@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 export default function Landing({estado}: {estado: boolean}) {
-  console.log(estado);
+
   return (
     <div className="relative h-screen w-full bg-cover bg-center" style={{ backgroundImage: "url('/pizza_wall.jpg')" }}>
       <div className="h-full bg-black bg-opacity-50">

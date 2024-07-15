@@ -10,7 +10,7 @@ import Autoplay from "embla-carousel-autoplay";
 import React from 'react';
 import Link from 'next/link';
 
-const Slider = () => {
+const Slider = ({estado}: {estado: boolean}) => {
   const plugin = React.useRef(
     Autoplay({ delay: 5000, stopOnInteraction: true, containScroll: "trimSnaps"}),    
   );
@@ -52,11 +52,18 @@ const Slider = () => {
           />
         </div>
         <div className="animate-slide-in-up mb-20">
-          <Link href="/productos">
-            <Button className="bg-green-600 text-white font-bold text-xl border-spacing-2 border-solid border-2 border-green-400 tracking-widest px-8 py-6 rounded-xl shadow-lg hover:bg-green-700 transition duration-300 ease-in-out md:px-8 md:py-6">
-              Ordenar
-            </Button>
-          </Link>
+          {
+          !estado ? 
+            <div className="p-2 bg-red-600/75 rounded-lg font-semibold text-lg text-white">
+              El local se encuentra cerrado
+            </div>
+           :
+            <Link href="/productos">
+              <Button className="bg-green-600 text-white font-bold text-xl border-spacing-2 border-solid border-2 border-green-400 tracking-widest px-8 py-6 rounded-xl shadow-lg hover:bg-green-700 transition duration-300 ease-in-out md:px-8 md:py-6">
+                Ordenar
+              </Button>
+            </Link>
+          }
         </div>
       </div>
     </div>

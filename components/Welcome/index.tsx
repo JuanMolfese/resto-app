@@ -36,18 +36,19 @@ const Welcome = () => {
 
   useEffect(() => {
     socket.on('updateSuc', () => {
-        //console.log("Recieved from SERVER ::", data)
-       refetch();
-        // Execute any command
-    })
-  }, [refetch]);
+        if (sucursal)
+          //console.log("Recieved from SERVER ::", data)
+          refetch();
+          // Execute any command
+      })
+  }, [refetch, sucursal]);
 
   return (
     <div>
       {isMobile && (
         <div className="mobile-welcome">
           {/* Tu contenido para móviles */}          
-          <Slider/>
+          <Slider estado={sucursal?.status_sucursal_id == 1}/>
         </div>
       )}
 
