@@ -38,7 +38,7 @@ export async function PUT(req: Request, { params } : {params: {id: number}}) {
     const stock_minimo = data.get("stock_minimo");
     const precio = data.get("precio");
     const image = data.get("productImage");
-
+    
     let imageUrl = null;
     if (image != null && image && typeof image === 'object' && 'name' in image && 'size' in image) {
       const bytes = await image.arrayBuffer();
@@ -58,9 +58,11 @@ export async function PUT(req: Request, { params } : {params: {id: number}}) {
       }
 
       await fs.unlink(filePath);
-    } else imageUrl = image;
+    }
     const resSucprod = await connection.query(`UPDATE Sucursal_Productos SET precio = ?, stock = ?, stock_minimo = ? where producto_id = ? AND sucursal_id = ?`, [precio, stock, stock_minimo, id, sucId]);
-    const res = await connection.query(`UPDATE Producto SET nombre = ?, descripcion = ?, subrubro_id = ?, image = ? WHERE id = ?`, [nombre, descripcion, subrubro_id, imageUrl, id]);
+    if (imageUrl)
+      await connection.query(`UPDATE Producto SET nombre = ?, descripcion = ?, subrubro_id = ?, image = ? WHERE id = ?`, [nombre, descripcion, subrubro_id, imageUrl, id]);
+    else await connection.query(`UPDATE Producto SET nombre = ?, descripcion = ?, subrubro_id = ? WHERE id = ?`, [nombre, descripcion, subrubro_id, id]);
     socket.emit('updateProducto', 'Producto Actualizado');
     await connection.end();
     return NextResponse.json({status: 200});   

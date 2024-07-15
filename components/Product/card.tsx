@@ -61,7 +61,6 @@ export default function CardProduct({
     } else {
       formData.append('productImage', image); // Mantener la imagen actual si no hay una nueva seleccionada
     }
-
     try {
       updateProduct({id: product.id, update: formData}).then((res: any) => {
        (res.data.status === 200) ? 
