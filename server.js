@@ -29,6 +29,11 @@ app.prepare().then(() => {
       io.emit('updateProduct', data);
     });
 
+    socket.on('updateSucursal', (data) => {
+      console.log('Recieved from API ::', data);
+      io.emit('updateSuc', data);
+    });
+
     socket.on('disconnect', () => {
       console.log('Client disconnected');
     });
