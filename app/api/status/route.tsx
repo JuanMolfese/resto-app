@@ -14,9 +14,9 @@ export async function GET() {
         orden: estados.orden
       };
     })
-    return NextResponse.json(estados);
+    return NextResponse.json(estados, { status: 200 });
   } catch (error) {
-    console.log(error);
+    return NextResponse.json({ error: error }, { status: 500 });
   } finally{
     await connection.end(); // Cierra la conexión a la base de datos
   }

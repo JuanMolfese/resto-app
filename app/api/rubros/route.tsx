@@ -12,9 +12,9 @@ export async function GET() {
         nombre: rubro.nombre,
       };
     })
-    return NextResponse.json(rubros);
+    return NextResponse.json(rubros, { status: 200 });
   } catch (error) {
-    console.log(error);
+    return NextResponse.json({ error: error }, { status: 500 });
   } finally{
     await connection.end(); // Cierra la conexión a la base de datos
   }
