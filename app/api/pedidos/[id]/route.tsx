@@ -12,6 +12,8 @@ export async function PUT(req: Request, { params } : {params: {id: String}}) {
     return NextResponse.json({status: 200});   
   } catch (error) {
     return NextResponse.json({status: 500});
+  } finally {
+    await connection.end();
   }
 }
 
@@ -35,5 +37,7 @@ export async function GET(req: Request, { params } : {params: {id: String}}) {
     return NextResponse.json({pedido: data}, {status: 200});
   } catch (error) {
     return NextResponse.json({status: 500});
+  } finally {
+    await connection.end();
   }
 }

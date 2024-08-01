@@ -51,5 +51,7 @@ export async function POST(request: NextRequest) {
   catch (error) {
     console.log("Error al procesar la solicitud", error);
     return NextResponse.json({ success: false, message: "Error al procesar la solicitud" });
+  } finally {
+    await connection.end();
   }
 }

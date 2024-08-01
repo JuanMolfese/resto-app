@@ -16,7 +16,7 @@ export async function GET() {
     return NextResponse.json(rubros);
   } catch (error) {
     console.log(error);
-  }finally{
+  } finally{
     await connection.end(); // Cierra la conexión a la base de datos
   }
   

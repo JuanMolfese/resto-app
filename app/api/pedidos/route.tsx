@@ -24,7 +24,9 @@ export async function GET() {
     await connection.end();
     return NextResponse.json(res);
   } catch (error) {
-    return { status: 500, error: error };
+    return NextResponse.json({ status: 500, error: error });
+  } finally {
+    await connection.end();
   }
 }
 
@@ -32,9 +34,11 @@ export async function POST(body: any) {
   try {
     const res = await connection.query('INSERT INTO Pedido SET ?', body);
     await connection.end();
-    return { status: 200, data: res };
+    return NextResponse.json({ status: 200, data: res });
   } catch (error) {
-    return { status: 500, error: error };
+    return NextResponse.json({ status: 500, error: error });
+  } finally {
+    await connection.end();
   }
 }
 

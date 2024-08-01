@@ -80,6 +80,8 @@ export async function POST(request: NextRequest) {
     } catch (error) {
       console.error("Error al obtener el pago de MP:", error);
       return Response.json({ success: false });
+    } finally {
+      await connection.end();
     }
   });
 

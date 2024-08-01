@@ -12,6 +12,8 @@ export async function GET(req: Request, { params } : {params: {id: number}}) {
     return NextResponse.json({data: res[0], status: 200});
   } catch (error) {
     return NextResponse.json({ error: error },{ status: 500 });
+  } finally {
+    await connection.end();
   }
 }
 
@@ -33,6 +35,8 @@ export async function PUT(request: Request, {params}: {params: {id: number}}) {
     return NextResponse.json({ message: mensaje, status: 200 });
   } catch (error) {
     return NextResponse.json({ error: error },{ status: 500 });
+  } finally {
+    await connection.end();
   }
 }
 
@@ -44,6 +48,8 @@ export async function DELETE(req: Request) {
     return NextResponse.json({ message: "Usuario eliminado correctamente", status: 200 });
   } catch (error) {
     return NextResponse.json({ message: "El usuario no pudo ser eliminado" },{ status: 500 });
+  } finally {
+    await connection.end();
   }
  
   /* try {

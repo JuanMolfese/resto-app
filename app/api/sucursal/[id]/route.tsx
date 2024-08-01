@@ -15,7 +15,9 @@ export async function GET(req: Request, { params } : { params: {id: number}}) {
   } catch (err) {
     console.error(err);
     return NextResponse.json({status: 500});
-  }
+  } finally {
+    await connection.end();
+  } 
 }
 
 export async function PUT(req: Request, { params } : {params: {id: number}}) {
@@ -29,5 +31,7 @@ export async function PUT(req: Request, { params } : {params: {id: number}}) {
   } catch (error) {
     console.log(error);
     return NextResponse.json({status: 500});
+  } finally {
+    await connection.end();
   }
 }

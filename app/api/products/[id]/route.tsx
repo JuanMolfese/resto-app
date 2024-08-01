@@ -23,6 +23,8 @@ export async function GET(req: Request, { params } : {params: {id: number}}) {
     return NextResponse.json({data: res[0], status: 200});   
   } catch (error) {
     return NextResponse.json({data: error, status: 500});
+  } finally {
+    await connection.end();
   }
 }
 
@@ -69,6 +71,8 @@ export async function PUT(req: Request, { params } : {params: {id: number}}) {
   } catch (error) {
     console.log(error);
     return NextResponse.json({status: 500});
+  } finally {
+    await connection.end();
   }
 }
 
@@ -82,5 +86,7 @@ export async function DELETE(req: Request, { params } : {params: {id: number}}) 
     return NextResponse.json({status: 200});   
   } catch (error) {
     return NextResponse.json({status: 500});
+  } finally {
+    await connection.end();
   }
 }

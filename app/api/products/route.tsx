@@ -42,6 +42,8 @@ export async function GET() {
     return NextResponse.json(products);
   } catch (error) {
     return NextResponse.json({ status: 500, error: error });
+  } finally {
+    await connection.end();
   }
 }
 
@@ -122,5 +124,7 @@ export async function POST(req: Request) {
     }
   } catch (error) {
     return NextResponse.json({ message: 'Error al agregar producto', status: 500 });
+  } finally {
+    await connection.end();
   }
 }

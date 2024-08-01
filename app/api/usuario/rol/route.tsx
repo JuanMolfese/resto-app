@@ -8,5 +8,7 @@ export async function GET() {
     return { status: 200, data: res };
   } catch (error) {
     return { status: 500, error: error };
+  } finally {
+    await connection.end();
   }
 }
