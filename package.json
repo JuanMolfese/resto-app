@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "node server.js",
     "build": "next build",
-    "start": "NODE_ENV=production node server.js"
+    "start": "NODE_ENV=production node server.js",
+    "install": "npm install --omit=dev"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",
