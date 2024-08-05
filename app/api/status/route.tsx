@@ -6,7 +6,7 @@ import { Estado_pedido } from "../../utils/models/types/estado_pedido";
 export async function GET() {
   
   try {
-    const result = await connection.query<Estado_pedido[]>("SELECT * FROM Estado_Pedido");    
+    const result = await connection.execute<Estado_pedido[]>("SELECT * FROM Estado_Pedido");    
     const estados = result.map((estados) => {
       return {
         id: estados.id,

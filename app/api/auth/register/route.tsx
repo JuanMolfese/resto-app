@@ -10,8 +10,8 @@ export async function POST(request: Request) {
 
     //console.log({ email, password });
 
-    const hashedPassword = await hash(password, 10);
-    const response = await connection.query(`INSERT INTO Usuario (email, pass) VALUES (?, ?)`, [email, hashedPassword]);
+    const hashedPassword = await hash(password, 10);    
+    const response = await connection.execute(`INSERT INTO Usuario (email, pass) VALUES (?, ?)`, [email, hashedPassword]);
     return NextResponse.json({ message: "success"} ,{status: 200});
   } catch (e) {
     

@@ -5,7 +5,7 @@ import { unstable_noStore as noStore } from 'next/cache';
 export async function fetchProducts() {
   noStore();
   try {
-    const result = await connection.query<Producto[]>("SELECT * FROM Producto");
+    const result = await connection.execute<Producto[]>("SELECT * FROM Producto");
     await connection.end();
     const products = result.map((product) => {
       return {
@@ -26,7 +26,7 @@ export async function fetchProductsSucursal(sucursal_id: number)
 {
   noStore();
   try {
-    const result = await connection.query<ProductoDetail[]>(
+    const result = await connection.execute<ProductoDetail[]>(
       `SELECT 
         p.id, 
         p.nombre, 
@@ -72,7 +72,7 @@ export async function fetchProductsSucursal(sucursal_id: number)
 export async function fetchProductsOutofStock(sucursal_id: number) {
   noStore();
   try {
-    const result = await connection.query<ProductoDetail[]>(
+    const result = await connection.execute<ProductoDetail[]>(
       `SELECT 
         p.id, 
         p.nombre, 

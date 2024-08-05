@@ -4,7 +4,7 @@ import { ProductoDetail } from "../../utils/models/types/producto";
 
 export async function GET() {
   try {  
-    const result = await connection.query<ProductoDetail[]>(
+    const result = await connection.execute<ProductoDetail[]>(
       `SELECT 
         p.id, 
         p.nombre, 
@@ -50,7 +50,7 @@ export async function GET() {
 /* export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const res = await connection.query('INSERT INTO Producto SET ?', body);
+    const res = await connection.execute('INSERT INTO Producto SET ?', body);
     await connection.end();
     return NextResponse.json({ status: 200, data: res });
   } catch (error) {
@@ -105,13 +105,13 @@ export async function POST(req: Request) {
       }
       // Guarda la información del producto en la base de datos
       try {
-        const resultProduct = await connection.query<any>("INSERT INTO Producto (nombre, subrubro_id, image) VALUES (?, ?, ?)", 
+        const resultProduct = await connection.execute<any>("INSERT INTO Producto (nombre, subrubro_id, image) VALUES (?, ?, ?)", 
         [nombre, subrubro_id, imageUrl]);
         if (!resultProduct.affectedRows) {
           throw new Error("Error al crear el producto");
         }
         const productId = resultProduct.insertId;
-        const resultSucProduct = await connection.query<any>("INSERT INTO Sucursal_Productos (producto_id, sucursal_id) VALUES (?, ?)", [productId, 1]);
+        const resultSucProduct = await connection.execute<any>("INSERT INTO Sucursal_Productos (producto_id, sucursal_id) VALUES (?, ?)", [productId, 1]);
         if (!resultSucProduct.affectedRows) {
           throw new Error("Error al crear el producto en la sucursal");
         }

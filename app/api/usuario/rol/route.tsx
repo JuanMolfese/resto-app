@@ -4,7 +4,7 @@ import { Rol } from "../../../utils/models/types/rol";
 
 export async function GET() {
   try {
-    const res = await connection.query<Rol>('SELECT * FROM Rol');
+    const res = await connection.execute<Rol>('SELECT * FROM Rol');
     await connection.end();
     return NextResponse.json({ status: 200, data: res });
   } catch (error) {

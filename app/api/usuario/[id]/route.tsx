@@ -7,7 +7,7 @@ import { hash } from "bcrypt";
 export async function GET(req: Request, { params } : {params: {id: number}}) {
   try {
     const id = params.id;
-    const res = await connection.query<Usuario[]>(`SELECT * FROM Usuario WHERE id = ${id}`);
+    const res = await connection.execute<Usuario[]>(`SELECT * FROM Usuario WHERE id = ${id}`);
     await connection.end();
     return NextResponse.json({data: res[0], status: 200});
   } catch (error) {
@@ -24,11 +24,11 @@ export async function PUT(request: Request, {params}: {params: {id: number}}) {
     const { password, id_rol } = await request.json();  
     if (password) {
       const passHash = await hash(password, 10);
-      await connection.query<Usuario>(`UPDATE Usuario SET pass = '${passHash}' WHERE id = ${id}`);
+      await connection.execute<Usuario>(`UPDATE Usuario SET pass = '${passHash}' WHERE id = ${id}`);
       mensaje = "Contraseña actualizada correctamente";
     }
     if (id_rol) {
-      await connection.query<Usuario>(`UPDATE Usuario SET rol_id = ${id_rol} WHERE id = ${id}`);
+      await connection.execute<Usuario>(`UPDATE Usuario SET rol_id = ${id_rol} WHERE id = ${id}`);
       mensaje = "Rol actualizado correctamente";
     }
     await connection.end();
@@ -43,7 +43,7 @@ export async function PUT(request: Request, {params}: {params: {id: number}}) {
 export async function DELETE(req: Request) {
   const { user } = await req.json();
   try {
-    await connection.query<Usuario>(`DELETE FROM Usuario WHERE id = ${user.id}`);
+    await connection.execute<Usuario>(`DELETE FROM Usuario WHERE id = ${user.id}`);
     await connection.end();
     return NextResponse.json({ message: "Usuario eliminado correctamente", status: 200 });
   } catch (error) {

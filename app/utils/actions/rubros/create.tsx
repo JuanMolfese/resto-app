@@ -8,7 +8,7 @@ export default async function createRubro(formData: FormData) {
       nombre: formData.get("name"),      
     };
     //Aqui hacer verificaciones antes de insertar en BBDD
-    const resultRubro = await connection.query<any>('INSERT INTO Rubro (nombre) VALUES (?)', [rawFormData.nombre])      
+    const resultRubro = await connection.execute<any>('INSERT INTO Rubro (nombre) VALUES (?)', [rawFormData.nombre])      
         
     if (!resultRubro.affectedRows || resultRubro.affectedRows == 0){
       return{

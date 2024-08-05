@@ -38,7 +38,7 @@ export default async function updateProduct(id: number, formData: FormData) {
       imageUrl = uploadResult.secure_url;        
     
       // Realizar el UPDATE en la base de datos utilizando la URL de la imagen
-      const result = await connection.query<ProductoDetail>(`
+      const result = await connection.execute<ProductoDetail>(`
         UPDATE Producto p JOIN Sucursal_Productos sp on sp.producto_id = p.id
         SET 
           p.nombre = ?,
@@ -58,7 +58,7 @@ export default async function updateProduct(id: number, formData: FormData) {
       };
     }else {
       // Si no se proporciona una nueva imagen, realizar el UPDATE sin cambiar el campo de imagen
-      const result = await connection.query<ProductoDetail>(`
+      const result = await connection.execute<ProductoDetail>(`
         UPDATE Producto p JOIN Sucursal_Productos sp on sp.producto_id = p.id
         SET 
           p.nombre = ?,

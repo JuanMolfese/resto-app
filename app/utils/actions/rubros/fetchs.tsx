@@ -5,7 +5,7 @@ import { Rubro } from "../../models/types/rubro";
 export async function fetchRubros() {
   unstable_noStore();
   try {
-    const result = await connection.query<Rubro[]>("SELECT * FROM Rubro");    
+    const result = await connection.execute<Rubro[]>("SELECT * FROM Rubro");    
     const rubros = result.map((rubro) => {
       return {
         id: rubro.id,
@@ -23,7 +23,7 @@ export async function fetchRubros() {
 export async function fetchRubro(id: number):Promise<Rubro>  {
   unstable_noStore();
   try {
-    const result:any = await connection.query<Rubro>("SELECT * FROM Rubro WHERE id = ?", id);
+    const result:any = await connection.execute<Rubro>("SELECT * FROM Rubro WHERE id = ?", id);
     if(result.length === 0) {      
       throw new Error(`No se encontró ningún rubro con el ID ${id}`);
     }

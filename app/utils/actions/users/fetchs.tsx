@@ -7,7 +7,7 @@ import { compare } from "bcrypt";
 export async function fetchUsers() {
   unstable_noStore();
   try {
-    const response = await connection.query<UsuarioDetail[]>('SELECT u.*, r.descripcion FROM Usuario u join Rol r on u.rol_id = r.id');
+    const response = await connection.execute<UsuarioDetail[]>('SELECT u.*, r.descripcion FROM Usuario u join Rol r on u.rol_id = r.id');
     await connection.end();
     
     const user = response.map((user) => {
@@ -28,7 +28,7 @@ export async function fetchUsers() {
 
 export async function fetchUserByEmail(email: string) {
   try {
-    const response = await connection.query<UsuarioDetail[]>('SELECT u.id, u.email, u.nombre, u.apellido, u.rol_id, r.descripcion FROM Usuario u join Rol r on u.rol_id = r.id WHERE email = ?', [email]);
+    const response = await connection.execute<UsuarioDetail[]>('SELECT u.id, u.email, u.nombre, u.apellido, u.rol_id, r.descripcion FROM Usuario u join Rol r on u.rol_id = r.id WHERE email = ?', [email]);
     await connection.end();
     
     const user = response.map((user) => {
@@ -49,7 +49,7 @@ export async function fetchUserByEmail(email: string) {
 
 export async function getRoles() {
   try {
-    const response = await connection.query<Rol[]>('SELECT * FROM Rol');
+    const response = await connection.execute<Rol[]>('SELECT * FROM Rol');
     await connection.end();
     const rol = response.map((rol) => {
       return {

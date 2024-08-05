@@ -20,7 +20,7 @@ export async function POST(request: NextRequest) {
     }; 
     
     try {
-      const resultPedido = await connection.query<any>(
+      const resultPedido = await connection.execute<any>(
         `INSERT INTO Pedido (pago, modo_entrega_id, payer_first_name, payer_address, total) VALUES (?, ?, ?, ?, ?)`,
         [
           false,
@@ -32,7 +32,7 @@ export async function POST(request: NextRequest) {
       );
       const pedidoCart = JSON.parse(pedido.cart);
       for (const item of pedidoCart) {
-        await connection.query<any>(
+        await connection.execute<any>(
           `INSERT INTO Pedido_Productos (pedido_id, producto_id, cantidad, precio) VALUES (?, ?, ?, ?)`,
           [resultPedido.insertId, item.id, item.cantidad, item.precio]
         );

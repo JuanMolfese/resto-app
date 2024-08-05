@@ -3,7 +3,7 @@ import { connection } from "../../utils/models/db";
 
 export async function GET() {
   try {
-    const res = await connection.query(`
+    const res = await connection.execute(`
       SELECT
         p.id,
         p.fecha_emision,
@@ -32,7 +32,7 @@ export async function GET() {
 
 export async function POST(body: any) {
   try {
-    const res = await connection.query('INSERT INTO Pedido SET ?', body);
+    const res = await connection.execute('INSERT INTO Pedido SET ?', body);
     await connection.end();
     return NextResponse.json({ status: 200, data: res });
   } catch (error) {

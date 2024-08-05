@@ -40,14 +40,14 @@ export default async function createProduct(formData: FormData) {
   
     console.log(res.secure_url);
 
-    const resultProduct = await connection.query<any>("INSERT INTO producto (nombre, subrubro_id, image) VALUES (?, ?, ?)", 
+    const resultProduct = await connection.execute<any>("INSERT INTO producto (nombre, subrubro_id, image) VALUES (?, ?, ?)", 
     [rawFormData.nombre, rawFormData.subrubro_id, res.secure_url]);
     
     if (!resultProduct.affectedRows) {
       throw new Error("Error al crear el producto");
     }
     const productId = resultProduct.insertId;
-    const resultSucProduct = await connection.query<any>("INSERT INTO sucursal_productos (producto_id, sucursal_id) VALUES (?, ?)", [productId, 1]);
+    const resultSucProduct = await connection.execute<any>("INSERT INTO sucursal_productos (producto_id, sucursal_id) VALUES (?, ?)", [productId, 1]);
     await connection.end();
     if (!resultSucProduct.affectedRows) {
       throw new Error("Error al crear el producto en la sucursal");

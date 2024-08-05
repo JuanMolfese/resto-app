@@ -8,7 +8,7 @@ export default async function createState(formData: FormData){
       orden: formData.get("order"),
     };
         
-    const resultProduct = await connection.query<any>("INSERT INTO Estado_Pedido (descripcion, orden) VALUES (?, ?)", [rawFormData.descripcion, rawFormData.orden]);
+    const resultProduct = await connection.execute<any>("INSERT INTO Estado_Pedido (descripcion, orden) VALUES (?, ?)", [rawFormData.descripcion, rawFormData.orden]);
     if (!resultProduct.affectedRows) {
       throw new Error("Error al crear el Estado");
     }

@@ -18,7 +18,7 @@ const socket = io('http://localhost:3000');
 export async function GET(req: Request, { params } : {params: {id: number}}) {
   try {
     const id = params.id;
-    const res = await connection.query<Producto[]>(`SELECT * FROM Producto WHERE id = ?`, [id]);
+    const res = await connection.execute<Producto[]>(`SELECT * FROM Producto WHERE id = ?`, [id]);
     await connection.end();
     return NextResponse.json({data: res[0], status: 200});   
   } catch (error) {
@@ -61,10 +61,10 @@ export async function PUT(req: Request, { params } : {params: {id: number}}) {
 
       await fs.unlink(filePath);
     }
-    const resSucprod = await connection.query(`UPDATE Sucursal_Productos SET precio = ?, stock = ?, stock_minimo = ? where producto_id = ? AND sucursal_id = ?`, [precio, stock, stock_minimo, id, sucId]);
+    const resSucprod = await connection.execute(`UPDATE Sucursal_Productos SET precio = ?, stock = ?, stock_minimo = ? where producto_id = ? AND sucursal_id = ?`, [precio, stock, stock_minimo, id, sucId]);
     if (imageUrl)
-      await connection.query(`UPDATE Producto SET nombre = ?, descripcion = ?, subrubro_id = ?, image = ? WHERE id = ?`, [nombre, descripcion, subrubro_id, imageUrl, id]);
-    else await connection.query(`UPDATE Producto SET nombre = ?, descripcion = ?, subrubro_id = ? WHERE id = ?`, [nombre, descripcion, subrubro_id, id]);
+      await connection.execute(`UPDATE Producto SET nombre = ?, descripcion = ?, subrubro_id = ?, image = ? WHERE id = ?`, [nombre, descripcion, subrubro_id, imageUrl, id]);
+    else await connection.execute(`UPDATE Producto SET nombre = ?, descripcion = ?, subrubro_id = ? WHERE id = ?`, [nombre, descripcion, subrubro_id, id]);
     socket.emit('updateProducto', 'Producto Actualizado');
     await connection.end();
     return NextResponse.json({status: 200});   
@@ -80,7 +80,7 @@ export async function DELETE(req: Request, { params } : {params: {id: number}}) 
   try {
     
     const id = params.id;
-    const res = await connection.query(`DELETE FROM Producto WHERE id = ?`, [id]);
+    const res = await connection.execute(`DELETE FROM Producto WHERE id = ?`, [id]);
     socket.emit('updateProducto', 'Producto Eliminado');
     await connection.end();
     return NextResponse.json({status: 200});   

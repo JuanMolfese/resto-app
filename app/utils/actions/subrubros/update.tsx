@@ -11,7 +11,7 @@ export default async function updateSubrubro(formData: FormData) {
       };
       
       //Aqui hacer verificaciones antes de insertar en BBDD    
-      const result:any = await connection.query('UPDATE Subrubro SET rubro_id = ?, nombre = ? WHERE id = ?', [rawFormData.rubro_id, rawFormData.nombre, rawFormData.id_subrubro] )
+      const result:any = await connection.execute('UPDATE Subrubro SET rubro_id = ?, nombre = ? WHERE id = ?', [rawFormData.rubro_id, rawFormData.nombre, rawFormData.id_subrubro] )
       if (result.affectedRows === 1) {
         return {
           success: true,

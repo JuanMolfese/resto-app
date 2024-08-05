@@ -4,7 +4,7 @@ import { Estado_pedido } from "../../../models/types/estado_pedido";
 
 export default async function deleteStatus(id: Number) {
   try {
-    const response = await connection.query<Estado_pedido>(`DELETE FROM Estado_Pedido WHERE id = ?`, id);
+    const response = await connection.execute<Estado_pedido>(`DELETE FROM Estado_Pedido WHERE id = ?`, id);
     connection.end();
     return {
       success: true,

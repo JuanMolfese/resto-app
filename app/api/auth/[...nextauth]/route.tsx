@@ -27,7 +27,7 @@ const handler = NextAuth({
       async authorize(credentials, req) {
         const email = credentials?.email;
         const password = credentials?.password;
-        const response = await connection.query(`SELECT * FROM Usuario WHERE email = ?`, [email]);
+        const response = await connection.execute(`SELECT * FROM Usuario WHERE email = ?`, [email]);
         const res = JSON.stringify(response);
         const user = JSON.parse(res);
         const passwordCorrect = await compare(password || "", user[0].pass);

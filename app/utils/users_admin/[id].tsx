@@ -19,7 +19,7 @@ const getUser = async (req: NextApiRequest, res: NextApiResponse) => {
             return res.status(400).json({ message: "Invalid id parameter" });
         }
 
-        const result: any[] = await connection.query("SELECT * FROM user WHERE id = ?", [id]);
+        const result: any[] = await connection.execute("SELECT * FROM user WHERE id = ?", [id]);
         await connection.end();
         return res.status(200).json(result[0]);
     } catch (error: any) {
@@ -35,7 +35,7 @@ const updateUser = async (req: NextApiRequest, res: NextApiResponse) => {
             return res.status(400).json({ message: "Invalid id parameter" });
         }
 
-        await connection.query("UPDATE user SET role = ? WHERE id = ?", [role_id, userId]);
+        await connection.execute("UPDATE user SET role = ? WHERE id = ?", [role_id, userId]);
         await connection.end();
         return res.status(200).json({ message: "Se actualizó correctamente el rol" });
     } catch (error: any) {

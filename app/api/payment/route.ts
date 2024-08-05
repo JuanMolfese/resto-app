@@ -53,7 +53,7 @@ export async function POST(request: NextRequest) {
       console.log(pedido);
 
       try {
-        const resultPedido = await connection.query<any>(
+        const resultPedido = await connection.execute<any>(
           `INSERT INTO Pedido (pago, modo_entrega_id, mp_id, payer_first_name, payer_address, total) VALUES (?, ?, ?, ?, ?, ?)`,
           [
             true,
@@ -67,7 +67,7 @@ export async function POST(request: NextRequest) {
         console.log("Pedido insertado en la base de datos:", resultPedido);
         const pedidoCart = JSON.parse(pedido.cart);
         for (const item of pedidoCart) {
-          await connection.query<any>(
+          await connection.execute<any>(
             `INSERT INTO Pedido_Productos (pedido_id, producto_id, cantidad, precio) VALUES (?, ?, ?, ?)`,
             [resultPedido.insertId, item.id, item.cantidad, item.precio]
           );

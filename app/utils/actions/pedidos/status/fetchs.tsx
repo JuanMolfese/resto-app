@@ -3,7 +3,7 @@ import { Estado_pedido } from "../../../models/types/estado_pedido";
 
 export async function fetchStatus() {
   try {
-    const result = await connection.query<Estado_pedido[]>("SELECT * FROM Estado_Pedido ORDER BY orden");
+    const result = await connection.execute<Estado_pedido[]>("SELECT * FROM Estado_Pedido ORDER BY orden");
     const status = result.map((status) => {
       return {
         id: status.id,

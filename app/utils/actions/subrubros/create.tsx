@@ -10,7 +10,7 @@ export default async function createSubrubro(formData: FormData) {
       
     };
     //Aqui hacer verificaciones antes de insertar en BBDD
-    const resultSubRubro = await connection.query<any>('INSERT INTO Subrubro (rubro_id, nombre) VALUES (?, ?)', [rawFormData.rubro_id, rawFormData.nombre])    
+    const resultSubRubro = await connection.execute<any>('INSERT INTO Subrubro (rubro_id, nombre) VALUES (?, ?)', [rawFormData.rubro_id, rawFormData.nombre])    
     
     
     if (!resultSubRubro.affectedRows|| resultSubRubro.affectedRows == 0){

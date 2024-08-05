@@ -6,13 +6,13 @@ import { Sucursal_productos } from "../../models/types/sucursal_productos";
 
 export default async function deleteProduct(id: number){
   try {
-    //const result = await connection.query<Producto>("DELETE FROM Producto WHERE id = ?", [id]);
-    const resSP = await connection.query<Sucursal_productos>(`
+    //const result = await connection.execute<Producto>("DELETE FROM Producto WHERE id = ?", [id]);
+    const resSP = await connection.execute<Sucursal_productos>(`
         DELETE FROM Sucursal_Productos WHERE producto_id = ?`,
         [id]
       );
     if (resSP.producto_id === id) {
-      const resP = await connection.query<Producto>(`
+      const resP = await connection.execute<Producto>(`
         DELETE FROM Producto WHERE id = ?`,[id]
       );
     }

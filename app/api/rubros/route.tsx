@@ -5,7 +5,7 @@ import { Rubro } from "../../utils/models/types/rubro";
 export async function GET() {
   
   try {
-    const result = await connection.query<Rubro[]>("SELECT * FROM Rubro");    
+    const result = await connection.execute<Rubro[]>("SELECT * FROM Rubro");    
     const rubros = result.map((rubro) => {
       return {
         id: rubro.id,
