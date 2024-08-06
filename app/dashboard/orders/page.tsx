@@ -38,19 +38,19 @@ const orderDelivery = (order: Pedido) => {
 const socket = io("http://localhost:3000");
 
 export default function Orders() {
-  const { data: pedidos, error, isLoading, refetch } = useGetPedidosQuery();
+  const { data: pedidos, error, isLoading, refetch } = useGetPedidosQuery(1);
   const [updatePedido] = useUpdatePedidoMutation();
 
   const {
     data: status,
     error: errorStatus,
     isLoading: isLoadingStatus,
-  } = useGetStatusQuery();
+  } = useGetStatusQuery(1);
 
   const params = useSearchParams();
   const filter = params.get("filter");
 
-  const filteredOrders = pedidos?.filter((pedido) => {
+  const filteredOrders = pedidos?.filter((pedido: any) => {
     return (
       !filter ||
       pedido.estado_pedido_descripcion
@@ -86,7 +86,7 @@ export default function Orders() {
   return (
     <>
       <div className="flex">
-        {status?.map((status) => (
+        {status?.map((status: any) => (
           <Link
             key={status.id}
             href={`/dashboard/orders?filter=${status.descripcion}`}
@@ -114,7 +114,7 @@ export default function Orders() {
       <div>
         {filteredOrders?.length === 0 && <p>No hay pedidos</p>}
         <ul>
-          {filteredOrders?.map((order) => (
+          {filteredOrders?.map((order: any) => (
             <li
               key={order.id}
               className="flex w-full justify-between items-center p-4 bg-slate-200/20 my-2 rounded-full shadow shadow-slate-400/20 hover:bg-slate-100"
@@ -145,7 +145,7 @@ export default function Orders() {
                       <SelectLabel className="color-slate-100 text-xs font-normal">
                         Estados
                       </SelectLabel>
-                      {status?.map((status) => {
+                      {status?.map((status: any) => {
                         return (
                           <SelectItem
                             key={status.id}
