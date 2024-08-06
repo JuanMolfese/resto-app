@@ -1,38 +1,38 @@
 import { unstable_noStore } from "next/cache";
-import { connection } from "../../models/db";
+import { connectdb } from "../../models/db";
 import { Rubro } from "../../models/types/rubro";
 
 export async function fetchRubros() {
   unstable_noStore();
+  let connection;
   try {
-    const result = await connection.query<Rubro[]>("SELECT * FROM Rubro");    
-    const rubros = result.map((rubro) => {
-      return {
-        id: rubro.id,
-        nombre: rubro.nombre,
-      };
-    })
+    connection = await connectdb.getConnection();
+    const [rubros] = await connection.execute("SELECT * FROM Rubro");    
     return rubros;
   } catch (error) {
     console.log(error);
   }finally{
-    await connection.end(); // Cierra la conexión a la base de datos
+    if (connection) {
+      await connection.release();
+    }
   }
 }
 
 export async function fetchRubro(id: number):Promise<Rubro>  {
   unstable_noStore();
+  let connection;
   try {
-    const result:any = await connection.query<Rubro>("SELECT * FROM Rubro WHERE id = ?", id);
-    if(result.length === 0) {      
+    connection = await connectdb.getConnection();
+    const [result] = await connection.execute("SELECT * FROM Rubro WHERE id = ?", id);
+    if(result) {      
       throw new Error(`No se encontró ningún rubro con el ID ${id}`);
     }
-    const info:Rubro = result[0];    
-    const infoPlano = JSON.parse(JSON.stringify(info));
-    return infoPlano;
+    return result;
   } catch (error) {
     return  Promise.reject(error);
-  }finally{
-    await connection.end(); // Cierra la conexión a la base de datos
+  }finally{ 
+    if (connection) {
+      await connection.release();
+    }
   }
 }

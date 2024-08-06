@@ -7,7 +7,7 @@ export const subrubrosApi = createApi({
     baseUrl: '/api/' 
   }),
   endpoints: (builder) => ({
-    getSububros: builder.query<Subrubro[], void>({
+    getSububros: builder.query({
       query: () => 'subrubros',
     }),
   }),

@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { connection } from "../../../utils/models/db";
+import { connectdb } from "../../../utils/models/db";
 import { Producto } from "../../../utils/models/types/producto";
 import { promises as fs } from 'fs';
 import { v2 as cloudinary } from 'cloudinary';
@@ -16,18 +16,29 @@ import path from "path";
 const socket = io('http://localhost:3000');
 
 export async function GET(req: Request, { params } : {params: {id: number}}) {
+  let connection;
   try {
+    connection = await connectdb.getConnection();
     const id = params.id;
-    const res = await connection.query<Producto[]>(`SELECT * FROM Producto WHERE id = ?`, [id]);
-    await connection.end();
+    const res = await connection.execute(`SELECT * FROM Producto WHERE id = ?`, [id]);
     return NextResponse.json({data: res[0], status: 200});   
   } catch (error) {
     return NextResponse.json({data: error, status: 500});
+  } finally {
+<<<<<<< HEAD
+    if (connection) connection.release();
+=======
+    if (connection) {
+      connection.release();
+    }
+>>>>>>> 56e274d842256ef013d9510c9766fbd4c69445ea
   }
 }
 
 export async function PUT(req: Request, { params } : {params: {id: number}}) {
+  let connection;
   try {
+    connection = await connectdb.getConnection();
     const id = params.id;
     const sucId = 1;
     const data = await req.formData();
@@ -59,28 +70,47 @@ export async function PUT(req: Request, { params } : {params: {id: number}}) {
 
       await fs.unlink(filePath);
     }
-    const resSucprod = await connection.query(`UPDATE Sucursal_Productos SET precio = ?, stock = ?, stock_minimo = ? where producto_id = ? AND sucursal_id = ?`, [precio, stock, stock_minimo, id, sucId]);
+    const resSucprod = await connection.execute(`UPDATE Sucursal_Productos SET precio = ?, stock = ?, stock_minimo = ? where producto_id = ? AND sucursal_id = ?`, [precio, stock, stock_minimo, id, sucId]);
     if (imageUrl)
-      await connection.query(`UPDATE Producto SET nombre = ?, descripcion = ?, subrubro_id = ?, image = ? WHERE id = ?`, [nombre, descripcion, subrubro_id, imageUrl, id]);
-    else await connection.query(`UPDATE Producto SET nombre = ?, descripcion = ?, subrubro_id = ? WHERE id = ?`, [nombre, descripcion, subrubro_id, id]);
+      await connection.execute(`UPDATE Producto SET nombre = ?, descripcion = ?, subrubro_id = ?, image = ? WHERE id = ?`, [nombre, descripcion, subrubro_id, imageUrl, id]);
+    else await connection.execute(`UPDATE Producto SET nombre = ?, descripcion = ?, subrubro_id = ? WHERE id = ?`, [nombre, descripcion, subrubro_id, id]);
     socket.emit('updateProducto', 'Producto Actualizado');
-    await connection.end();
     return NextResponse.json({status: 200});   
   } catch (error) {
     console.log(error);
     return NextResponse.json({status: 500});
+  } finally {
+<<<<<<< HEAD
+    if (connection) connection.release();
+=======
+    if (connection) {
+      connection.release();
+    }
+>>>>>>> 56e274d842256ef013d9510c9766fbd4c69445ea
   }
 }
 
 export async function DELETE(req: Request, { params } : {params: {id: number}}) {
+  let connection;
   try {
-    
+    connection = await connectdb.getConnection();
     const id = params.id;
-    const res = await connection.query(`DELETE FROM Producto WHERE id = ?`, [id]);
+    const res = await connection.execute(`DELETE FROM Producto WHERE id = ?`, [id]);
+<<<<<<< HEAD
     socket.emit('updateProducto', 'Producto Eliminado');
-    await connection.end();
     return NextResponse.json({status: 200});   
   } catch (error) {
     return NextResponse.json({status: 500});
+  } finally {
+    if (connection) connection.release();
+=======
+    socket.emit('updateProducto', 'Producto Eliminado');    return NextResponse.json({status: 200});   
+  } catch (error) {
+    return NextResponse.json({status: 500});
+  } finally {
+    if (connection) {
+      connection.release();
+    }
+>>>>>>> 56e274d842256ef013d9510c9766fbd4c69445ea
   }
 }

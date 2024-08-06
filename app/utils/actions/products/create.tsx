@@ -1,6 +1,6 @@
 "use server"
 import { redirect } from "next/navigation";
-import { connection } from "../../models/db";
+import { connectdb } from "../../models/db";
 import { revalidatePath } from "next/cache";
 import { Sucursal_productos } from "../../models/types/sucursal_productos";
 import { writeFile } from "fs/promises";
@@ -17,8 +17,9 @@ cloudinary.config({
 export default async function createProduct(formData: FormData) {
   
   let res;
-
+  let connection;
   try {
+    connection = await connectdb.getConnection();
     const rawFormData = {
       nombre: formData.get("name"),
       subrubro_id: formData.get("subrubroId"),      
@@ -40,18 +41,14 @@ export default async function createProduct(formData: FormData) {
   
     console.log(res.secure_url);
 
-    const resultProduct = await connection.query<any>("INSERT INTO producto (nombre, subrubro_id, image) VALUES (?, ?, ?)", 
+    const [resultProduct] = await connection.execute<any>("INSERT INTO producto (nombre, subrubro_id, image) VALUES (?, ?, ?)", 
     [rawFormData.nombre, rawFormData.subrubro_id, res.secure_url]);
     
     if (!resultProduct.affectedRows) {
       throw new Error("Error al crear el producto");
     }
     const productId = resultProduct.insertId;
-    const resultSucProduct = await connection.query<any>("INSERT INTO sucursal_productos (producto_id, sucursal_id) VALUES (?, ?)", [productId, 1]);
-    await connection.end();
-    if (!resultSucProduct.affectedRows) {
-      throw new Error("Error al crear el producto en la sucursal");
-    }
+    const [resultSucProduct] = await connection.execute("INSERT INTO sucursal_productos (producto_id, sucursal_id) VALUES (?, ?)", [productId, 1]);
     return {
       success: true,
       message: "Producto creado",
@@ -61,6 +58,10 @@ export default async function createProduct(formData: FormData) {
     return {
       success: false,
       message: "Error al crear el producto",
+    }
+  }finally{
+    if (connection) {
+      await connection.release();
     }
   }
 }

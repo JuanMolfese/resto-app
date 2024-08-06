@@ -1,16 +1,16 @@
-import mysql from "serverless-mysql";
+import mysql from "mysql2/promise";
 
-const connection = mysql({
-  config: {
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASS,
-    port: process.env.DB_PORT,
-    database: process.env.DB_NAME,
-  },
+const connectdb = mysql.createPool({
+  
+  host: process.env.MYSQLHOST,
+  user: process.env.MYSQLUSER,
+  password: process.env.MYSQLPASSWORD,
+  port: parseInt(process.env.MYSQLPORT!),
+  database: process.env.MYSQLDATABASE,
+  
 });
 
-export { connection };
+export { connectdb };
 
 /* Info de DOC serverlss-mysql: 
 	

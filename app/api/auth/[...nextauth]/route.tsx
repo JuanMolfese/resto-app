@@ -1,11 +1,7 @@
 import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";;
 import { compare } from "bcrypt";
-import { connection } from "../../../utils/models/db";
-import { Session } from "next-auth";
-import { JWT } from "next-auth/jwt";
-import { AdapterUser } from "next-auth/adapters";
-import { fetchUserByEmail } from "../../../utils/actions/users/fetchs";
+import { connectdb } from "../../../utils/models/db";
 
 const handler = NextAuth({
   session: {
@@ -29,20 +25,33 @@ const handler = NextAuth({
         password: {},
       },
       async authorize(credentials, req) {
-        const email = credentials?.email;
-        const password = credentials?.password;
-        const response = await connection.query(`SELECT * FROM Usuario WHERE email = ?`, [email]);
-        const res = JSON.stringify(response);
-        const user = JSON.parse(res);
-        const passwordCorrect = await compare(password || "", user[0].pass);
-        if (passwordCorrect) {
-          return {
-            id: user[0].id,
-            email: user[0].email,
-          };
-        } 
-        return null;        
-      },
+        let connection;
+        try {
+          const email = credentials?.email;
+          const password = credentials?.password;
+          connection = await connectdb.getConnection();  
+          const [response] = await connection.execute(`SELECT * FROM Usuario WHERE email = ?`, [email]);
+          const res = JSON.stringify(response);
+          const user = JSON.parse(res);
+          const passwordCorrect = await compare(password || "", user[0].pass);
+          if (connection)
+            connection.release();
+          if (passwordCorrect) {
+            return {
+              id: user[0].id,
+              email: user[0].email,
+            };
+          } 
+          return null;
+        } catch (error) {
+          console.error("Error en la autorización:", error);
+          return null;
+        } finally {
+          if (connection) {
+            connection.release();
+          }
+        }
+      }
     }),
   ],
     

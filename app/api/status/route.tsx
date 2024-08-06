@@ -1,24 +1,27 @@
 import { NextResponse } from "next/server";
-import { connection } from "../../utils/models/db";
+import { connectdb } from "../../utils/models/db";
 import { Estado_pedido } from "../../utils/models/types/estado_pedido";
 
 
 export async function GET() {
-  
+  let connection;
   try {
-    const result = await connection.query<Estado_pedido[]>("SELECT * FROM Estado_Pedido");    
-    const estados = result.map((estados) => {
+    connection = await connectdb.getConnection();
+    const result = await connection.execute("SELECT * FROM Estado_Pedido");    
+    const estados = result.map((estados: any) => {
       return {
         id: estados.id,
         descripcion: estados.descripcion,
         orden: estados.orden
       };
     })
-    return NextResponse.json(estados);
+    return NextResponse.json(estados, { status: 200 });
   } catch (error) {
-    console.log(error);
-  }finally{
-    await connection.end(); // Cierra la conexión a la base de datos
+    return NextResponse.json({ error: error }, { status: 500 });
+  } finally{
+    if (connection) {
+      connection.release();
+    }
   }
   
 }

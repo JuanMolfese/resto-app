@@ -1,22 +1,40 @@
 import { NextResponse } from "next/server";
-import { connection } from "../../utils/models/db";
+import { connectdb } from "../../utils/models/db";
+<<<<<<< HEAD
+
+export async function GET() {
+  let connection;
+  try {
+    connection = await connectdb.getConnection();
+    const [rubros] = await connection.execute("SELECT * FROM Rubro");    
+   
+=======
 import { Rubro } from "../../utils/models/types/rubro";
 
 export async function GET() {
   
+  let connection;
   try {
-    const result = await connection.query<Rubro[]>("SELECT * FROM Rubro");    
-    const rubros = result.map((rubro) => {
+    connection = await connectdb.getConnection();
+    const result = await connection.execute("SELECT * FROM Rubro");    
+    const rubros = result.map((rubro: any) => {
       return {
         id: rubro.id,
         nombre: rubro.nombre,
       };
     })
-    return NextResponse.json(rubros);
+>>>>>>> 56e274d842256ef013d9510c9766fbd4c69445ea
+    return NextResponse.json(rubros, { status: 200 });
   } catch (error) {
-    console.log(error);
-  }finally{
-    await connection.end(); // Cierra la conexión a la base de datos
+    return NextResponse.json({ error: error }, { status: 500 });
+  } finally{
+<<<<<<< HEAD
+    if (connection) connection.release();
+=======
+    if (connection) {
+      connection.release();
+    }
+>>>>>>> 56e274d842256ef013d9510c9766fbd4c69445ea
   }
   
 }

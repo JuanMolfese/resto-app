@@ -1,9 +1,11 @@
 import { NextResponse } from "next/server";
-import { connection } from "../../utils/models/db";
+import { connectdb } from "../../utils/models/db";
 
 export async function GET() {
+  let connection;
   try {
-    const res = await connection.query(`
+    connection = await connectdb.getConnection();
+    const res = await connection.execute(`
       SELECT
         p.id,
         p.fecha_emision,
@@ -21,20 +23,28 @@ export async function GET() {
         JOIN Estado_Pedido e on p.estado_pedido_id = e.id 
         JOIN Modo_Entrega m on p.modo_entrega_id = m.id
     `);
-    await connection.end();
     return NextResponse.json(res);
   } catch (error) {
-    return { status: 500, error: error };
+    return NextResponse.json({ status: 500, error: error });
+  } finally {
+    if (connection) {
+      connection.release();
+    }
   }
 }
 
 export async function POST(body: any) {
+  let connection;
   try {
-    const res = await connection.query('INSERT INTO Pedido SET ?', body);
-    await connection.end();
-    return { status: 200, data: res };
+    connection = await connectdb.getConnection();
+    const res = await connection.execute('INSERT INTO Pedido SET ?', body);
+    return NextResponse.json({ status: 200, data: res });
   } catch (error) {
-    return { status: 500, error: error };
+    return NextResponse.json({ status: 500, error: error });
+  } finally {
+    if (connection) {
+      connection.release();
+    }
   }
 }
 

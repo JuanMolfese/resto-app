@@ -7,7 +7,6 @@ import { Subrubro } from "../../../app/utils/models/types/subrubro";
 export default function ListadoSubrubros() {
 
   const { data: rubros, error, isLoading } = useGetSububrosQuery();
-
   if (isLoading) {
     return (
       <Spinner />

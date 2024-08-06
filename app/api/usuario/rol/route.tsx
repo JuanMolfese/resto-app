@@ -1,12 +1,18 @@
-import { connection } from "../../../utils/models/db";
+import { NextResponse } from "next/server";
+import { connectdb } from "../../../utils/models/db";
 import { Rol } from "../../../utils/models/types/rol";
 
 export async function GET() {
+  let connection;
   try {
-    const res = await connection.query<Rol>('SELECT * FROM Rol');
-    await connection.end();
-    return { status: 200, data: res };
+    connection = await connectdb.getConnection();
+    const res = await connection.execute('SELECT * FROM Rol');
+    return NextResponse.json({ status: 200, data: res });
   } catch (error) {
-    return { status: 500, error: error };
+    return NextResponse.json({ status: 500, error: error });
+  } finally {
+    if (connection) {
+      connection.release();
+    }
   }
 }

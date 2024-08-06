@@ -7,10 +7,20 @@ export const rubrosApi = createApi({
     baseUrl: '/api/' 
   }),
   endpoints: (builder) => ({
-    getRubros: builder.query<Rubro[], void>({
+    getRubros: builder.query({
       query: () => 'rubros',
+    }),
+    getRubroById: builder.query<Rubro, string>({
+      query: (id) => `rubros/${id}`,
+    }),
+    updateRubro: builder.mutation({
+      query: ({name, id}) => ({
+        url: `rubros/${id}`,
+        method: 'PUT',
+        body: {name},
+      }),
     }),
   }),
 })
 
-export const { useGetRubrosQuery } = rubrosApi
+export const { useGetRubrosQuery, useGetRubroByIdQuery, useUpdateRubroMutation } = rubrosApi

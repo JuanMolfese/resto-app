@@ -1,15 +1,16 @@
 "use server"
 
-import { connection } from "../../models/db";
+import { connectdb } from "../../models/db";
 
 export default async function deleteRubro(id : number) {
-
+  let connection;
   try{
+    connection = await connectdb.getConnection();
     
-    const verify_noSubrubros:any = await connection.query('SELECT * FROM Subrubro WHERE rubro_id=?', [id]);
+    const verify_noSubrubros:any = await connection.execute('SELECT * FROM Subrubro WHERE rubro_id=?', [id]);
     
     if(!verify_noSubrubros || verify_noSubrubros.length === 0){
-      const result:any = await connection.query('DELETE FROM Rubro WHERE id = (?)', [id]) 
+      const result:any = await connection.execute('DELETE FROM Rubro WHERE id = (?)', [id]) 
       
       if (result.affectedRows === 0) {
         return { error: `No se pudo eliminar el rubro ${id}` };
@@ -30,6 +31,8 @@ export default async function deleteRubro(id : number) {
       message: "Error interno del servidor",
     };
   }finally {
-    await connection.end(); // Cierra la conexión a la base de datos  
+     if (connection) {
+      await connection.release();
+    }
   }
 }

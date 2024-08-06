@@ -1,10 +1,12 @@
 import { NextResponse } from "next/server";
-import { connection } from "../../utils/models/db";
+import { connectdb } from "../../utils/models/db";
 import { ProductoDetail } from "../../utils/models/types/producto";
 
 export async function GET() {
+  let connection;
   try {  
-    const result = await connection.query<ProductoDetail[]>(
+    connection = await connectdb.getConnection();
+    const [products] = await connection.execute(
       `SELECT 
         p.id, 
         p.nombre, 
@@ -23,33 +25,19 @@ export async function GET() {
         JOIN Rubro r on r.id = s.rubro_id 
       WHERE sp.sucursal_id = ?`
       , [1]);
-    await connection.end();
-    const products = result.map((product) => {
-      return {
-        id: product.id,
-        nombre: product.nombre,
-        descripcion: product.descripcion,
-        image: product.image,
-        stock: product.stock,
-        stock_minimo: product.stock_minimo,
-        precio: product.precio,
-        subrubro_id: product.subrubro_id,
-        subrubro_nombre: product.subrubro_nombre,
-        rubro_id: product.rubro_id,
-        rubro_nombre: product.rubro_nombre,
-      };
-    });
+    
     return NextResponse.json(products);
   } catch (error) {
     return NextResponse.json({ status: 500, error: error });
+  } finally {
+    if (connection) connection.release();
   }
 }
 
 /* export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const res = await connection.query('INSERT INTO Producto SET ?', body);
-    await connection.end();
+    const res = await connection.execute('INSERT INTO Producto SET ?', body);
     return NextResponse.json({ status: 200, data: res });
   } catch (error) {
     return NextResponse.json({ status: 500, error: error });
@@ -73,7 +61,9 @@ function isFile(obj: any) {
 }
 
 export async function POST(req: Request) {
+  let connection;
   try {
+    connection = await connectdb.getConnection();
     
     const data = await req.formData();
     const nombre = data.get('name');
@@ -101,15 +91,18 @@ export async function POST(req: Request) {
 
         await fs.unlink(filePath);
       }
+      console.log(imageUrl);
       // Guarda la información del producto en la base de datos
       try {
-        const resultProduct = await connection.query<any>("INSERT INTO Producto (nombre, subrubro_id, image) VALUES (?, ?, ?)", 
+    
+        const [resultProduct] = await connection.execute<any>("INSERT INTO Producto (nombre, subrubro_id, image) VALUES (?, ?, ?)", 
         [nombre, subrubro_id, imageUrl]);
+        
         if (!resultProduct.affectedRows) {
           throw new Error("Error al crear el producto");
         }
         const productId = resultProduct.insertId;
-        const resultSucProduct = await connection.query<any>("INSERT INTO Sucursal_Productos (producto_id, sucursal_id) VALUES (?, ?)", [productId, 1]);
+        const [resultSucProduct] = await connection.execute<any>("INSERT INTO Sucursal_Productos (producto_id, sucursal_id) VALUES (?, ?)", [productId, 1]);
         if (!resultSucProduct.affectedRows) {
           throw new Error("Error al crear el producto en la sucursal");
         }
@@ -122,5 +115,7 @@ export async function POST(req: Request) {
     }
   } catch (error) {
     return NextResponse.json({ message: 'Error al agregar producto', status: 500 });
+  } finally {
+    if (connection) connection.release();
   }
 }

@@ -24,7 +24,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ cart: cart },{ status: 200 });
   } catch (error) {
     return NextResponse.json({ error: error },{ status: 500 });
-  }
+  } 
 }
 
 export async function DELETE(req: Request) {

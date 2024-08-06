@@ -1,9 +1,11 @@
 "use server"
 
-import { connection } from "../../models/db";
+import { connectdb } from "../../models/db";
 
 export default async function updateSubrubro(formData: FormData) {
+  let connection;
   try {
+    connection = await connectdb.getConnection();
       const rawFormData = {      
         rubro_id: formData.get("rubroId"),      
         nombre: formData.get("name"),
@@ -11,7 +13,7 @@ export default async function updateSubrubro(formData: FormData) {
       };
       
       //Aqui hacer verificaciones antes de insertar en BBDD    
-      const result:any = await connection.query('UPDATE Subrubro SET rubro_id = ?, nombre = ? WHERE id = ?', [rawFormData.rubro_id, rawFormData.nombre, rawFormData.id_subrubro] )
+      const result:any = await connection.execute('UPDATE Subrubro SET rubro_id = ?, nombre = ? WHERE id = ?', [rawFormData.rubro_id, rawFormData.nombre, rawFormData.id_subrubro] )
       if (result.affectedRows === 1) {
         return {
           success: true,
@@ -33,6 +35,8 @@ export default async function updateSubrubro(formData: FormData) {
       message: "Error interno del servidor",
     };
   } finally {
-    await connection.end(); // Cierra la conexión a la base de datos
+    if (connection) {
+      await connection.release();
+    }
   }
 }
