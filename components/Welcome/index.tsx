@@ -33,7 +33,6 @@ const Welcome = () => {
   const isTablet = useMediaQuery('(min-width: 768px) and (max-width: 1024px)');
   const isDesktop = useMediaQuery('(min-width: 1025px)');
   const {data: sucursal, isLoading, error, refetch} = useGetSucursalQuery(1);
-
   useEffect(() => {
     socket.on('updateSuc', () => {
         if (sucursal)
@@ -48,21 +47,21 @@ const Welcome = () => {
       {isMobile && (
         <div className="mobile-welcome">
           {/* Tu contenido para móviles */}          
-          <Slider estado={sucursal?.status_sucursal_id == 1}/>
+          <Slider estado={sucursal.sucursal[0]?.status_sucursal_id == 1}/>
         </div>
       )}
 
       {isTablet && (
         <div className="tablet-welcome">
           {/* Tu contenido para tablets */}
-          <Landing estado={sucursal?.status_sucursal_id == 1}/>
+          <Landing estado={sucursal.sucursal[0]?.status_sucursal_id == 1}/>
         </div>
       )}
 
       {isDesktop && (
         <div className="desktop-welcome">
           {/* Tu contenido para escritorio */}
-          <Landing estado={sucursal?.status_sucursal_id == 1}/>
+          <Landing estado={sucursal.sucursal[0]?.status_sucursal_id == 1}/>
         </div>
       )}
     </div>

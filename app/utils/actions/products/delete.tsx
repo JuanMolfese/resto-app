@@ -1,22 +1,23 @@
 'use server'
 
-import { connection } from "../../models/db";
+import { connectdb } from "../../models/db";
 import { Producto, ProductoDetail } from "../../models/types/producto";
 import { Sucursal_productos } from "../../models/types/sucursal_productos";
 
 export default async function deleteProduct(id: number){
+  let connection;
   try {
+    connection = await connectdb.getConnection();
     //const result = await connection.execute<Producto>("DELETE FROM Producto WHERE id = ?", [id]);
-    const resSP = await connection.execute<Sucursal_productos>(`
+    const [resSP] = await connection.execute<any>(`
         DELETE FROM Sucursal_Productos WHERE producto_id = ?`,
         [id]
       );
     if (resSP.producto_id === id) {
-      const resP = await connection.execute<Producto>(`
+      const resP = await connection.execute(`
         DELETE FROM Producto WHERE id = ?`,[id]
       );
     }
-    await connection.end();
     return { 
       success: true,
       message: 'Product Deleted.' 
@@ -27,5 +28,9 @@ export default async function deleteProduct(id: number){
       success: false,
       message: 'Database Error: Failed to Delete Product.' 
     };
+  }finally{
+    if (connection) {
+      await connection.release();
+    }
   }
 }

@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse} from "next/server";
-import { connection } from "../../utils/models/db";
+import { connectdb } from "../../utils/models/db";
 
 import io from 'socket.io-client';
 const socket = io('http://localhost:3000');
 
 export async function POST(request: NextRequest) {
-    
+  let connection;
   try{
 
     const order = await request.json();
@@ -20,7 +20,8 @@ export async function POST(request: NextRequest) {
     }; 
     
     try {
-      const resultPedido = await connection.execute<any>(
+      connection = await connectdb.getConnection();
+      const [resultPedido] = await connection.execute<any>(
         `INSERT INTO Pedido (pago, modo_entrega_id, payer_first_name, payer_address, total) VALUES (?, ?, ?, ?, ?)`,
         [
           false,
@@ -52,6 +53,8 @@ export async function POST(request: NextRequest) {
     console.log("Error al procesar la solicitud", error);
     return NextResponse.json({ success: false, message: "Error al procesar la solicitud" });
   } finally {
-    await connection.end();
+    if (connection) {
+      connection.release();
+    }
   }
 }

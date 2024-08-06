@@ -8,7 +8,7 @@ export const orderApi = createApi({
     baseUrl: '/api/' 
   }),
   endpoints: (builder) => ({
-    getPedidos: builder.query<Pedido[], void>({
+    getPedidos: builder.query({
       query: () => 'pedidos',
     }),
     updatePedido: builder.mutation({

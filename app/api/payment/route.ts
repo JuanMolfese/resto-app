@@ -1,7 +1,7 @@
 //Aqui recibiremos los avisos una vez que se concrete un pago en MERCADO PAGO
 import type { NextRequest } from "next/server";
 import { MercadoPagoConfig, Payment } from "mercadopago";
-import { connection } from "../../utils/models/db";
+import { connectdb } from "../../utils/models/db";
 
 const mercadopago = new MercadoPagoConfig({
   accessToken: process.env.MP_ACCESS_TOKEN!,
@@ -21,7 +21,9 @@ export async function POST(request: NextRequest) {
   console.log(paymentId);
 
   new Promise<void>(async (resolve, reject) => {
+    let connection;
     try {
+      connection = await connectdb.getConnection();
       const payment = await new Payment(mercadopago).get({
         id: parseFloat(paymentId!),
       });
@@ -53,7 +55,7 @@ export async function POST(request: NextRequest) {
       console.log(pedido);
 
       try {
-        const resultPedido = await connection.execute<any>(
+        const [resultPedido] = await connection.execute<any>(
           `INSERT INTO Pedido (pago, modo_entrega_id, mp_id, payer_first_name, payer_address, total) VALUES (?, ?, ?, ?, ?, ?)`,
           [
             true,
@@ -67,7 +69,7 @@ export async function POST(request: NextRequest) {
         console.log("Pedido insertado en la base de datos:", resultPedido);
         const pedidoCart = JSON.parse(pedido.cart);
         for (const item of pedidoCart) {
-          await connection.execute<any>(
+          await connection.execute(
             `INSERT INTO Pedido_Productos (pedido_id, producto_id, cantidad, precio) VALUES (?, ?, ?, ?)`,
             [resultPedido.insertId, item.id, item.cantidad, item.precio]
           );
@@ -81,7 +83,9 @@ export async function POST(request: NextRequest) {
       console.error("Error al obtener el pago de MP:", error);
       return Response.json({ success: false });
     } finally {
-      await connection.end();
+      if (connection) {
+        connection.release();
+      }
     }
   });
 

@@ -1,9 +1,11 @@
 "use server"
 
-import { connection } from "../../models/db";
+import { connectdb } from "../../models/db";
 
 export default async function updateSubrubro(formData: FormData) {
+  let connection;
   try {
+    connection = await connectdb.getConnection();
       const rawFormData = {      
         rubro_id: formData.get("rubroId"),      
         nombre: formData.get("name"),
@@ -33,6 +35,8 @@ export default async function updateSubrubro(formData: FormData) {
       message: "Error interno del servidor",
     };
   } finally {
-    await connection.end(); // Cierra la conexión a la base de datos
+    if (connection) {
+      await connection.release();
+    }
   }
 }

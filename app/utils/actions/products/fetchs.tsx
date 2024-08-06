@@ -1,32 +1,30 @@
-import { connection } from "../../models/db";
+import { connectdb } from "../../models/db";
 import { Producto, ProductoDetail } from "../../models/types/producto";
 import { unstable_noStore as noStore } from 'next/cache';
 
 export async function fetchProducts() {
   noStore();
+  let connection;
   try {
-    const result = await connection.execute<Producto[]>("SELECT * FROM Producto");
-    await connection.end();
-    const products = result.map((product) => {
-      return {
-        id: product.id,
-        nombre: product.nombre,
-        subrubro_id: product.subrubro_id,
-        image: product.image
-      };
-    });
-    console.log(products);
-    return products;
+    connection = await connectdb.getConnection();
+    const [result] = await connection.execute("SELECT * FROM Producto");
+    return result;
   } catch (error) {
     console.log(error);
+  } finally {
+    if (connection) {
+      await connection.release();
+    }
   }
 }
 
 export async function fetchProductsSucursal(sucursal_id: number) 
 {
   noStore();
+  let connection;
   try {
-    const result = await connection.execute<ProductoDetail[]>(
+    connection = await connectdb.getConnection();
+    const [products] = await connection.execute(
       `SELECT 
         p.id, 
         p.nombre, 
@@ -45,25 +43,14 @@ export async function fetchProductsSucursal(sucursal_id: number)
         JOIN Rubro r on r.id = s.rubro_id 
       WHERE sp.sucursal_id = ?`
       , [sucursal_id]);
-    await connection.end();
-    const products = result.map((product) => {
-      return {
-        id: product.id,
-        nombre: product.nombre,
-        descripcion: product.descripcion,
-        image: product.image,
-        stock: product.stock,
-        stock_minimo: product.stock_minimo,
-        precio: product.precio,
-        subrubro_id: product.subrubro_id,
-        subrubro_nombre: product.subrubro_nombre,
-        rubro_id: product.rubro_id,
-        rubro_nombre: product.rubro_nombre,
-      };
-    });
+   
     return products;
   } catch (error) {
     console.log(error);
+  } finally {
+    if (connection) {
+      await connection.release();
+    }
   }
 
 }
@@ -71,8 +58,10 @@ export async function fetchProductsSucursal(sucursal_id: number)
 
 export async function fetchProductsOutofStock(sucursal_id: number) {
   noStore();
+  let connection;
   try {
-    const result = await connection.execute<ProductoDetail[]>(
+    connection = await connectdb.getConnection();
+    const [products] = await connection.execute(
       `SELECT 
         p.id, 
         p.nombre, 
@@ -92,25 +81,14 @@ export async function fetchProductsOutofStock(sucursal_id: number) {
       WHERE sp.stock < sp.stock_minimo and sp.sucursal_id = ?`
       , [sucursal_id]
     );
-    await connection.end();
-    const products = result.map((product) => {
-      return {
-        id: product.id,
-        nombre: product.nombre,
-        descripcion: product.descripcion,
-        image: product.image,
-        stock: product.stock,
-        stock_minimo: product.stock_minimo,
-        precio: product.precio,
-        subrubro_id: product.subrubro_id,
-        subrubro_nombre: product.subrubro_nombre,
-        rubro_id: product.rubro_id,
-        rubro_nombre: product.rubro_nombre,
-      };
-    });
+
     return products;
   } catch (error) {
     console.log(error);
+  } finally {
+    if (connection) {
+      await connection.release();
+    }
   }
   
 }

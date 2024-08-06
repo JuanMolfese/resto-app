@@ -1,12 +1,13 @@
 import { NextResponse } from "next/server";
-import { connection } from "../../utils/models/db";
+import { connectdb } from "../../utils/models/db";
 import { Subrubro } from "../../utils/models/types/subrubro";
 
 export async function GET() {
-  
+  let connection;
   try {
-    const result = await connection.execute<Subrubro[]>("SELECT * FROM Subrubro");    
-    const rubros = result.map((subrubro) => {
+    connection = await connectdb.getConnection();
+    const result = await connection.execute("SELECT * FROM Subrubro");    
+    const rubros = result.map((subrubro: any) => {
       return {
         id: subrubro.id,
         nombre: subrubro.nombre,
@@ -17,7 +18,9 @@ export async function GET() {
   } catch (error) {
     return NextResponse.json({ error: error }, { status: 500 });
   } finally{
-    await connection.end(); // Cierra la conexión a la base de datos
+    if (connection) {
+      connection.release();
+    }
   }
   
 }
