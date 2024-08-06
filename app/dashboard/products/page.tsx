@@ -8,6 +8,7 @@ import { useGetRubrosQuery } from "@/redux/services/rubrosApi";
 import { useGetSububrosQuery } from "@/redux/services/subrubrosApi";
 import { useEffect, useState } from "react";
 import { ProductoDetail } from "../../utils/models/types/producto";
+import Spinner from "../../../components/spinner";
 
 export default function Products({
   searchParams,
@@ -19,21 +20,20 @@ export default function Products({
 }) {
 
   const query = searchParams?.ms || false;
-  const {data: products, error: errorProducts, isLoading: loadingProducts, refetch} = useGetProductsQuery();
-  const {data: rubros, error: errorRubros, isLoading: loadingRubros} = useGetRubrosQuery();
-  const {data: subrubros, error: errorSubrubros, isLoading: loadingSubrubros} = useGetSububrosQuery();
+  const {data: products, error: errorProducts, isLoading: loadingProducts, refetch} = useGetProductsQuery(1);
+  const {data: rubros, error: errorRubros, isLoading: loadingRubros} = useGetRubrosQuery(1);
+  const {data: subrubros, error: errorSubrubros, isLoading: loadingSubrubros} = useGetSububrosQuery(1);
   const [productsFiltered, setProductsFiltered] = useState<ProductoDetail[] | undefined>(undefined);
 
 useEffect(() => {
   if (query) {
-    setProductsFiltered(products?.filter((product) => product.stock === 0));
+    setProductsFiltered(products?.filter((product: any) => product.stock === 0));
   } else {
     setProductsFiltered(products);
   }
 }, [query, products]);
-  /* const {data: products, error: errorProducts, isLoading: loadingProducts, refetch} = useGetProductsQuery(); 
-  const {data: rubros, error: errorRubros, isLoading: loadingRubros} = useGetRubrosQuery();
-  const {data: subrubros, error: errorSubrubros, isLoading: loadingSubrubros} = useGetSububrosQuery(); */
+
+if (loadingProducts || loadingRubros || loadingSubrubros) return <Spinner />;
 
   return (
     <ScrollArea>

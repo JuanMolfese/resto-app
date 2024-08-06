@@ -25,7 +25,13 @@ export async function GET(req: Request, { params } : {params: {id: number}}) {
   } catch (error) {
     return NextResponse.json({data: error, status: 500});
   } finally {
+<<<<<<< HEAD
     if (connection) connection.release();
+=======
+    if (connection) {
+      connection.release();
+    }
+>>>>>>> 56e274d842256ef013d9510c9766fbd4c69445ea
   }
 }
 
@@ -74,7 +80,13 @@ export async function PUT(req: Request, { params } : {params: {id: number}}) {
     console.log(error);
     return NextResponse.json({status: 500});
   } finally {
+<<<<<<< HEAD
     if (connection) connection.release();
+=======
+    if (connection) {
+      connection.release();
+    }
+>>>>>>> 56e274d842256ef013d9510c9766fbd4c69445ea
   }
 }
 
@@ -84,11 +96,21 @@ export async function DELETE(req: Request, { params } : {params: {id: number}}) 
     connection = await connectdb.getConnection();
     const id = params.id;
     const res = await connection.execute(`DELETE FROM Producto WHERE id = ?`, [id]);
+<<<<<<< HEAD
     socket.emit('updateProducto', 'Producto Eliminado');
     return NextResponse.json({status: 200});   
   } catch (error) {
     return NextResponse.json({status: 500});
   } finally {
     if (connection) connection.release();
+=======
+    socket.emit('updateProducto', 'Producto Eliminado');    return NextResponse.json({status: 200});   
+  } catch (error) {
+    return NextResponse.json({status: 500});
+  } finally {
+    if (connection) {
+      connection.release();
+    }
+>>>>>>> 56e274d842256ef013d9510c9766fbd4c69445ea
   }
 }

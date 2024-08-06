@@ -38,7 +38,6 @@ export async function GET() {
   try {
     const body = await req.json();
     const res = await connection.execute('INSERT INTO Producto SET ?', body);
-    await connection.end();
     return NextResponse.json({ status: 200, data: res });
   } catch (error) {
     return NextResponse.json({ status: 500, error: error });

@@ -1,7 +1,7 @@
 'use server';
 
 import { revalidatePath } from "next/cache";
-import { connection } from "../../models/db";
+import { connectdb } from "../../models/db";
 import { ProductoDetail } from "../../models/types/producto";
 import {v2 as cloudinary} from 'cloudinary';
 import { writeFile } from "fs/promises";
@@ -14,7 +14,8 @@ cloudinary.config({
 });
 
 export default async function updateProduct(id: number, formData: FormData) {
-      
+  let connection;
+  connection = await connectdb.getConnection();
   try {
     const rawFormData = {
       nombre: formData.get("name"),
@@ -36,9 +37,10 @@ export default async function updateProduct(id: number, formData: FormData) {
       await writeFile(filePath, buffer);
       const uploadResult = await cloudinary.uploader.upload(filePath);
       imageUrl = uploadResult.secure_url;        
-    
+     
+      
       // Realizar el UPDATE en la base de datos utilizando la URL de la imagen
-      const result = await connection.execute<ProductoDetail>(`
+      const result = await connection.execute(`
         UPDATE Producto p JOIN Sucursal_Productos sp on sp.producto_id = p.id
         SET 
           p.nombre = ?,
@@ -51,14 +53,13 @@ export default async function updateProduct(id: number, formData: FormData) {
         [rawFormData.nombre, rawFormData.subrubroId, imageUrl, rawFormData.precio, rawFormData.stock, rawFormData.stock_minimo, rawFormData.id]
       );
   
-      await connection.end();
       return { 
         success: true,
         message: 'Producto actualizado.', 
       };
     }else {
       // Si no se proporciona una nueva imagen, realizar el UPDATE sin cambiar el campo de imagen
-      const result = await connection.execute<ProductoDetail>(`
+      const result = await connection.execute(`
         UPDATE Producto p JOIN Sucursal_Productos sp on sp.producto_id = p.id
         SET 
           p.nombre = ?,
@@ -69,7 +70,6 @@ export default async function updateProduct(id: number, formData: FormData) {
         WHERE id = ?`, 
         [rawFormData.nombre, rawFormData.subrubroId, rawFormData.precio, rawFormData.stock, rawFormData.stock_minimo, rawFormData.id]
       );    
-      await connection.end();
       return { 
         success: true,
         message: 'Producto actualizado.', 
@@ -81,5 +81,9 @@ export default async function updateProduct(id: number, formData: FormData) {
       success: false,
       message: 'Error al actualizar el producto.', 
     };
+  } finally {
+    if (connection) {
+      await connection.release();
+    }
   }
 }

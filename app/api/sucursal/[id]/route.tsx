@@ -10,15 +10,28 @@ export async function GET(req: Request, { params } : { params: {id: number}}) {
   try {
     connection = await connectdb.getConnection();
     const id = params.id;
+<<<<<<< HEAD
     const [res] = await connection.execute(`SELECT * FROM Sucursal WHERE id = ?`, [id]);
     const data = JSON.stringify(res);
     const suc = JSON.parse(data);
     return NextResponse.json(suc[0]);
+=======
+    const [sucursal] = await connection.execute(`SELECT * FROM Sucursal WHERE id = ?`, [id]);
+    
+    return NextResponse.json(sucursal, {status: 200});
+
+>>>>>>> 56e274d842256ef013d9510c9766fbd4c69445ea
   } catch (err) {
     console.error(err);
-    return NextResponse.json({status: 500});
+    return NextResponse.json({ status: 500 });
   } finally {
+<<<<<<< HEAD
     if (connection) connection.release();
+=======
+    if (connection) {
+      connection.release();
+    }
+>>>>>>> 56e274d842256ef013d9510c9766fbd4c69445ea
   } 
 }
 
@@ -35,6 +48,12 @@ export async function PUT(req: Request, { params } : {params: {id: number}}) {
     console.log(error);
     return NextResponse.json({status: 500});
   } finally {
+<<<<<<< HEAD
     if (connection) connection.release();
+=======
+    if (connection) {
+      connection.release();
+    }
+>>>>>>> 56e274d842256ef013d9510c9766fbd4c69445ea
   }
 }

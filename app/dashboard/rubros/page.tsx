@@ -1,6 +1,5 @@
 "use client";
 import Link from "next/link";
-import { fetchRubros } from "../../utils/actions/rubros/fetchs";
 import {
   Table,
   TableBody,
@@ -15,7 +14,7 @@ import Spinner from "../../../components/spinner";
 import { useEffect } from "react";
 
 export default function Rubros() {
-  const { data: rubros, error, isLoading, refetch } = useGetRubrosQuery();
+  const { data: rubros, error, isLoading, refetch } = useGetRubrosQuery(1);
 
   useEffect(() => {
     refetch();
@@ -57,7 +56,7 @@ export default function Rubros() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {rubros?.map((rubro) => (
+          {rubros?.map((rubro: any) => (
             <TableRow key={rubro.id}>
               <TableCell className="font-medium">{rubro.nombre}</TableCell>
               <TableCell>
