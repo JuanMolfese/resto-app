@@ -25,26 +25,33 @@ const handler = NextAuth({
         password: {},
       },
       async authorize(credentials, req) {
-        const email = credentials?.email;
-        const password = credentials?.password;
-        console.log("LLEGO: ", email, password);
-        let connection = await connectdb.getConnection();  
-        console.log("???", connection);
-        const [response] = await connection.execute(`SELECT * FROM Usuario WHERE email = ?`, [email]);
-        console.log("RESPUESTA: ", response);
-        const res = JSON.stringify(response);
-        const user = JSON.parse(res);
-        const passwordCorrect = await compare(password || "", user[0].pass);
-        if (connection)
-          connection.release();
-        if (passwordCorrect) {
-          return {
-            id: user[0].id,
-            email: user[0].email,
-          };
-        } 
-        return null;        
-      },
+        let connection;
+        try {
+          const email = credentials?.email;
+          const password = credentials?.password;
+          connection = await connectdb.getConnection();  
+          const [response] = await connection.execute(`SELECT * FROM Usuario WHERE email = ?`, [email]);
+          const res = JSON.stringify(response);
+          const user = JSON.parse(res);
+          const passwordCorrect = await compare(password || "", user[0].pass);
+          if (connection)
+            connection.release();
+          if (passwordCorrect) {
+            return {
+              id: user[0].id,
+              email: user[0].email,
+            };
+          } 
+          return null;
+        } catch (error) {
+          console.error("Error en la autorización:", error);
+          return null;
+        } finally {
+          if (connection) {
+            connection.release();
+          }
+        }
+      }
     }),
   ],
     

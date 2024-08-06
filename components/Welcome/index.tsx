@@ -4,6 +4,7 @@ import Slider from './Slider';
 import Landing from './Landing';
 import io from "socket.io-client";
 import { useGetSucursalQuery } from '@/redux/services/sucursalApi';
+import Spinner from '../spinner';
 
 const socket = io('http://localhost:3000');
 
@@ -42,6 +43,9 @@ const Welcome = () => {
           // Execute any command
       })
   }, [refetch, sucursal]);
+
+  if (isLoading) return <Spinner/>;
+  if (error) return <div>Error</div>;
 
   return (
     <div>

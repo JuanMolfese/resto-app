@@ -1,18 +1,15 @@
-/* "use client" */
+"use client"
 import Link from "next/link";
-import { fetchProductsOutofStock, fetchProductsSucursal } from "../../utils/actions/products/fetchs";
 import CardProduct from "../../../components/Product/card";
-import { fetchRubros } from "../../utils/actions/rubros/fetchs";
-import fetchSubrubros from "../../utils/actions/subrubros/fetchs";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Badge } from "@/components/ui/badge";
 import { useGetProductsQuery } from "@/redux/services/productsApi";
 import { useGetRubrosQuery } from "@/redux/services/rubrosApi";
 import { useGetSububrosQuery } from "@/redux/services/subrubrosApi";
+import { useEffect, useState } from "react";
+import { ProductoDetail } from "../../utils/models/types/producto";
 
-
-
-export default async function Products({
+export default function Products({
   searchParams,
 }: {
   searchParams?: {
@@ -22,9 +19,18 @@ export default async function Products({
 }) {
 
   const query = searchParams?.ms || false;
-  const products = query ? await fetchProductsOutofStock(1) : await fetchProductsSucursal(1);
-  const rubros = await fetchRubros();
-  const subrubros = await fetchSubrubros();  
+  const {data: products, error: errorProducts, isLoading: loadingProducts, refetch} = useGetProductsQuery();
+  const {data: rubros, error: errorRubros, isLoading: loadingRubros} = useGetRubrosQuery();
+  const {data: subrubros, error: errorSubrubros, isLoading: loadingSubrubros} = useGetSububrosQuery();
+  const [productsFiltered, setProductsFiltered] = useState<ProductoDetail[] | undefined>(undefined);
+
+useEffect(() => {
+  if (query) {
+    setProductsFiltered(products?.filter((product) => product.stock === 0));
+  } else {
+    setProductsFiltered(products);
+  }
+}, [query, products]);
   /* const {data: products, error: errorProducts, isLoading: loadingProducts, refetch} = useGetProductsQuery(); 
   const {data: rubros, error: errorRubros, isLoading: loadingRubros} = useGetRubrosQuery();
   const {data: subrubros, error: errorSubrubros, isLoading: loadingSubrubros} = useGetSububrosQuery(); */
@@ -77,7 +83,7 @@ export default async function Products({
       </div>
       
       <div className="flex flex-row flex-wrap">
-        {products?.map((product) => (
+        {productsFiltered?.map((product) => (
           
           <div
             key={product.id}
