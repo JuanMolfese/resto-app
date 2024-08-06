@@ -1,5 +1,5 @@
+"use client"
 import Link from "next/link";
-import fetchSubrubros from "../../utils/actions/subrubros/fetchs";
 import {
     Table,
     TableBody,
@@ -9,10 +9,11 @@ import {
     TableHeader,
     TableRow,
   } from "@/components/ui/table"
+import { useGetSububrosQuery } from "@/redux/services/subrubrosApi";
 
-export default async function SubRubros() {
+export default function SubRubros() {
   
-const subrubros = await fetchSubrubros();
+const {data: subrubros, isLoading, error} = useGetSububrosQuery(1);
 
 return (
 <section className="gap-0">
@@ -47,7 +48,7 @@ return (
             </TableRow>
         </TableHeader>
         <TableBody>
-            {subrubros?.map((subrubro) => (
+            {subrubros?.map((subrubro: any) => (
                 <TableRow key={subrubro.id}>
                     <TableCell className="font-medium">{subrubro.nombre}</TableCell>
                     <TableCell>
