@@ -5,7 +5,7 @@ export async function GET() {
   let connection;
   try {
     connection = await connectdb.getConnection();
-    const res = await connection.execute(`
+    const [res] = await connection.execute(`
       SELECT
         p.id,
         p.fecha_emision,
@@ -23,7 +23,7 @@ export async function GET() {
         JOIN Estado_Pedido e on p.estado_pedido_id = e.id 
         JOIN Modo_Entrega m on p.modo_entrega_id = m.id
     `);
-    return NextResponse.json(res);
+    return NextResponse.json(res, { status: 200 });
   } catch (error) {
     return NextResponse.json({ status: 500, error: error });
   } finally {

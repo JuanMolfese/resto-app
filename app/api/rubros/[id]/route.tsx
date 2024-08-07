@@ -32,3 +32,18 @@ export async function PUT(req: Request, { params }: { params: { id: number } }) 
     if (connection) connection.release();
   }
 }
+
+export async function DELETE(request: Request, { params }: { params: { id: number } }) {
+  let connection;
+  try {
+    const { id } = params;
+    connection = await connectdb.getConnection();
+    const [res] = await connection.execute("DELETE FROM Rubro WHERE id = ?", [id]);
+    return NextResponse.json(res, { status: 200 });
+  } catch (error) {
+    return NextResponse.json({ error: error }, { status: 500 });
+  } finally{
+    if (connection) connection.release();
+  }
+}
+

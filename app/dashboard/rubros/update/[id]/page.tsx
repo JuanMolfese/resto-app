@@ -12,7 +12,7 @@ export default function UpdateRubroPage({
   params: { id: string };
 }) {
   const id = params.id;
-  const { data: rubro, error, isLoading } = useGetRubroByIdQuery(id);
+  const { data: rubro, error, isLoading, refetch } = useGetRubroByIdQuery(id);
   const [updateRubro] = useUpdateRubroMutation();
   const router = useRouter();
   
@@ -30,6 +30,7 @@ export default function UpdateRubroPage({
         myToastError("Error al actualizar el rubro");
       } else {
         myToastSuccess("Rubro actualizado correctamente");
+        refetch();
         router.push("/dashboard/rubros");
         router.refresh();
       }

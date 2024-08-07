@@ -9,8 +9,14 @@ export const statusApi = createApi({
   endpoints: (builder) => ({
     getStatus: builder.query({
       query: () => 'status',
-    })
+    }),
+    deleteStatus: builder.mutation({
+      query: (id) => ({
+        url: `status/${id}`,
+        method: 'DELETE',
+      }),
+    }),
   }),
 })
 
-export const { useGetStatusQuery } = statusApi
+export const { useGetStatusQuery, useDeleteStatusMutation } = statusApi

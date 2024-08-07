@@ -20,7 +20,13 @@ export const rubrosApi = createApi({
         body: {name},
       }),
     }),
+    deleteRubro: builder.mutation({
+      query: (id) => ({
+        url: `rubros/${id}`,
+        method: 'DELETE',
+      }),
+    }),
   }),
 })
 
-export const { useGetRubrosQuery, useGetRubroByIdQuery, useUpdateRubroMutation } = rubrosApi
+export const { useGetRubrosQuery, useGetRubroByIdQuery, useUpdateRubroMutation, useDeleteRubroMutation } = rubrosApi

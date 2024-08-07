@@ -15,7 +15,6 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import createState from "../../app/utils/actions/pedidos/status/create"
-import { toast } from "@/components/ui/use-toast"
 import { myToastError } from "../myToast"
 import { Estado_pedido } from "../../app/utils/models/types/estado_pedido"
 
@@ -30,7 +29,7 @@ const formSchema = z.object({
 
 
 
-export function StatusForm({estados}: {estados: Estado_pedido[]}) {
+export function StatusForm({estados, refetch}: {estados: Estado_pedido[], refetch: any}) {
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -44,7 +43,6 @@ export function StatusForm({estados}: {estados: Estado_pedido[]}) {
     event.preventDefault();
     const newFormData = new FormData(event.currentTarget);
     const newOrden = parseInt(newFormData.get('order') as string);
-    console.log(newOrden);
     const newNombre = newFormData.get('name') as number | string;
     if (estados.find((estado) => estado.descripcion === newNombre)) {
       myToastError("Ya existe un estado con ese nombre");
@@ -57,7 +55,7 @@ export function StatusForm({estados}: {estados: Estado_pedido[]}) {
   
     const res = await createState(newFormData);
     if (res.success) {
-      window.location.reload();
+      refetch();
     } else {
       myToastError("Error al crear el estado");
     }
