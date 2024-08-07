@@ -1,16 +1,23 @@
+"use client"
 import { Table, TableBody, TableCaption, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { fetchUserByEmail, fetchUsers, getRoles } from "../../utils/actions/users/fetchs"
 import ItemUser from "../../../components/Usuario/item-user";
 import { useSession } from "next-auth/react";
-import { getServerSession } from "next-auth";
+import { useGetUsersQuery } from "@/redux/services/usersApi";
+import { useGetUserByEmailQuery } from "@/redux/services/usersApi";
+import { useGetRolesQuery } from "@/redux/services/rolesApi";
+import Spinner from "../../../components/spinner";
 
 
-export default async function Users() {
+export default function Users() {
 
-  const users = await fetchUsers();
-  const user = await getServerSession();
-  const roles = await getRoles();
-  const data_user = await fetchUserByEmail(user?.user?.email!);
+
+  const { data: users, isLoading: isLoadingUsers, isError: isErrorUsers } = useGetUsersQuery(1);
+  const { data: roles, isLoading: isLoadingRoles, isError: isErrorRoles } = useGetRolesQuery(1);
+  
+  if (isLoadingUsers || isLoadingRoles) return <Spinner />
+
+  if (isErrorUsers || isErrorRoles) return <div>Error</div>
 
   return(
     <Table>
@@ -24,8 +31,8 @@ export default async function Users() {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {users?.map((user) => (
-          <ItemUser key={user.id} usuario={user} user={data_user} roles={roles!} />
+        {users?.map((user: any) => (
+          <ItemUser key={user.id} usuario={user} roles={roles!} />
         ))}
       </TableBody>
     </Table>

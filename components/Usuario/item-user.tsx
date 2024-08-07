@@ -8,8 +8,11 @@ import { useState } from "react";
 import { Pencil, Save, X } from "lucide-react";
 import { Rol } from "../../app/utils/models/types/rol";
 import { myToastError, myToastSuccess } from "../myToast";
+import { useSession } from "next-auth/react";
 
-export default function ItemUser({usuario, user, roles} : {usuario: UsuarioDetail, user: any, roles: Rol[]}){
+export default function ItemUser({usuario, roles} : {usuario: UsuarioDetail, roles: Rol[]}){
+
+  const { data: session } = useSession();
 
   const [editMode, setEditMode] = useState(false);
   const saveUser = async () => {
@@ -58,7 +61,7 @@ export default function ItemUser({usuario, user, roles} : {usuario: UsuarioDetai
             : 
               <div className="flex align-center justify-between">
                 {usuario.descripcion}
-                {usuario.descripcion != "Super Admin" && user[0].id != usuario.id &&
+                {usuario.descripcion != "Super Admin" && session?.user?.email != usuario.email &&
                   <button className="btn btn-link" onClick={() => setEditMode(true)}>
                     <Pencil size={16} className="ml-0.5"/>
                   </button>
@@ -68,7 +71,7 @@ export default function ItemUser({usuario, user, roles} : {usuario: UsuarioDetai
         </TableCell>
         {
         <TableCell className="text-right">
-          {usuario.descripcion != "Super Admin" && user[0].id != usuario.id &&
+          {usuario.descripcion != "Super Admin" && session?.user?.email != usuario.email &&
             <>
               <EditPasswordModal usuario={usuario} />
               <DeleteUserModal usuario={usuario} />

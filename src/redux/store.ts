@@ -6,6 +6,8 @@ import { subrubrosApi } from './services/subrubrosApi'
 import { orderApi } from './services/ordersApi'
 import { statusApi } from './services/statusApi'
 import { sucursalApi } from './services/sucursalApi'
+import { usersApi } from './services/usersApi'
+import { rolesApi } from './services/rolesApi'
 
 export const makeStore = () => {
   return configureStore({
@@ -17,10 +19,14 @@ export const makeStore = () => {
       [subrubrosApi.reducerPath]: subrubrosApi.reducer,
       [orderApi.reducerPath]: orderApi.reducer,
       [statusApi.reducerPath]: statusApi.reducer,
-      [sucursalApi.reducerPath]: sucursalApi.reducer
+      [sucursalApi.reducerPath]: sucursalApi.reducer,
+      [usersApi.reducerPath]: usersApi.reducer,
+      [rolesApi.reducerPath]: rolesApi.reducer
     },
     middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware().concat(productApi.middleware, rubrosApi.middleware, subrubrosApi.middleware, orderApi.middleware, statusApi.middleware, sucursalApi.middleware),
+      getDefaultMiddleware().concat(productApi.middleware, rubrosApi.middleware, subrubrosApi.middleware, orderApi.middleware, statusApi.middleware, sucursalApi.middleware, usersApi.middleware, rolesApi.middleware),
+
+
   })
 }
 
