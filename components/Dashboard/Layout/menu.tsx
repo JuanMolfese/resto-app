@@ -21,10 +21,13 @@ import {
   SheetContent,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import UserMenu from "./userMenu";
 import { useGetPedidosQuery } from "@/redux/services/ordersApi";
+
+import { io } from "socket.io-client";
+const socket = io("http://localhost:3000");
 
 export default function MenuDashboard({
   child,
@@ -34,7 +37,15 @@ export default function MenuDashboard({
   products: any;
 }) {
   const [activeLink, setActiveLink] = useState(null);
-  const { data, error, isLoading, refetch } = useGetPedidosQuery();
+  const { data, error, isLoading, refetch } = useGetPedidosQuery(1);
+
+  useEffect(() => {
+    socket.on("updatePedido", () => {
+      /* console.log("Recieved from SERVER ::", data); */
+      refetch();
+      // Execute any command
+    });
+  }, [refetch]);
 
   const handleClick = (name: any) => {
     setActiveLink(name);
@@ -80,7 +91,7 @@ export default function MenuDashboard({
                   Pedidos
                   <Badge className="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full">
                     {
-                      data && data.filter((pedido) => pedido.estado_pedido_id === 1).length
+                      data && data.filter((pedido: any) => pedido.estado_pedido_id === 1).length
                     }
                   </Badge>
                 </Link>
@@ -194,7 +205,7 @@ export default function MenuDashboard({
                       <ShoppingCart className="h-4 w-4" />
                       Pedidos
                       <Badge className="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full">
-                        {data && data.filter((pedido) => pedido.estado_pedido_id === 1).length}
+                        {data && data.filter((pedido: any) => pedido.estado_pedido_id === 1).length}
                       </Badge>
                     </Link>
                     </SheetClose>

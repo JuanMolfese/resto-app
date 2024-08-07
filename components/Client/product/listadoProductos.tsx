@@ -8,10 +8,10 @@ import io from "socket.io-client";
 const socket = io('http://localhost:3000');
 
 export default function ListadoProductos() {
-  const { data, error, isLoading, refetch } = useGetProductsQuery();
+  const { data, error, isLoading, refetch } = useGetProductsQuery(1);
   const params = useSearchParams();
 
-  const filteredProducts = data?.filter(product => {
+  const filteredProducts = data?.filter((product: any) => {
     
     const query = params.get('query');
     return !query || product.subrubro_nombre.toLowerCase().includes(query.toLowerCase());
@@ -35,7 +35,7 @@ export default function ListadoProductos() {
   return (
     <>
       <ul className="flex flex-wrap py-2 gap-4 justify-start">
-        {filteredProducts?.map(product => (
+        {filteredProducts?.map((product: any) => (
           <CardProduct product={product} key={product.id} />
         ))}
       </ul>

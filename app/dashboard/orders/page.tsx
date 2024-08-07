@@ -60,8 +60,8 @@ export default function Orders() {
   });
 
   useEffect(() => {
-    socket.on("updatePedido", (data) => {
-      console.log("Recieved from SERVER ::", data);
+    socket.on("updatePedido", () => {
+      /* console.log("Recieved from SERVER ::", data); */
       refetch();
       // Execute any command
     });

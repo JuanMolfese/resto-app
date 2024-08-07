@@ -66,7 +66,7 @@ export function DialogDetailOrder(order: Pedido) {
           <Card className="my-2 p-4">
             <ul>
             {
-              data.pedido.map((pedido: any) => (
+              data.map((pedido: any) => (
                 <li key={pedido.producto_id} className="flex justify-between items-center">
                  <p> {`${pedido.subrubro} - ${pedido.producto}`} </p>
                  <p>{`${pedido.cantidad} x $ ${pedido.precio}`}</p>
