@@ -74,7 +74,7 @@ export default function Orders() {
         <Spinner />
         location.reload();
       } 
-      else myToastError("Error al actualizar el producto. Espere por favor"); 
+      else myToastError("Error al actualizar el estado del pedido. Espere por favor"); 
     });
 
       
