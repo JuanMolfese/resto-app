@@ -5,8 +5,8 @@ import { useGetSububrosQuery } from "@/redux/services/subrubrosApi";
 import Spinner from "../../../../components/spinner";
 
 export default function CreateProduct() {
-  const {data: rubros, error: errorRubros, isLoading: loadingRubros} = useGetRubrosQuery();
-  const {data: subrubros, error: errorSubrubros, isLoading: loadingSubrubros} = useGetSububrosQuery();
+  const {data: rubros, error: errorRubros, isLoading: loadingRubros} = useGetRubrosQuery(1);
+  const {data: subrubros, error: errorSubrubros, isLoading: loadingSubrubros} = useGetSububrosQuery(1);
 
   if (loadingRubros || loadingSubrubros) {
     return <Spinner />;
