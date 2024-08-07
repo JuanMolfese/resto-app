@@ -1,12 +1,11 @@
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { Pencil, RectangleEllipsis, Trash2 } from "lucide-react";
+import { Trash2 } from "lucide-react";
 import { useState } from "react";
 import { UsuarioDetail } from "../../app/utils/models/types/usuario";
-import { Input } from "@/components/ui/input";
-import { toast } from "@/components/ui/use-toast";
+
 import { myToastError, myToastSuccess } from "../myToast";
-import { getServerSession } from "next-auth";
+
 
 export default function DeleteUserModal({usuario} : {usuario: UsuarioDetail}){
   const [isOpen, setIsOpen] = useState(false);
