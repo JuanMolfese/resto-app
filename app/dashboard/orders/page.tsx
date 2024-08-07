@@ -59,13 +59,6 @@ export default function Orders() {
     );
   });
 
-  useEffect(() => {
-    socket.on("updatePedido", () => {
-      /* console.log("Recieved from SERVER ::", data); */
-      refetch();
-      // Execute any command
-    });
-  }, [refetch]);
 
   const handleChange = (value: number, order: number) => {
     updatePedido({value, order}).then((res: any) => {
