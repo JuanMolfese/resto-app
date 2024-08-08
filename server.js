@@ -13,6 +13,8 @@ app.prepare().then(() => {
     handle(req, res, parsedUrl);
   });
 
+  const port = process.env.PORT || 3000;
+
   // Configurar Socket.io Server
   const io = socketIo(server);
 
@@ -39,8 +41,8 @@ app.prepare().then(() => {
     });
   });
 
-  server.listen(3000, (err) => {
+  server.listen(port, (err) => {
     if (err) throw err;
-    console.log('> Ready');
+    console.log(`> Ready on http://localhost:${port}`);
   });
 });
