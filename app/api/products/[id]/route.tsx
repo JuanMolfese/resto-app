@@ -73,7 +73,6 @@ export async function PUT(req: Request, { params } : {params: {id: number}}) {
     socket.emit('updateProducto', 'Producto Actualizado');
     return NextResponse.json({status: 200});   
   } catch (error) {
-    console.log(error);
     return NextResponse.json({status: 500});
   } finally {
     if (connection) {
@@ -88,7 +87,8 @@ export async function DELETE(req: Request, { params } : {params: {id: number}}) 
     connection = await connectdb.getConnection();
     const id = params.id;
     const res = await connection.execute(`DELETE FROM Producto WHERE id = ?`, [id]);
-    socket.emit('updateProducto', 'Producto Eliminado');    return NextResponse.json({status: 200});   
+    socket.emit('updateProducto', 'Producto Eliminado');    
+    return NextResponse.json({status: 200});   
   } catch (error) {
     return NextResponse.json({status: 500});
   } finally {

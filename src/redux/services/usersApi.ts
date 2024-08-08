@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { Sucursal } from '../../../app/utils/models/types/sucursal'
+import { Usuario } from '../../../app/utils/models/types/usuario'
 
 export const usersApi = createApi({
   reducerPath: 'usersApi',
@@ -7,10 +8,10 @@ export const usersApi = createApi({
     baseUrl: '/api/' 
   }),
   endpoints: (builder) => ({
-    getUsers: builder.query({
+    getUsers: builder.query<Usuario[], void>({
       query: () => `usuario`
     }),
-   getUserById: builder.query({
+   getUserById: builder.query<Usuario, void>({
     query: (id) => `usuario/${id}`
    }),
    getUserByEmail: builder.query({

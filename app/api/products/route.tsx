@@ -91,7 +91,7 @@ export async function POST(req: Request) {
 
         await fs.unlink(filePath);
       }
-      console.log(imageUrl);
+      
       // Guarda la información del producto en la base de datos
       try {
     

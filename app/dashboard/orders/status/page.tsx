@@ -8,14 +8,14 @@ import Spinner from "../../../../components/spinner";
 
 export default function StatusOrders() {
 
-  const {data: status, error, isLoading, refetch} = useGetStatusQuery(1);
+  const {data: status, error, isLoading, refetch} = useGetStatusQuery();
  
   if (isLoading) return <Spinner />;
   if (error) return <div>Error</div>;
 
   return (
     <>
-      <StatusForm estados={status} refetch={refetch}/>
+      <StatusForm estados={status || []} refetch={refetch}/>
       <Table>
         <TableCaption className="caption-top mb-4">Listado de los estados de un pedido</TableCaption>
         <TableHeader>

@@ -8,7 +8,7 @@ import io from "socket.io-client";
 const socket = io('http://localhost:3000');
 
 export default function ListadoProductos() {
-  const { data, error, isLoading, refetch } = useGetProductsQuery(1);
+  const { data, error, isLoading, refetch } = useGetProductsQuery();
   const params = useSearchParams();
 
   const filteredProducts = data?.filter((product: any) => {

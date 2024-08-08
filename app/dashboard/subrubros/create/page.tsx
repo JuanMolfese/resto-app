@@ -1,12 +1,20 @@
-import {fetchRubros} from "../../../utils/actions/rubros/fetchs";
-import FormSubrubro from "../../../../components/Subrubro/create-form";
+"use client";
 
-export default async function CreateSubrubro() {
-  const rubros = await fetchRubros();
+import { useGetRubrosQuery } from "@/redux/services/rubrosApi";
+import FormSubrubro from "../../../../components/Subrubro/create-form";
+import Spinner from "../../../../components/spinner";
+
+export default function CreateSubrubro() {
+  
+  const {data: rubros, isLoading, error} = useGetRubrosQuery();
+  
+
+  if(isLoading) return <Spinner />;
+  if(error) return <div>Error</div>;
   
   return(
     <div className="flex justify-center">
-    <FormSubrubro rubros={rubros}/>
+      <FormSubrubro rubros={rubros}/>
     </div>  
   );
 }

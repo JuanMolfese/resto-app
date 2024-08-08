@@ -38,7 +38,7 @@ const orderDelivery = (order: Pedido) => {
 const socket = io("http://localhost:3000");
 
 export default function Orders() {
-  const { data: pedidos, error, isLoading, refetch } = useGetPedidosQuery(1);
+  const { data: pedidos, error, isLoading, refetch } = useGetPedidosQuery();
   const [updatePedido] = useUpdatePedidoMutation();
 
   const {

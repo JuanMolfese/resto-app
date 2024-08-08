@@ -37,7 +37,7 @@ export default function MenuDashboard({
   products: any;
 }) {
   const [activeLink, setActiveLink] = useState(null);
-  const { data, error, isLoading, refetch } = useGetPedidosQuery(1);
+  const { data, error, isLoading, refetch } = useGetPedidosQuery();
 
   useEffect(() => {
     socket.on("updatePedido", () => {
@@ -59,15 +59,24 @@ export default function MenuDashboard({
   };
 
   isLoading && <div>Loading...</div>;
-  error && <div>Error...</div>
+  error && <div>Error...</div>;
 
   return (
     <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
       <div className="hidden border-r bg-muted/40 md:block">
         <div className="flex h-full max-h-screen flex-col gap-2">
           <div className="flex h-14 items-center justify-center border-b px-4 lg:h-[60px] lg:px-6">
-            <Link href="/dashboard" className="flex items-center gap-2 font-semibold justify-center">
-              <Image src="/LogoPizza3_high.png" alt="logo" width={100} height={100} priority/>
+            <Link
+              href="/dashboard"
+              className="flex items-center gap-2 font-semibold justify-center"
+            >
+              <Image
+                src="/LogoPizza3_high.png"
+                alt="logo"
+                width={100}
+                height={100}
+                priority
+              />
               {/* <span className="">El Balcon</span> */}
             </Link>
           </div>
@@ -90,9 +99,10 @@ export default function MenuDashboard({
                   <ShoppingCart className="h-4 w-4" />
                   Pedidos
                   <Badge className="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full">
-                    {
-                      data && data.filter((pedido: any) => pedido.estado_pedido_id === 1).length
-                    }
+                    {data &&
+                      data.filter(
+                        (pedido: any) => pedido.estado_pedido_id === 1
+                      ).length}
                   </Badge>
                 </Link>
                 <Link
@@ -135,7 +145,9 @@ export default function MenuDashboard({
                 </Link>
                 <Link
                   href="/dashboard/subrubros"
-                  className={`${linkStyle("subrubros")} text-base ml-2 lg:text-sm`}
+                  className={`${linkStyle(
+                    "subrubros"
+                  )} text-base ml-2 lg:text-sm`}
                   onClick={() => handleClick("subrubros")}
                 >
                   <Package2 className="h-4 w-4" />
@@ -196,31 +208,32 @@ export default function MenuDashboard({
                   </Link>
                 </SheetClose>
                 <SheetClose asChild>
-                 
-                    <Link
-                      href="/dashboard/orders?filter=Pendiente"
-                      className={linkStyle("pedidos")}
-                      onClick={() => handleClick("pedidos")}
-                    >
-                      <ShoppingCart className="h-4 w-4" />
-                      Pedidos
-                      <Badge className="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full">
-                        {data && data.filter((pedido: any) => pedido.estado_pedido_id === 1).length}
-                      </Badge>
-                    </Link>
-                    </SheetClose>
-                    <SheetClose asChild>
-                    <Link
-                      href="/dashboard/orders/status"
-                      className={`${linkStyle(
-                        "status"
-                      )} text-base ml-2 lg:text-sm`}
-                      onClick={() => handleClick("status")}
-                    >
-                      <Package2 className="h-4 w-4" />
-                      Administrar estados
-                    </Link>
-                  
+                  <Link
+                    href="/dashboard/orders?filter=Pendiente"
+                    className={linkStyle("pedidos")}
+                    onClick={() => handleClick("pedidos")}
+                  >
+                    <ShoppingCart className="h-4 w-4" />
+                    Pedidos
+                    <Badge className="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full">
+                      {data &&
+                        data.filter(
+                          (pedido: any) => pedido.estado_pedido_id === 1
+                        ).length}
+                    </Badge>
+                  </Link>
+                </SheetClose>
+                <SheetClose asChild>
+                  <Link
+                    href="/dashboard/orders/status"
+                    className={`${linkStyle(
+                      "status"
+                    )} text-base ml-2 lg:text-sm`}
+                    onClick={() => handleClick("status")}
+                  >
+                    <Package2 className="h-4 w-4" />
+                    Administrar estados
+                  </Link>
                 </SheetClose>
                 <SheetClose asChild>
                   <Link
@@ -244,6 +257,26 @@ export default function MenuDashboard({
                     )}
                   </Link>
                 </SheetClose>
+                <SheetClose asChild>
+                    <Link
+                      href="/dashboard/rubros"
+                      className={linkStyle("rubros") + " text-base ml-2 lg:text-sm"}
+                      onClick={() => handleClick("rubros")}
+                    >
+                      <Package2 className="h-4 w-4" />
+                      Rubros
+                    </Link>
+                  </SheetClose>
+                  <SheetClose asChild>
+                    <Link
+                      href="/dashboard/subrubros"
+                      className={linkStyle("subrubros") + " text-base ml-2 lg:text-sm"}
+                      onClick={() => handleClick("subrubros")}
+                    >
+                      <Package2 className="h-4 w-4" />
+                      Sub Rubros
+                    </Link>
+                  </SheetClose>
                 <SheetClose asChild>
                   <Link
                     href="/dashboard/users"

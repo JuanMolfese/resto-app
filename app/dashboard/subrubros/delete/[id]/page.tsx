@@ -16,7 +16,6 @@ export default function DeleteSubrubroPage({params}:{params: {id: string};}) {
   const handleDelete = async (e: any) => {
     e.preventDefault();  
     const id = parseInt(e.target.id.value);       
-    console.log("Borrar el subrubro", id);
     deleteSubrubro(id).then((res: any) => {
       if(res.error){       
         myToastError("Error al eliminar el rubro");
@@ -36,7 +35,7 @@ export default function DeleteSubrubroPage({params}:{params: {id: string};}) {
         <input type="number" id="id" className="hidden" defaultValue={subrubro?.id} name="id"/> {/* Paso id al utils/actions/subrubros/delete */}
       <div className="flex justify-between items-center px-4 py-2 border-b border-gray-200 sm:px-6">
         <h2 className="text-lg leading-6 font-medium text-gray-900 pointer-events-none">
-          Eliminar SubrRubro {subrubro?.nombre}
+          Eliminar SubRubro {subrubro?.nombre}
         </h2>
       </div>
       

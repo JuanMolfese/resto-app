@@ -25,7 +25,7 @@ export default function FormSubrubro({rubros}:{rubros?: Rubro[]}) {
     <form className="bg-gray-50 lg:w-[500px] my-4 mx-2 rounded-md" onSubmit={handlecreateSubrubro}>
       <div className="flex justify-between items-center px-4 py-2 border-b border-gray-200 sm:px-6">
         <h2 className="text-lg leading-6 font-medium text-gray-900 pointer-events-none">
-          Crear SubrRubro
+          Crear SubRubro
         </h2>
       </div>
       <div className="rounded-md p-4 md:p-6">

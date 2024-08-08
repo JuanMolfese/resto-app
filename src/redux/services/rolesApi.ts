@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { Rol } from '../../../app/utils/models/types/rol'
 
 export const rolesApi = createApi({
   reducerPath: 'rolesApi',
@@ -6,7 +7,7 @@ export const rolesApi = createApi({
     baseUrl: '/api/' 
   }),
   endpoints: (builder) => ({
-    getRoles: builder.query({
+    getRoles: builder.query<Rol[], void>({
       query: () => `roles`
     }),
   }),

@@ -7,7 +7,7 @@ export const statusApi = createApi({
     baseUrl: '/api/' 
   }),
   endpoints: (builder) => ({
-    getStatus: builder.query({
+    getStatus: builder.query<Estado_pedido[], void>({
       query: () => 'status',
     }),
     deleteStatus: builder.mutation({

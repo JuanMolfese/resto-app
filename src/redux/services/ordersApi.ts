@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { Pedido } from '../../../app/utils/models/types/pedido'
 
 export const orderApi = createApi({
   reducerPath: 'orderApi',
@@ -6,7 +7,7 @@ export const orderApi = createApi({
     baseUrl: '/api/' 
   }),
   endpoints: (builder) => ({
-    getPedidos: builder.query({
+    getPedidos: builder.query<Pedido[], void>({
       query: () => 'pedidos',
     }),
     updatePedido: builder.mutation({

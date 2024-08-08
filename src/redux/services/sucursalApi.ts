@@ -7,7 +7,7 @@ export const sucursalApi = createApi({
     baseUrl: '/api/' 
   }),
   endpoints: (builder) => ({
-    getSucursal: builder.query({
+    getSucursal: builder.query<Sucursal, void>({
       query: (id) => `sucursal/${id}`
     }),
     updateSucursal: builder.mutation({

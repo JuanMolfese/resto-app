@@ -10,10 +10,15 @@ import {
     TableRow,
   } from "@/components/ui/table"
 import { useGetSubrubrosQuery } from "@/redux/services/subrubrosApi";
+import { useEffect } from "react";
 
 export default function SubRubros() {
   
-const {data: subrubros, isLoading, error} = useGetSubrubrosQuery(1);
+const {data: subrubros, isLoading, error, refetch} = useGetSubrubrosQuery();
+
+useEffect(() => {
+    refetch();
+  }, []);
 
 return (
 <section className="gap-0">

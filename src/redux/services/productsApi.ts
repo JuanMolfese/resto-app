@@ -7,10 +7,10 @@ export const productApi = createApi({
     baseUrl: '/api/' 
   }),
   endpoints: (builder) => ({
-    getProducts: builder.query({
+    getProducts: builder.query<ProductoDetail[], void>({
       query: () => 'products',
     }),
-    getProductById: builder.query({
+    getProductById: builder.query<Producto, void>({
       query: (id) => `products/${id}`,
     }),
     addProduct: builder.mutation({

@@ -20,9 +20,9 @@ export default function Products({
 }) {
 
   const query = searchParams?.ms || false;
-  const {data: products, error: errorProducts, isLoading: loadingProducts, refetch} = useGetProductsQuery(1);
-  const {data: rubros, error: errorRubros, isLoading: loadingRubros} = useGetRubrosQuery(1);
-  const {data: subrubros, error: errorSubrubros, isLoading: loadingSubrubros} = useGetSubrubrosQuery(1);
+  const {data: products, error: errorProducts, isLoading: loadingProducts, refetch} = useGetProductsQuery();
+  const {data: rubros, error: errorRubros, isLoading: loadingRubros} = useGetRubrosQuery();
+  const {data: subrubros, error: errorSubrubros, isLoading: loadingSubrubros} = useGetSubrubrosQuery();
   const [productsFiltered, setProductsFiltered] = useState<ProductoDetail[] | undefined>(undefined);
 
 useEffect(() => {

@@ -15,7 +15,7 @@ import { useRouter } from "next/navigation";
 export default function UserMenu() {
 
   const user = useSession();
-  const { data: sucursal, error: errorSucursal, isLoading: isLoadingSucursal, refetch } = useGetSucursalQuery(1);
+  const { data: sucursal, error: errorSucursal, isLoading: isLoadingSucursal, refetch } = useGetSucursalQuery();
   const [updateSucursal] = useUpdateSucursalMutation();
   const [estado, setEstado] = useState(true);
   const router = useRouter();
