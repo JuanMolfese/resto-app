@@ -5,11 +5,9 @@ import { ButtonOk } from "../../../ui/button";
 import { Rubro } from "../../../app/utils/models/types/rubro";
 import { Subrubro } from "../../../app/utils/models/types/subrubro";
 import { useState } from "react";
-import deleteProduct from "../../app/utils/actions/products/delete";
 import Image from "next/image";
 import { useRemoveProductMutation, useUpdateProductMutation } from "@/redux/services/productsApi";
 import { myToastError, myToastSuccess } from "../myToast";
-import Spinner from "../spinner";
 
 export default function CardProduct({
   product,
