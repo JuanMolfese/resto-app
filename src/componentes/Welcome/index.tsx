@@ -6,7 +6,7 @@ import io from "socket.io-client";
 import { useGetSucursalQuery } from '@/redux/services/sucursalApi';
 import Spinner from '../spinner';
 
-const socket = io('http://localhost:3000');
+const socket = io(process.env.NEXT_PUBLIC_URL || 'http://localhost:3000');
 
 // Hook para detectar el tamaño de la pantalla
 const useMediaQuery = (query:any) => {

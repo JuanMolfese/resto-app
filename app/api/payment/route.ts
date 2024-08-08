@@ -8,7 +8,7 @@ const mercadopago = new MercadoPagoConfig({
 });
 
 import io from 'socket.io-client';
-const socket = io('http://localhost:3000');
+const socket = io(process.env.NEXT_PUBLIC_URL || 'http://localhost:3000');
 
 export async function POST(request: NextRequest) {
   if (request.nextUrl.searchParams.get("topic") !== "payment")

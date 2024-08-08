@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { connectdb } from "../../../utils/models/db";
 
 import io from 'socket.io-client';
-const socket = io('http://localhost:3000');
+const socket = io(process.env.NEXT_PUBLIC_URL || 'http://localhost:3000');
 
 export async function GET(req: Request, { params } : { params: {id: number}}) {
   let connection;

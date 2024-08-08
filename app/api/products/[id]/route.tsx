@@ -13,7 +13,7 @@ cloudinary.config({
 
 import io from 'socket.io-client';
 import path from "path";
-const socket = io('http://localhost:3000');
+const socket = io(process.env.NEXT_PUBLIC_URL || 'http://localhost:3000');
 
 export async function GET(req: Request, { params } : {params: {id: number}}) {
   let connection;

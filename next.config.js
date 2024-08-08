@@ -19,7 +19,7 @@ module.exports = {
     //Para arreglar problema :https://raddy.dev/blog/next-js-14-0-2-x-forwarded-host-header-with-value-localhost3000-does-not-match-origin-fix/
     experimental: {
         serverActions: {
-          allowedOrigins: ["website.com", "localhost:3000"]
+          allowedOrigins: ["website.com", "localhost:3000", process.env.NEXT_PUBLIC_URL]
         }
       }
 };

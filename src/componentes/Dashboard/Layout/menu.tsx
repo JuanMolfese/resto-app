@@ -27,7 +27,7 @@ import UserMenu from "./userMenu";
 import { useGetPedidosQuery } from "@/redux/services/ordersApi";
 
 import { io } from "socket.io-client";
-const socket = io("http://localhost:3000");
+const socket = io(process.env.NEXT_PUBLIC_URL || 'http://localhost:3000');
 
 export default function MenuDashboard({
   child,
