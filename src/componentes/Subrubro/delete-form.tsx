@@ -2,9 +2,10 @@
 
 import Link from "next/link";
 import { useRouter } from 'next/navigation';
-import deleteSubrubro from "../../app/utils/actions/subrubros/delete";
 import React from "react";
 import { Subrubro } from "../../../app/utils/models/types/subrubro";
+import { useDeleteSubrubroMutation } from "@/redux/services/subrubrosApi";
+import { myToastError } from "../myToast";
 
 interface FormDeleteSubrubroProps {
   infoSubrubro: Subrubro;
@@ -13,19 +14,21 @@ interface FormDeleteSubrubroProps {
 export default function FormDeleteSubrubro({ infoSubrubro }: FormDeleteSubrubroProps) {
   
   const router = useRouter();     
+  const [deleteSubrubro] = useDeleteSubrubroMutation();
 
   const handleDelete = async (event: React.FormEvent<HTMLFormElement>) => { 
     event.preventDefault();           
     try {
-      const res = await deleteSubrubro(infoSubrubro.id);
-      if(res?.success){       
-        router.push("/dashboard/subrubros");
-        router.refresh();
-      } else {            
-        alert("Error al eliminar el subrubro");
-      }
+      deleteSubrubro(infoSubrubro.id).then((res: any) => {
+        if (res.status === 200){
+          router.push("/dashboard/subrubros");
+          router.refresh();
+        } else {
+          myToastError("Error al eliminar el subrubro");
+        }
+      });
     } catch(error) {
-      console.error("Error al eliminar el subrubro:", error);
+      myToastError("Error al eliminar el subrubro");
     }
   };
      
