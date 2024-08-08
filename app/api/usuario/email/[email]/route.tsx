@@ -6,7 +6,7 @@ export async function GET(req: Request, { params } : {params: {email: string}}) 
   try {
     connection = await connectdb.getConnection();
     const email = params.email;
-    const [res] = await connection.execute(`SELECT * FROM Usuario WHERE email = ?`, [email]);
+    const [res] = await connection.execute(`SELECT u.*, r.descripcion FROM Usuario u LEFT JOIN Rol r ON u.rol_id = r.id WHERE u.email = ?`, [email]);
     return NextResponse.json({data: res, status: 200});
   } catch (error) {
     return NextResponse.json({ error: error },{ status: 500 });

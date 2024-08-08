@@ -5,4 +5,5 @@ export type Usuario = {
     nombre: string;
     apellido: string;
     rol_id: number;    
+    descripcion: string;
 };

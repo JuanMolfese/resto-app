@@ -11,12 +11,12 @@ export const usersApi = createApi({
     getUsers: builder.query<Usuario[], void>({
       query: () => `usuario`
     }),
-   getUserById: builder.query<Usuario, void>({
-    query: (id) => `usuario/${id}`
-   }),
-   getUserByEmail: builder.query({
-    query: (email) => `usuario/email/${email}`
-   })
+    getUserById: builder.query<Usuario, void>({
+      query: (id) => `usuario/${id}`
+    }),
+    getUserByEmail: builder.query({
+      query: (email) => `usuario/email/${email}`
+    })
   }),
 })
 

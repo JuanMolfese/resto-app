@@ -1,16 +1,16 @@
 "use client"
 
 import { TableCell, TableRow } from "@/components/ui/table";
-import { UsuarioDetail } from "../../../app/utils/models/types/usuario";
 import EditPasswordModal from "./edit-pass";
 import DeleteUserModal from "./delete-user";
 import { useState } from "react";
 import { Pencil, Save, X } from "lucide-react";
 import { Rol } from "../../../app/utils/models/types/rol";
+import { Usuario } from "../../../app/utils/models/types/usuario";
 import { myToastError, myToastSuccess } from "../myToast";
 import { useSession } from "next-auth/react";
 
-export default function ItemUser({usuario, roles} : {usuario: UsuarioDetail, roles: Rol[]}){
+export default function ItemUser({usuario, roles} : {usuario: Usuario, roles: Rol[]}){
 
   const { data: session } = useSession();
 

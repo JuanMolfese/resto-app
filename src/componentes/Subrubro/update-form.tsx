@@ -4,7 +4,8 @@ import { useRouter } from 'next/navigation';
 import Link from "next/link";
 import { Rubro } from "../../../app/utils/models/types/rubro";
 import { Subrubro } from "../../../app/utils/models/types/subrubro";
-import updateSubrubro from "../../app/utils/actions/subrubros/update";
+import { useUpdateSubrubroMutation } from '@/redux/services/subrubrosApi';
+import { myToastError } from '../myToast';
 
 
 interface FormUpdateSubrubroProps {
@@ -17,17 +18,19 @@ interface FormUpdateSubrubroProps {
 export default function FormUpdateSubrubro ({ id, rubros, infoRubro, infoSubRubro }: FormUpdateSubrubroProps) {   
 
   const router = useRouter(); 
+  const [updateSubrubro] = useUpdateSubrubroMutation();
 
   const handleUpdate = async (event : React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const newFormData = new FormData(event.currentTarget);
-    const res = await updateSubrubro(newFormData);
-    if(res.success) {
-      router.push("/dashboard/subrubros");
-      router.refresh();
-    } else {
-      alert("Error al actualizar el subrubro");
-    }
+    updateSubrubro(newFormData).then((res: any) => {
+      if (res.status === 200){
+        router.push("/dashboard/subrubros");
+        router.refresh();
+      } else {
+        myToastError("Error al actualizar el subrubro");
+      }
+    });
   }
 
 

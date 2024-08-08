@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import { connectdb } from "../../../utils/models/db";
-import { Rol } from "../../../utils/models/types/rol";
 
 export async function GET() {
   let connection;

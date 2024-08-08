@@ -2,12 +2,12 @@ import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
 import { Button } from "@/components/ui/button";
 import { Trash2 } from "lucide-react";
 import { useState } from "react";
-import { UsuarioDetail } from "../../../app/utils/models/types/usuario";
+import { Usuario } from "../../../app/utils/models/types/usuario";
 
 import { myToastError, myToastSuccess } from "../myToast";
 
 
-export default function DeleteUserModal({usuario} : {usuario: UsuarioDetail}){
+export default function DeleteUserModal({usuario} : {usuario: Usuario}){
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
