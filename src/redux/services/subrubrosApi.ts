@@ -10,6 +10,13 @@ export const subrubrosApi = createApi({
     getSubrubros: builder.query<Subrubro[], void>({
       query: () => 'subrubros',
     }),
+    createSubrubro: builder.mutation({
+      query: (subrubro) => ({
+        url: `subrubros`,
+        method: 'POST',
+        body: subrubro,
+      }),
+    }),
     getSubrubrosById: builder.query<Subrubro, string>({
       query: (id) => `subrubros/${id}`,
     }),
@@ -25,8 +32,10 @@ export const subrubrosApi = createApi({
         url: `subrubros/${id}`,
         method: 'DELETE',
       }),
-    }),
+    })
+    
+    
   }),
 })
 
-export const { useGetSubrubrosQuery, useGetSubrubrosByIdQuery, useUpdateSubrubroMutation, useDeleteSubrubroMutation } = subrubrosApi
+export const { useGetSubrubrosQuery, useGetSubrubrosByIdQuery, useUpdateSubrubroMutation, useDeleteSubrubroMutation, useCreateSubrubroMutation } = subrubrosApi

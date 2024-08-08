@@ -39,7 +39,7 @@ export async function DELETE(request: Request, { params }: { params: { id: numbe
     const { id } = params;
     connection = await connectdb.getConnection();
     const [res] = await connection.execute("DELETE FROM Rubro WHERE id = ?", [id]);
-    return NextResponse.json(res, { status: 200 });
+    return NextResponse.json({res, status: 200 });
   } catch (error) {
     return NextResponse.json({ error: error }, { status: 500 });
   } finally{

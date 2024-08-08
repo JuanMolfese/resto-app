@@ -2,23 +2,24 @@
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Rubro } from "../../../app/utils/models/types/rubro";
-import createSubrubro from "../../app/utils/actions/subrubros/create";
+import { useCreateSubrubroMutation } from "@/redux/services/subrubrosApi";
 
 export default function FormSubrubro({rubros}:{rubros?: Rubro[]}) {   
 
   const router = useRouter();
+  const [createSubrubro] = useCreateSubrubroMutation();
 
   const handlecreateSubrubro = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const newFormData = new FormData(event.currentTarget);
-    const res = await createSubrubro(newFormData);
-    if (res.success) {
-      router.push("/dashboard/subrubros");
-      router.refresh();
-    } else {
-      alert("Error al crear el subrubro");
-    }
-
+    createSubrubro(newFormData).unwrap().then((res: any) => {
+      if (res.status === 200) {
+        router.push("/dashboard/subrubros");
+        router.refresh();
+      } else {
+        alert("Error al crear el subrubro");
+      }
+    });
   }
 
   return (

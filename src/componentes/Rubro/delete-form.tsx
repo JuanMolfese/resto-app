@@ -2,9 +2,10 @@
 
 import Link from "next/link";
 import { useRouter } from 'next/navigation';
-import deleteRubro from "../../app/utils/actions/rubros/delete";
 import { Rubro } from "../../../app/utils/models/types/rubro";
 import React from "react";
+import { useDeleteRubroMutation } from "@/redux/services/rubrosApi";
+import { myToastError } from "../myToast";
 
 interface FormDeleteRubroProps {
     infoRubro: Rubro;    
@@ -13,20 +14,21 @@ interface FormDeleteRubroProps {
 export default function FormDeleteRubro( {infoRubro} : FormDeleteRubroProps) {   
     
   const router = useRouter();   
+  const [deleteRubro] = useDeleteRubroMutation();
 
   const handleDelete = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();           
     try {
-      const res = await deleteRubro(infoRubro.id);
-      if(res?.success){       
-        router.push("/dashboard/rubros");
+      deleteRubro(infoRubro.id).then((res: any) => {
+        if(res.status === 200){       
+          router.push("/dashboard/rubros");
         router.refresh();
-      } else {            
-        router.push("/dashboard/rubros");
-        alert("Error al eliminar el rubro");        
-      }
+        } else {            
+          myToastError("Error al eliminar el rubro");        
+        }
+      });
     } catch(error) {
-      console.error("Error al eliminar el rubro:", error);
+      myToastError("Error al eliminar el rubro");
     }
   }; 
      

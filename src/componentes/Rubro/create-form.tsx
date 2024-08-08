@@ -1,23 +1,27 @@
 "use client";
 
+import { useCreateRubroMutation } from "@/redux/services/rubrosApi";
 import Link from "next/link";
-import createRubro from "../../app/utils/actions/rubros/create";
 import { useRouter } from "next/navigation";
+import { myToastError } from "../myToast";
 
 export default function FormRubro() {   
 
   const router = useRouter();
+  const [createRubro] = useCreateRubroMutation();
 
   const handelCreateRubro = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const newFormData = new FormData(event.currentTarget);
-    const res = await createRubro(newFormData);
-    if (res.success) {
-      router.push("/dashboard/rubros");
-      router.refresh();
-    } else {
-      alert("Error al crear el rubro");
-    }
+
+    createRubro(newFormData).unwrap().then((res) => {
+      if (res.status === 200) {
+        router.push("/dashboard/rubros");
+        router.refresh();
+      } else {
+        myToastError("Error al crear el rubro");
+      }
+    });
   }
 
   return (
