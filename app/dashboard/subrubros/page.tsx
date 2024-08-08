@@ -9,11 +9,11 @@ import {
     TableHeader,
     TableRow,
   } from "@/components/ui/table"
-import { useGetSububrosQuery } from "@/redux/services/subrubrosApi";
+import { useGetSubrubrosQuery } from "@/redux/services/subrubrosApi";
 
 export default function SubRubros() {
   
-const {data: subrubros, isLoading, error} = useGetSububrosQuery(1);
+const {data: subrubros, isLoading, error} = useGetSubrubrosQuery(1);
 
 return (
 <section className="gap-0">

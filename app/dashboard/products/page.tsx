@@ -5,7 +5,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Badge } from "@/components/ui/badge";
 import { useGetProductsQuery } from "@/redux/services/productsApi";
 import { useGetRubrosQuery } from "@/redux/services/rubrosApi";
-import { useGetSububrosQuery } from "@/redux/services/subrubrosApi";
+import { useGetSubrubrosQuery } from "@/redux/services/subrubrosApi";
 import { useEffect, useState } from "react";
 import { ProductoDetail } from "../../utils/models/types/producto";
 import Spinner from "../../../components/spinner";
@@ -22,7 +22,7 @@ export default function Products({
   const query = searchParams?.ms || false;
   const {data: products, error: errorProducts, isLoading: loadingProducts, refetch} = useGetProductsQuery(1);
   const {data: rubros, error: errorRubros, isLoading: loadingRubros} = useGetRubrosQuery(1);
-  const {data: subrubros, error: errorSubrubros, isLoading: loadingSubrubros} = useGetSububrosQuery(1);
+  const {data: subrubros, error: errorSubrubros, isLoading: loadingSubrubros} = useGetSubrubrosQuery(1);
   const [productsFiltered, setProductsFiltered] = useState<ProductoDetail[] | undefined>(undefined);
 
 useEffect(() => {

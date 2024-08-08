@@ -43,6 +43,7 @@ export default function UpdateRubroPage({
         className="bg-gray-50 py-4 px-6 my-4 lg:w-[500px] mx-2 rounded-md"
         onSubmit={handleUpdate}
       >
+        <label htmlFor="id" className="sr-only">Rubro ID</label>
         <input
           type="number"
           id="id"

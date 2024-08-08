@@ -7,7 +7,7 @@ export const rubrosApi = createApi({
     baseUrl: '/api/' 
   }),
   endpoints: (builder) => ({
-    getRubros: builder.query({
+    getRubros: builder.query<Rubro[], void>({
       query: () => 'rubros',
     }),
     getRubroById: builder.query<Rubro, string>({

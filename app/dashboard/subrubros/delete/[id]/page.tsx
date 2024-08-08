@@ -1,37 +1,59 @@
-import FormDeleteSubrubro from '../../../../../components/Subrubro/delete-form';
-import { fetchInfoSubRubro } from '../../../../utils/actions/subrubros/fetchs';
-import { Subrubro } from '../../../../utils/models/types/subrubro';
+"use client"
+import { useDeleteSubrubroMutation, useGetSubrubrosByIdQuery } from '@/redux/services/subrubrosApi';
+import Link from "next/link";
+import { useRouter } from 'next/navigation';
+import { myToastError, myToastSuccess } from '../../../../../components/myToast';
 
-export default function DeleteSubrubroPage({params,}:{
-  params: {id: number};
-}) {
-   
+
+export default function DeleteSubrubroPage({params}:{params: {id: string};}) {
+  
+  const router = useRouter();  
   const id = params.id;
+  const { data: subrubro, error, isLoading } = useGetSubrubrosByIdQuery(id);
 
-  const getSubRubroInfo = async (id:number) : Promise<Subrubro | null>  => {
-    try{
-      const subrubro = await fetchInfoSubRubro(id);       
-      return subrubro; 
-    }catch (error) {
-      console.error('Error en el fetch de los datos del subrubro',error);
-      return null;
-    }
-  };
-
-  // Función para obtener los rubros y renderizar el componente
-  const renderFormDeleteSubrubro = async () => {
-
-    const infoSubRubro:Subrubro | null = await getSubRubroInfo(id);
-    if(infoSubRubro !== null){
-    return <FormDeleteSubrubro infoSubrubro={infoSubRubro}/>;
-    }else {      
-      return <div>Error: No se pudo obtener la información del subrubro.</div>;
-    }
-  };
+  const [deleteSubrubro] = useDeleteSubrubroMutation();
+ 
+  const handleDelete = async (e: any) => {
+    e.preventDefault();  
+    const id = parseInt(e.target.id.value);       
+    console.log("Borrar el subrubro", id);
+    deleteSubrubro(id).then((res: any) => {
+      if(res.error){       
+        myToastError("Error al eliminar el rubro");
+      } else {
+        myToastSuccess("Rubro eliminado");
+        router.push("/dashboard/subrubros");
+        router.refresh();
+      }
+    });
+  }; 
+    
 
   return (
-    <div className="flex justify-center">       
-      {renderFormDeleteSubrubro()}
-    </div>
+    <>   
+    <form className="bg-gray-50 lg:w-[500px] my-4 mx-2 rounded-md" onSubmit={handleDelete}>
+        <label htmlFor="id" className="sr-only">SubRubro ID</label>
+        <input type="number" id="id" className="hidden" defaultValue={subrubro?.id} name="id"/> {/* Paso id al utils/actions/subrubros/delete */}
+      <div className="flex justify-between items-center px-4 py-2 border-b border-gray-200 sm:px-6">
+        <h2 className="text-lg leading-6 font-medium text-gray-900 pointer-events-none">
+          Eliminar SubrRubro {subrubro?.nombre}
+        </h2>
+      </div>
+      
+      <div className="mt-6 flex justify-end gap-4">
+        <Link
+          href="/dashboard/subrubros"
+          className="flex h-10 items-center rounded-lg bg-gray-100 px-4 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-200"
+        >
+          Cancelar
+        </Link>
+        <button 
+        className="flex h-10 items-center rounded-lg bg-red-400 px-4 text-sm text-white font-medium transition-colors hover:bg-red-500" 
+        type="submit">
+         Eliminar
+        </button>
+      </div>
+    </form>
+    </>
   );
 }

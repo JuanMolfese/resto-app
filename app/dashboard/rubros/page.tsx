@@ -14,7 +14,7 @@ import Spinner from "../../../components/spinner";
 import { useEffect } from "react";
 
 export default function Rubros() {
-  const { data: rubros, error, isLoading, refetch } = useGetRubrosQuery(1);
+  const { data: rubros, error, isLoading, refetch } = useGetRubrosQuery();
 
   useEffect(() => {
     refetch();

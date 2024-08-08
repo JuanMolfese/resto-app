@@ -7,16 +7,26 @@ export const subrubrosApi = createApi({
     baseUrl: '/api/' 
   }),
   endpoints: (builder) => ({
-    getSububros: builder.query({
+    getSubrubros: builder.query<Subrubro[], void>({
       query: () => 'subrubros',
     }),
-    getSububrosById: builder.query({
+    getSubrubrosById: builder.query<Subrubro, string>({
       query: (id) => `subrubros/${id}`,
     }),
-    deleteSubrubro: builder.mutation({
-      query: (id) => `subrubros/${id}`,
+    updateSubrubro: builder.mutation({
+      query: ({id, nombre, rubro_id}) => ({
+        url: `subrubros/${id}`,
+        method: 'PUT',
+        body: {nombre, rubro_id},
+      }),
+    }),
+    deleteSubrubro: builder.mutation<void, number>({
+      query: (id) => ({
+        url: `subrubros/${id}`,
+        method: 'DELETE',
+      }),
     }),
   }),
 })
 
-export const { useGetSububrosQuery, useGetSububrosByIdQuery, useDeleteSubrubroMutation } = subrubrosApi
+export const { useGetSubrubrosQuery, useGetSubrubrosByIdQuery, useUpdateSubrubroMutation, useDeleteSubrubroMutation } = subrubrosApi
