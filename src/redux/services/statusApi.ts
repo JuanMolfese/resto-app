@@ -16,7 +16,14 @@ export const statusApi = createApi({
         method: 'DELETE',
       }),
     }),
+    addStatus: builder.mutation({
+      query: (status) => ({
+        url: `status`,
+        method: 'POST',
+        body: status,
+      }),
+    }),
   }),
 })
 
-export const { useGetStatusQuery, useDeleteStatusMutation } = statusApi
+export const { useGetStatusQuery, useDeleteStatusMutation, useAddStatusMutation } = statusApi

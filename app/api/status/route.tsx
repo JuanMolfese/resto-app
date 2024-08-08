@@ -16,3 +16,21 @@ export async function GET() {
   }
   
 }
+
+export async function POST(request: Request) {
+  let connection;
+  try {
+    connection = await connectdb.getConnection();
+    const data = await request.formData();
+    const nombre = data.get("name");
+    const orden = data.get("order");
+    const [estado] = await connection.execute("INSERT INTO Estado_Pedido (descripcion, orden) VALUES (?, ?)", [nombre, orden]);
+    return NextResponse.json({estado, status: 200 });
+  } catch (error) {
+    return NextResponse.json({ error: error }, { status: 500 });
+  } finally{
+    if (connection) {
+      connection.release();
+    }
+  }
+}

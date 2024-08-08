@@ -14,9 +14,9 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import createState from "../../app/utils/actions/pedidos/status/create"
 import { myToastError } from "../myToast"
 import { Estado_pedido } from "../../../app/utils/models/types/estado_pedido"
+import { useAddStatusMutation } from "@/redux/services/statusApi"
 
 const formSchema = z.object({
   name: z.string().min(3, {
@@ -30,6 +30,8 @@ const formSchema = z.object({
 
 
 export function StatusForm({estados, refetch}: {estados: Estado_pedido[], refetch: any}) {
+
+  const [addStatus] = useAddStatusMutation();
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -53,12 +55,21 @@ export function StatusForm({estados, refetch}: {estados: Estado_pedido[], refetc
       return;
     }
   
-    const res = await createState(newFormData);
+    /* const res = await createState(newFormData);
     if (res.success) {
       refetch();
     } else {
       myToastError("Error al crear el estado");
-    }
+    } */
+    addStatus(newFormData).unwrap().then((res: any) => {
+      if (res.status === 200) {
+        refetch();
+      } else {
+        myToastError("Error al crear el estado");
+      }
+    }).catch((error: any) => {
+      myToastError("Error al crear el estado");
+    });
   }
 
   return (
