@@ -11,7 +11,7 @@ const handler = NextAuth({
   pages: {
     signIn: "/login",
   },
-
+  secret: process.env.JWT_SECRET,
   providers: [
     CredentialsProvider({
       // The name to display on the sign in form (e.g. 'Sign in with...')
@@ -24,6 +24,7 @@ const handler = NextAuth({
         email: {},
         password: {},
       },
+    
       async authorize(credentials, req) {
         let connection;
         try {
