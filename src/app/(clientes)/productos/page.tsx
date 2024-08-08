@@ -11,7 +11,7 @@ const socket = io(process.env.NEXT_PUBLIC_URL || 'http://localhost:3000');
 
 export default function ProductsSale() {
 
-  const { data: sucursal, error, isLoading, refetch } = useGetSucursalQuery();
+  const { data: sucursal, error, isLoading, refetch } = useGetSucursalQuery(1);
   const router = useRouter();
   
   (sucursal?.status_sucursal_id == 2) && router.push("/") 
