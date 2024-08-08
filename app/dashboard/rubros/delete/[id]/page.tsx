@@ -3,7 +3,7 @@
 import { useDeleteRubroMutation, useGetRubroByIdQuery } from '@/redux/services/rubrosApi';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { myToastError, myToastSuccess } from '../../../../../components/myToast';
+import { myToastError, myToastSuccess } from '@/componentes/myToast';
 
 export default function DeleteRubroPage({params}:{params: {id: string};}) {
   

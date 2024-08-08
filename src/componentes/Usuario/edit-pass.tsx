@@ -2,7 +2,7 @@ import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
 import { Button } from "@/components/ui/button";
 import { RectangleEllipsis } from "lucide-react";
 import { useState } from "react";
-import { UsuarioDetail } from "../../app/utils/models/types/usuario";
+import { UsuarioDetail } from "../../../app/utils/models/types/usuario";
 import { Input } from "@/components/ui/input";
 import { myToastSuccess } from "../myToast";
 

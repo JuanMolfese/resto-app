@@ -1,5 +1,5 @@
 "use client"
-import Welcome from "../components/Welcome"
+import Welcome from "@/componentes/Welcome"
 
 export default function Home() {
 

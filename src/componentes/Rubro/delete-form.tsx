@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useRouter } from 'next/navigation';
 import deleteRubro from "../../app/utils/actions/rubros/delete";
-import { Rubro } from "../../app/utils/models/types/rubro";
+import { Rubro } from "../../../app/utils/models/types/rubro";
 import React from "react";
 
 interface FormDeleteRubroProps {

@@ -1,12 +1,12 @@
 "use client";
 
 import { useGetProductsQuery } from "@/redux/services/productsApi";
-import MenuDashboard from "../../components/Dashboard/Layout/menu";
+import MenuDashboard from "@/componentes/Dashboard/Layout/menu";
 import { getServerSession } from "next-auth";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import { useGetUserByEmailQuery } from "@/redux/services/usersApi";
-import Spinner from "../../components/spinner";
+import Spinner from "@/componentes/spinner";
 
 
 export default function Layout({children,}: 

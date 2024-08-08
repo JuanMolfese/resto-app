@@ -1,8 +1,8 @@
 "use client"
 import { useGetRubrosQuery } from "@/redux/services/rubrosApi";
-import FormProduct from "../../../../components/Product/create-form";
+import FormProduct from "@/componentes/Product/create-form";
 import { useGetSubrubrosQuery } from "@/redux/services/subrubrosApi";
-import Spinner from "../../../../components/spinner";
+import Spinner from "@/componentes/spinner";
 
 export default function CreateProduct() {
   const {data: rubros, error: errorRubros, isLoading: loadingRubros} = useGetRubrosQuery();

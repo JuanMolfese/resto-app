@@ -3,7 +3,7 @@ import { useRouter } from 'next/navigation';
 import Link from "next/link";
 import { useGetSubrubrosByIdQuery, useUpdateSubrubroMutation } from '@/redux/services/subrubrosApi';
 import { useGetRubrosQuery } from '@/redux/services/rubrosApi';
-import { myToastError, myToastSuccess } from '../../../../../components/myToast';
+import { myToastError, myToastSuccess } from '@/componentes/myToast';
 import { Rubro } from '../../../../utils/models/types/rubro';
 
 export default function UpdateSubrubroPage({ params }: { params: { id: string } }) {

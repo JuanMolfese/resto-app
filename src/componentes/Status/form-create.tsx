@@ -16,7 +16,7 @@ import {
 import { Input } from "@/components/ui/input"
 import createState from "../../app/utils/actions/pedidos/status/create"
 import { myToastError } from "../myToast"
-import { Estado_pedido } from "../../app/utils/models/types/estado_pedido"
+import { Estado_pedido } from "../../../app/utils/models/types/estado_pedido"
 
 const formSchema = z.object({
   name: z.string().min(3, {

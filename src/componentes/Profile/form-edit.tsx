@@ -2,7 +2,7 @@
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { UsuarioDetail } from "../../app/utils/models/types/usuario";
+import { UsuarioDetail } from "../../../app/utils/models/types/usuario";
 import { myToastError, myToastSuccess } from "../myToast";
 import { useEffect, useState } from "react";
 

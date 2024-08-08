@@ -1,10 +1,10 @@
 "use client"
 
 import { Table, TableBody, TableCaption, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { StatusForm } from "../../../../components/Status/form-create";
-import ItemStatus from "../../../../components/Status/item-status";
+import { StatusForm } from "@/componentes/Status/form-create";
+import ItemStatus from "@/componentes/Status/item-status";
 import { useGetStatusQuery } from "@/redux/services/statusApi";
-import Spinner from "../../../../components/spinner";
+import Spinner from "@/componentes/spinner";
 
 export default function StatusOrders() {
 

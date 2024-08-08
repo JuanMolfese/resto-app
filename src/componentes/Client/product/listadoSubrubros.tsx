@@ -1,8 +1,8 @@
 
 import Spinner from "../../spinner";
-import { Rubro } from "../../../app/utils/models/types/rubro";
+import { Rubro } from "../../../../app/utils/models/types/rubro";
 import { useGetSububrosQuery } from "@/redux/services/subrubrosApi";
-import { Subrubro } from "../../../app/utils/models/types/subrubro";
+import { Subrubro } from "../../../../app/utils/models/types/subrubro";
 
 export default function ListadoSubrubros() {
 

@@ -10,7 +10,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useGetRubrosQuery } from "@/redux/services/rubrosApi";
-import Spinner from "../../../components/spinner";
+import Spinner from "@/componentes/spinner";
 import { useEffect } from "react";
 
 export default function Rubros() {

@@ -1,7 +1,7 @@
 "use client";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { Rubro } from "../../app/utils/models/types/rubro";
+import { Rubro } from "../../../app/utils/models/types/rubro";
 import createSubrubro from "../../app/utils/actions/subrubros/create";
 
 export default function FormSubrubro({rubros}:{rubros?: Rubro[]}) {   

@@ -1,7 +1,7 @@
 "use client"
 
 import Image from "next/image";
-import { ProductoDetail } from "../../../app/utils/models/types/producto";
+import { ProductoDetail } from "../../../../app/utils/models/types/producto";
 import styles from "./cardProduct.module.css";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { addToCart } from "@/redux/features/cartSlice";

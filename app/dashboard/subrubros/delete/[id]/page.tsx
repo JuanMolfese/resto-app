@@ -2,7 +2,7 @@
 import { useDeleteSubrubroMutation, useGetSubrubrosByIdQuery } from '@/redux/services/subrubrosApi';
 import Link from "next/link";
 import { useRouter } from 'next/navigation';
-import { myToastError, myToastSuccess } from '../../../../../components/myToast';
+import { myToastError, myToastSuccess } from '@/componentes/myToast';
 
 
 export default function DeleteSubrubroPage({params}:{params: {id: string};}) {

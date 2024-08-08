@@ -1,6 +1,6 @@
 "use client"
 import Link from "next/link";
-import CardProduct from "../../../components/Product/card";
+import CardProduct from "@/componentes/Product/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Badge } from "@/components/ui/badge";
 import { useGetProductsQuery } from "@/redux/services/productsApi";
@@ -8,7 +8,7 @@ import { useGetRubrosQuery } from "@/redux/services/rubrosApi";
 import { useGetSubrubrosQuery } from "@/redux/services/subrubrosApi";
 import { useEffect, useState } from "react";
 import { ProductoDetail } from "../../utils/models/types/producto";
-import Spinner from "../../../components/spinner";
+import Spinner from "@/componentes/spinner";
 
 export default function Products({
   searchParams,

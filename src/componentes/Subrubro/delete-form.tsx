@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRouter } from 'next/navigation';
 import deleteSubrubro from "../../app/utils/actions/subrubros/delete";
 import React from "react";
-import { Subrubro } from "../../app/utils/models/types/subrubro";
+import { Subrubro } from "../../../app/utils/models/types/subrubro";
 
 interface FormDeleteSubrubroProps {
   infoSubrubro: Subrubro;

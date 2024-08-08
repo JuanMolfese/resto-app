@@ -1,4 +1,5 @@
-import FormRubro from "../../../../components/Rubro/create-form";
+import FormRubro from "@/componentes/Rubro/create-form";
+
 
 export default async function CreateRubro() {  
   return (

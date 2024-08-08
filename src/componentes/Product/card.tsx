@@ -1,9 +1,9 @@
 "use client";
 
-import { ProductoDetail } from "../../app/utils/models/types/producto";
-import { ButtonOk } from "../../ui/button";
-import { Rubro } from "../../app/utils/models/types/rubro";
-import { Subrubro } from "../../app/utils/models/types/subrubro";
+import { ProductoDetail } from "../../../app/utils/models/types/producto";
+import { ButtonOk } from "../../../ui/button";
+import { Rubro } from "../../../app/utils/models/types/rubro";
+import { Subrubro } from "../../../app/utils/models/types/subrubro";
 import { useState } from "react";
 import deleteProduct from "../../app/utils/actions/products/delete";
 import Image from "next/image";

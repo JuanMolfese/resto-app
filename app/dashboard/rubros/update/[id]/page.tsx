@@ -1,10 +1,10 @@
 "use client";
 
 import { useGetRubroByIdQuery, useUpdateRubroMutation } from "@/redux/services/rubrosApi";
-import Spinner from "../../../../../components/spinner";
+import Spinner from "@/componentes/spinner";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { myToastError, myToastSuccess } from "../../../../../components/myToast";
+import { myToastError, myToastSuccess } from "@/componentes/myToast";
 
 export default function UpdateRubroPage({
   params,

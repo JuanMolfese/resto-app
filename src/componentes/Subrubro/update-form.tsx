@@ -2,8 +2,8 @@
 
 import { useRouter } from 'next/navigation';
 import Link from "next/link";
-import { Rubro } from "../../app/utils/models/types/rubro";
-import { Subrubro } from "../../app/utils/models/types/subrubro";
+import { Rubro } from "../../../app/utils/models/types/rubro";
+import { Subrubro } from "../../../app/utils/models/types/subrubro";
 import updateSubrubro from "../../app/utils/actions/subrubros/update";
 
 

@@ -1,9 +1,9 @@
 "use client"
 import { Table, TableBody, TableCaption, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import ItemUser from "../../../components/Usuario/item-user";
+import ItemUser from "@/componentes/Usuario/item-user";
 import { useGetUsersQuery } from "@/redux/services/usersApi";
 import { useGetRolesQuery } from "@/redux/services/rolesApi";
-import Spinner from "../../../components/spinner";
+import Spinner from "@/componentes/spinner";
 
 
 export default function Users() {

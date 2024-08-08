@@ -10,7 +10,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import { Pedido } from "../../app/utils/models/types/pedido"
+import { Pedido } from "../../../app/utils/models/types/pedido"
 import { BadgeDollarSign, HandPlatter, ReceiptText, Truck } from "lucide-react"
 import { DialogClose } from "@radix-ui/react-dialog"
 import { useGetDetailPedidoQuery, useGetPedidosQuery } from "@/redux/services/ordersApi"

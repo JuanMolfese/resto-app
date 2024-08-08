@@ -1,8 +1,8 @@
 "use client";
 
 import { useGetRubrosQuery } from "@/redux/services/rubrosApi";
-import FormSubrubro from "../../../../components/Subrubro/create-form";
-import Spinner from "../../../../components/spinner";
+import FormSubrubro from "@/componentes/Subrubro/create-form";
+import Spinner from "@/componentes/spinner";
 
 export default function CreateSubrubro() {
   

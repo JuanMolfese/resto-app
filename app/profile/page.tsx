@@ -1,15 +1,18 @@
-import { getServerSession } from "next-auth";
-import { fetchUserByEmail } from "../utils/actions/users/fetchs";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import FormEditPass from "../../components/Profile/form-edit";
-import Link from "next/link";
-import Header from "../../components/Header";
+"use client"
 
-export default async function Profile() {
+import FormEditPass from "../../src/componentes/Profile/form-edit";
 
-  const user = await getServerSession();
-  const data_user = await fetchUserByEmail(user?.user?.email!);
+import { useSession } from "next-auth/react";
+import { useGetUserByEmailQuery } from "@/redux/services/usersApi";
+import Spinner from "@/componentes/spinner";
+
+export default function Profile() {
+
+  const {data: session} = useSession();
+  const {data: userData, isLoading, isError} = useGetUserByEmailQuery(session?.user?.email);
+
+  if (isLoading) return <Spinner />
+  if (isError) return <p>Error</p>
 
   return (
     <div className="p-4">
@@ -17,9 +20,9 @@ export default async function Profile() {
         Cambio de contraseña
       </p>
       <p className="mt-4 scroll-m-20 text-xl font-semibold tracking-tight">
-        Usuario: {data_user?.[0]?.email}
+        Usuario: {userData?.[0]?.email}
       </p>
-      <FormEditPass user={data_user?.[0]!}/>
+      <FormEditPass user={userData?.[0]!}/>
     </div>
   )
 }

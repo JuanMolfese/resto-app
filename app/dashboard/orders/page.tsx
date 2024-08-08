@@ -8,7 +8,7 @@ import {
   Truck,
 } from "lucide-react";
 import { Pedido } from "../../utils/models/types/pedido";
-import { DialogDetailOrder } from "../../../components/Order/dialogDetail";
+import { DialogDetailOrder } from "@/componentes/Order/dialogDetail";
 import { useGetStatusQuery } from "@/redux/services/statusApi";
 import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
@@ -22,8 +22,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { myToastError, myToastSuccess } from "../../../components/myToast";
-import Spinner from "../../../components/spinner";
+import { myToastError, myToastSuccess } from "@/componentes/myToast";
+import Spinner from "@/componentes/spinner";
 
 const orderDelivery = (order: Pedido) => {
   return (
