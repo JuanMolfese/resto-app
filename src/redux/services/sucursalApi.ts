@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { Sucursal } from '../../../app/utils/models/types/sucursal'
+import { Sucursal } from '../../app/utils/models/types/sucursal'
 
 export const sucursalApi = createApi({
   reducerPath: 'sucursalApi',

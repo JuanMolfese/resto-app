@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { Estado_pedido } from '../../../app/utils/models/types/estado_pedido'
+import { Estado_pedido } from '../../app/utils/models/types/estado_pedido'
 
 export const statusApi = createApi({
   reducerPath: 'statusApi',

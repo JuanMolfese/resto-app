@@ -1,9 +1,9 @@
 "use client";
 
-import { ProductoDetail } from "../../../app/utils/models/types/producto";
+import { ProductoDetail } from "../../app/utils/models/types/producto";
 import { ButtonOk } from "../../../ui/button";
-import { Rubro } from "../../../app/utils/models/types/rubro";
-import { Subrubro } from "../../../app/utils/models/types/subrubro";
+import { Rubro } from "../../app/utils/models/types/rubro";
+import { Subrubro } from "../../app/utils/models/types/subrubro";
 import { useState } from "react";
 import Image from "next/image";
 import { useRemoveProductMutation, useUpdateProductMutation } from "@/redux/services/productsApi";

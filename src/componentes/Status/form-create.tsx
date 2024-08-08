@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { myToastError } from "../myToast"
-import { Estado_pedido } from "../../../app/utils/models/types/estado_pedido"
+import { Estado_pedido } from "../../app/utils/models/types/estado_pedido"
 import { useAddStatusMutation } from "@/redux/services/statusApi"
 
 const formSchema = z.object({

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from 'next/navigation';
-import { Rubro } from "../../../app/utils/models/types/rubro";
+import { Rubro } from "../../app/utils/models/types/rubro";
 import React from "react";
 import { useDeleteRubroMutation } from "@/redux/services/rubrosApi";
 import { myToastError } from "../myToast";

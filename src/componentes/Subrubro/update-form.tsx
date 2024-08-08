@@ -2,8 +2,8 @@
 
 import { useRouter } from 'next/navigation';
 import Link from "next/link";
-import { Rubro } from "../../../app/utils/models/types/rubro";
-import { Subrubro } from "../../../app/utils/models/types/subrubro";
+import { Rubro } from "../../app/utils/models/types/rubro";
+import { Subrubro } from "../../app/utils/models/types/subrubro";
 import { useUpdateSubrubroMutation } from '@/redux/services/subrubrosApi';
 import { myToastError } from '../myToast';
 

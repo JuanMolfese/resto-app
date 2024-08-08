@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { Subrubro } from '../../../app/utils/models/types/subrubro'
+import { Subrubro } from '../../app/utils/models/types/subrubro'
 
 export const subrubrosApi = createApi({
   reducerPath: 'subrubrosApi',

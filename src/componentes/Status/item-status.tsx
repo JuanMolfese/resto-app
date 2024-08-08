@@ -1,7 +1,7 @@
 "use client"
 
 import { TableCell, TableRow } from "@/components/ui/table";
-import { Estado_pedido } from "../../../app/utils/models/types/estado_pedido";
+import { Estado_pedido } from "../../app/utils/models/types/estado_pedido";
 import { Button } from "@/components/ui/button";
 import { Trash2 } from "lucide-react";
 import { myToastError, myToastSuccess } from "../myToast";

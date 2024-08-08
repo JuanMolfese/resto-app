@@ -1,5 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit'
-import { ProductCart } from '../../../app/utils/models/types/producto';
+import { ProductCart } from '../../app/utils/models/types/producto';
 
 
 interface State {

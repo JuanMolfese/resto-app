@@ -1,7 +1,7 @@
 import { removeFromCart } from "@/redux/features/cartSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import Link from "next/link";
-import { ProductCart } from "../../../app/utils/models/types/producto";
+import { ProductCart } from "../../app/utils/models/types/producto";
 
 export default function Cart({viewCart} : {viewCart: () => void}) {
   const carrito = useAppSelector(state => state.cart);

@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { Rubro } from "../../../app/utils/models/types/rubro";
-import { Subrubro } from "../../../app/utils/models/types/subrubro";
+import { Rubro } from "../../app/utils/models/types/rubro";
+import { Subrubro } from "../../app/utils/models/types/subrubro";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAddProductMutation } from "@/redux/services/productsApi";

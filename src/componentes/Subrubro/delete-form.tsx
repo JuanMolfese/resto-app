@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useRouter } from 'next/navigation';
 import React from "react";
-import { Subrubro } from "../../../app/utils/models/types/subrubro";
+import { Subrubro } from "../../app/utils/models/types/subrubro";
 import { useDeleteSubrubroMutation } from "@/redux/services/subrubrosApi";
 import { myToastError } from "../myToast";
 

@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { Rol } from '../../../app/utils/models/types/rol'
+import { Rol } from '../../app/utils/models/types/rol'
 
 export const rolesApi = createApi({
   reducerPath: 'rolesApi',

@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { Sucursal } from '../../../app/utils/models/types/sucursal'
-import { Usuario } from '../../../app/utils/models/types/usuario'
+import { Sucursal } from '../../app/utils/models/types/sucursal'
+import { Usuario } from '../../app/utils/models/types/usuario'
 
 export const usersApi = createApi({
   reducerPath: 'usersApi',

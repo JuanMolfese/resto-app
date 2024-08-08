@@ -1,6 +1,6 @@
 "use client"
 
-import FormEditPass from "../../src/componentes/Profile/form-edit";
+import FormEditPass from "../../componentes/Profile/form-edit";
 
 import { useSession } from "next-auth/react";
 import { useGetUserByEmailQuery } from "@/redux/services/usersApi";

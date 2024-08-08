@@ -5,8 +5,8 @@ import EditPasswordModal from "./edit-pass";
 import DeleteUserModal from "./delete-user";
 import { useState } from "react";
 import { Pencil, Save, X } from "lucide-react";
-import { Rol } from "../../../app/utils/models/types/rol";
-import { Usuario } from "../../../app/utils/models/types/usuario";
+import { Rol } from "../../app/utils/models/types/rol";
+import { Usuario } from "../../app/utils/models/types/usuario";
 import { myToastError, myToastSuccess } from "../myToast";
 import { useSession } from "next-auth/react";
 
