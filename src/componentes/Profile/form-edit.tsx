@@ -2,11 +2,11 @@
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { UsuarioDetail } from "../../../app/utils/models/types/usuario";
+import { Usuario } from "../../../app/utils/models/types/usuario";
 import { myToastError, myToastSuccess } from "../myToast";
 import { useEffect, useState } from "react";
 
-export default function FormEditPass({user} : {user: UsuarioDetail}) {
+export default function FormEditPass({user} : {user: Usuario}) {
   
   const [loading, setLoading] = useState(true);
 
@@ -44,30 +44,6 @@ export default function FormEditPass({user} : {user: UsuarioDetail}) {
       const data = await changepass.json();
       myToastSuccess(data.message);
     }
-
-
-    /* try {
-      const res = await fetch(`/api/usuario/${data_user?.[0]?.id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json"
-        },
-
-        federico
-
-         fe 4
-
-
-        body: JSON.stringify({
-          password,
-          newPassword
-        })
-      });
-      const data = await res.json();
-      alert(data.message);
-    } catch (error) {
-      alert("Error al cambiar contraseña");
-    } */
   }
 
   if (loading) {
