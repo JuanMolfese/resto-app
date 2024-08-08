@@ -45,7 +45,7 @@ export default function Orders() {
     data: status,
     error: errorStatus,
     isLoading: isLoadingStatus,
-  } = useGetStatusQuery(1);
+  } = useGetStatusQuery();
 
   const params = useSearchParams();
   const filter = params.get("filter");
